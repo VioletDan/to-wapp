@@ -1,0 +1,76 @@
+{
+  "list": [
+    {
+      "id":1,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":100,
+      "isLottery":false
+    },
+    {
+      "id":2,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":200,
+      "isLottery":true
+    },
+    {
+      "id":3,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":300,
+      "isLottery":false
+    },
+    {
+      "id":4,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":400,
+      "isLottery":false
+    },
+    {
+      "id":5,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":500,
+      "isLottery":false
+    },
+    {
+      "id":6,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":600,
+      "isLottery":false
+    },
+    {
+      "id":7,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":700,
+      "isLottery":false
+    },
+    {
+      "id":8,
+      "proImg":["/images/gift/bg2.jpg","/images/gift/bg2.jpg","/images/gift/bg2.jpg"],
+      "title1":"马爹利 NOBLIGE",
+      "title2":"深圳城市限量版",
+      "txt":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. ",
+      "money":800,
+      "isLottery":false
+    }
+  ]
+}

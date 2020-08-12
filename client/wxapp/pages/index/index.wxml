@@ -1,0 +1,5 @@
+<view class="article fadeIn">
+	<view class='content'>
+	</view>
+</view>
+<auth showAuth="{{showAuth}}" getInfo="{{getInfo}}" bind:cancle="onAuthCancle" bind:sure="onAuthSure" id="auth" userinfo="{{userinfo}}"></auth>

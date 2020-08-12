@@ -1,0 +1,3 @@
+/**app.wxss**/
+@import 'common/css/common.wxss';
+.hide{display: none;}

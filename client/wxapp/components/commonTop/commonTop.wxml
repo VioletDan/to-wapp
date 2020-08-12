@@ -1,0 +1,10 @@
+<!--components/commonTop.wxml-->
+<view class='top'>
+  <view class='logo'>我是头部组件,仅供参考</view>
+  <view class='right'>
+    <view class="userinfo" wx:if="{{hasUserinfo}}" style='text-align:center'>
+      <image src="{{avatarUrl}}" background-size="cover" class='avatar'></image>
+      <text class='text'>{{nickName}}</text>
+    </view>
+  </view>
+</view>

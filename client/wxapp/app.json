@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationStyle": "default",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "嘬一口炸鸡",
+    "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {
+    "auth": "/components/auth/auth",
+    "van-calendar": "/miniprogram/@vant/weapp/dist/calendar/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

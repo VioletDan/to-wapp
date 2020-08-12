@@ -1,0 +1,104 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.12.0",
+	"appid": "wx9101e853edfaaab0",
+	"projectname": "%E8%B1%86%E8%85%90%E5%85%88%E7%94%9F%E5%B0%8F%E7%A8%8B%E5%BA%8F2.0",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "用户有试饮券",
+					"pathName": "pages/index/index",
+					"query": "prize=test",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "web",
+					"pathName": "pages/web/web",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "二维码",
+					"pathName": "pages/code/code",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "模拟跳页面",
+					"pathName": "pages/index/index",
+					"query": "currentPageIndex=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "限定礼遇列表",
+					"pathName": "pages/giftDetail/giftDetail",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

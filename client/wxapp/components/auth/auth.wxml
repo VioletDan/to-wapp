@@ -1,0 +1,34 @@
+<!--components/commonTop.wxml-->
+<view class='auth {{getInfo}}'  wx:if="{{showAuth}}" catchtouchmove="true" >
+    <view class="cont">
+        <view class="closeAuth"  hover-class="noPointer" hover-stay-time="1000" catchtap="cancle" hidden="{{true}}"></view>
+        <view class="txtBox">
+            <!-- <view class="tit">提示</view>
+            <text class="txt txt1">该小程序需要获取您的昵称和头像,\n请您允许该小程序访问您的个人信息。</text>
+            <text class="txt txt2">该小程序需要获取您的手机号码,\n请您允许该小程序访问您的个人信息。</text> -->
+						<image class="tit" src="/images/loading/title.png"></image>
+						<image class="txt txt1" src="/images/loading/tip2.png"></image>
+						<image class="txt txt2" src="/images/loading/tip1.png"></image>
+        </view>
+        <view class="btnbox flex">
+        	<view class="item" hidden="{{true}}">
+        		<view class='authBtn cancle' hover-class="noPointer" hover-stay-time="1000" catchtap="cancle">
+		            <text class="btn1txt">取消</text>
+		        </view>
+        	</view>
+        	<view class="item">
+						<image class="img" src="/images/loading/button3.png"></image>
+        		<button class='authBtn btnNumber button' open-type="getPhoneNumber" bindgetphonenumber="getAuth" data-auth='getPhoneNumber'>
+		            <text class="btn1txt">确定</text>
+		        </button>
+            <!-- 备注 个人开发者没有获取手机号码的权限,所以这里是模拟 -->
+            <!-- <button class='authBtn btnNumber button' catchtap="getAuth" data-auth='getPhoneNumber'>
+		            <text class="btn1txt">确定</text>
+		        </button> -->
+		        <button class='authBtn btnAuth button' open-type="getUserInfo" lang="zh_CN"  bindgetuserinfo="getAuth" data-auth='getUserInfo'>
+		            <text class="btn1txt">确定</text>
+		        </button>
+        	</view>
+        </view>
+    </view>
+</view>
