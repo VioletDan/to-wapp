@@ -89,7 +89,6 @@ App({
     const login = promisify(wx.login);
     let { code } = await login();
     console.log(code)
-    return
     let res = await this.API.AppletLogin({ code: code });
     wx.hideLoading();
     if (res.error == 0) {

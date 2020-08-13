@@ -23,22 +23,28 @@ class API {
   async _send(method, data, type) {
     //data里面不带SessionKey才赋值
     // if (!data.hasOwnProperty('sessionKey')) data.sessionKey = icom.storage('session_key');
-    if (!data.hasOwnProperty('token')) data.token = icom.storage('token');
-    if (!data.hasOwnProperty('ssoShopCateId')) data.ssoShopCateId = icom.storage('ssoShopCateId') || 1;
-    if (!data.hasOwnProperty('ssoSapid')) data.ssoSapid = icom.storage('ssoSapid') || 1;
+    // if (!data.hasOwnProperty('token')) data.token = icom.storage('token') || '';
+    // if (!data.hasOwnProperty('ssoShopCateId')) data.ssoShopCateId = icom.storage('ssoShopCateId') || 1;
+    // if (!data.hasOwnProperty('ssoSapid')) data.ssoSapid = icom.storage('ssoSapid') || 1;
     let res = await this.wxResuest({
       url: this.DOMAIN + method,
       data: data,
       method: type || 'GET',
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
-        // 'Authorization': 'Bearer ' + this.token
+        'content-type': 'application/json', // 默认值
+        // 'content-type': 'application/x-www-form-urlencoded' // 默认值
+        'Authorization': 'Bearer ' + (icom.storage('token') || ''),
+        'ssoShopCateId': icom.storage('ssoShopCateId') || 1,
+        'ssoSapid': icom.storage('ssoSapid') || 1
       },
       dataType: "json"
     });
     console.log('APIname:=========' + method, res.data)
     if (!res.data) {
-      wx.showToast({ title: res.data.msg, icon: "none" })
+      wx.showToast({
+        title: res.data.msg,
+        icon: "none"
+      })
       return null;
     } else {
       return res.data;
