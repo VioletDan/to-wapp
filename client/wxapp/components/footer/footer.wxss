@@ -5,10 +5,10 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: #001445;
-  height: 104rpx;
+  background: #f6f6f6;
+  height: 122rpx;
   text-align: center;
-  border-top: 1px solid #b3925c;
+  border-top: 1px solid #d6d6d6;
   display: flex;
 }
 
@@ -30,8 +30,8 @@
 
 .menuTab .item text {
   font-size: 18rpx;
-  margin-top: 7rpx;
-  color: #e8c892;
+  margin-top: 15rpx;
+  color: #c0bebf;
 }
 
 .menuTab .item .btn {
@@ -43,18 +43,20 @@
 }
 
 .menuTab .active text {
-  color: #e8c892;
+  color: #353535;
 }
 
 /** iphoneX */
 
 @media screen and (width:375px) and (min-height:724px),
        screen and (width:414px) and (min-height:808px) {
+  .cssMedia {}
   .footerTab {
-    height: 158rpx !important;
+    height: 166rpx !important;
   }
 
   .menuTab .item {
     top: -20rpx !important;
   }
 }
+

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "navigationBarTitleText": "豆腐先生",
+  "disableScroll": true,
+  "usingComponents": {
+    "switchWithText": "/components/switchWithText/switchWithText",
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

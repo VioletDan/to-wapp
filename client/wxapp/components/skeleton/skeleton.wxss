@@ -1,0 +1,24 @@
+/* components/skeleton/skeleton.wxss */
+/* 骨架屏动画 */
+.skeletonAnimate {
+  width: 100%;
+  animation: skeleton-animate 1.2s ease-in-out infinite;
+}
+.skeletonAnimate > view {
+  width: 100%;
+  background-color: #f2f3f5;
+}
+.skeletonAnimate > view:not(:first-child) {
+  margin-top: 20rpx;
+}
+
+@-webkit-keyframes skeleton-animate {
+  50% {
+    opacity: 0.6;
+  }
+}
+@keyframes skeleton-animate {
+  50% {
+    opacity: 0.6;
+  }
+}

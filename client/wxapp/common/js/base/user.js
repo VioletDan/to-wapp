@@ -1,3 +1,4 @@
+const app = getApp();
 const iuser = function () {
     let user = {
         code: null,
@@ -39,21 +40,21 @@ const iuser = function () {
         if (this.userInfo) {
             // console.log('user has been storaged');
             // console.log('user info', this.userInfo);
-            page.setData({
-                hasUserInfo: true,
-                userInfo: user.userInfo
-            });
-            onSuccess();
+            // page.setData({
+            //     hasUserInfo: true,
+            //     userInfo: user.userInfo
+            // });
+            onSuccess(user.userInfo);
         }//edn if
         else {
             wx.getUserInfo({
                 success: function (res) {
                     user.parse(res);
-                    page.setData({
-                        hasUserInfo: true,
-                        userInfo: user.userInfo
-                    });
-                    onSuccess();
+                    // pages.setData({
+                    //     hasUserInfo: true,
+                    //     userInfo: user.userInfo
+                    // });
+                    onSuccess(user.userInfo);
                 },
                 fail: onFail
             });

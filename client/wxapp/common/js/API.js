@@ -33,7 +33,8 @@ class API {
       header: {
         'content-type': 'application/json', // 默认值
         // 'content-type': 'application/x-www-form-urlencoded' // 默认值
-        'Authorization': 'Bearer ' + (icom.storage('token') || ''),
+        // 'Authorization': 'Bearer ' + (icom.storage('token') || ''),
+        'Authorization': icom.storage('token') || '',
         'ssoShopCateId': icom.storage('ssoShopCateId') || 1,
         'ssoSapid': icom.storage('ssoSapid') || 1
       },

@@ -58,7 +58,7 @@ Component({
                 let page = pages[pages.length - 1];
                 if (auth == 'getUserInfo') {
                     let res = await beats.member.getUserInfo(e.detail);
-                    if (res.error == 0) {
+                    if (res.code == 200) {
                         app.data.Flag_Info = 1;
                         // app.data.info = res.data;
                         app.data.info = e.detail.userInfo;
@@ -69,7 +69,10 @@ Component({
                 } else if (auth == 'getPhoneNumber') {
                     // console.log(e)
                     let res = await beats.member.getPhoneNumber(e.detail);
-                    if (res.error == 0) {
+                    if (res.code == 200) {
+                        //更新token
+                        app.data.token = res.data.token;
+                        icom.storage('token', app.data.token);
                         app.data.Flag_Phone = 1;
                         app.data.numberInfo = res.data;
                         page.setData({appData:app.data})

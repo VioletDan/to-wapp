@@ -1,0 +1,29 @@
+/* components/switchWithText/switch.wxss */
+.title {
+  line-height: 20rpx;
+}
+.switch {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch.closed {
+  background-color: rgb(255, 73, 73);
+}
+.switch view.activeCard {
+  position: absolute;
+  transition: 200ms;
+  z-index: 0;
+}
+
+.switch view:nth-child(1),
+.switch view:nth-child(2) {
+  position: relative;
+  z-index: 1;
+  width: 50%;
+  text-align: center;
+  color: #999;
+  font-size: 22rpx;
+}

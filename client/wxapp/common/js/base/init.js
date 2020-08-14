@@ -13,10 +13,10 @@ class Inits {
         //     key: getApp().data.SessionKey,
         // })
         console.log('detail============',detail);
-        let userData = await this.API.save_nickname_head({
-            nickname: detail.userInfo.nickName,
-            avatarUrl: detail.userInfo.avatarUrl,
-        })
+        let userData = {
+            code:200,
+            data:detail
+        };
         return userData;
     }
 

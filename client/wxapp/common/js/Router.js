@@ -32,45 +32,26 @@ class Router {
     this.tabPage[name] = page;
   }
 
-  //去探店
+  //去首页
   toHome() {
     this._backIndex();
     this._updateFooter(0);
     let home = this.tabPage['home'];
     home.updateData();
   }
-  //去私人订制
-  toCustomized(value) {
-    this._backIndex();
-    this._updateFooter(1);
-    let customized = this.tabPage['customized'];
-    customized.updateData(value);
-  }
-  //去预约体验
+  //去订单
   toOrder() {
     this._backIndex();
-    this._updateFooter(2);
+    this._updateFooter(1);
     let order = this.tabPage['order'];
     order.updateData();
   }
-  //去限定礼遇
-  toGift(){
+  //去我的
+  toUser() {
     this._backIndex();
-    this._updateFooter(3);
-    let gift = this.tabPage['gift'];
-    gift.updateData();
-  }
-  //去个人中心
-  toPersonal() {
-    this._backIndex();
-    this._updateFooter(4);
-    let personal = this.tabPage['personal'];
-    personal.updateData();
-  }
-  toUserAuth() {
-    wx.navigateTo({
-      url: '/pages/userAuth/userAuth'
-    })
+    this._updateFooter(2);
+    let user = this.tabPage['user'];
+    user.updateData();
   }
   //=========== 这里是四个不会销毁的页面管理 END =========
 }

@@ -4,7 +4,7 @@ let prizeType = 'test';
 //-------------------------------------------------------初始化-------------------------------------------------------
 let $query, toNext, $page;
 let myVideo;
-let idArr = ['#home', '#customized', '#order','#gift', '#personal'];
+let idArr = ['#home', '#order', '#user'];
 Page({
   data: {
     currentPageIndex: 0,
@@ -13,13 +13,22 @@ Page({
     bgmPlay: false,
     showAuth: false, //授权
     getInfo: 'getNumber', //getInfo
+    showLogin:false, //登陆弹窗
   }, //页面的初始数据
   onLoad(option) {
     icom.OS();
     $page = this;
     $query = option;
     console.log('getQueryString', option);
-    app.initApp()
+    //测试版
+    return
+    app.initApp(()=>{
+      if(app.data.actionCode) {
+        this.setData({
+          showLogin:true
+        })
+      }
+    })
   },
   onReady: function () {
   }, //监听页面初次渲染完成
@@ -32,33 +41,31 @@ Page({
   onShareAppMessage: function () { //用户点击右上角分享
     return app.setShareData();
   },
+  // 更新数据
+  //=========== Event ============
+  navChange(e) {
+    let index = e.detail;
+    this.setData({
+      currentPageIndex: index
+    });
+  },
+  // // 取消授权
+  // onAuthCancle(e) {
+  //   console.log(e.detail)
+    
+  // },
+  // // 拿到授权
+  // onAuthSure(e) {
+  //   console.log(e.detail);
+  // },
   // 取消授权
-  onAuthCancle(e) {
+  onLoginCancle(e) {
     console.log(e.detail)
-    //========测试用
-    // this.onAuthSure(e)
-    //播放视频
-    // myVideo.play()
-    // $page.setData({
-    //   showAuth: false,
-    //   loadingDiolag: false,
-    // })
+    
   },
   // 拿到授权
-  onAuthSure(e) {
+  onLoginSure(e) {
     console.log(e.detail);
-    if ($query.prize === prizeType){
-      //有试饮券
-      this.isPrize();
-    }else {
-      //播放视频
-      myVideo.play()
-      $page.setData({
-        showAuth: false,
-        loadingDiolag: false,
-      });
-      mta.Event.stat("btn_video_play");
-    }
   },
 }) //end page
 

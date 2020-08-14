@@ -21,38 +21,24 @@ Component({
     list: [
       {
         id: 1,
-        name: '沉浸探店',
+        name: '首页',
         icon: '/images/tabBar/icon1.png',
-        iconActive: '/images/tabBar/icon1.png',
-        url: '/pages/index/index'
+        iconActive: '/images/tabBar/icon1_act.png',
+        url: '/pages/home/home'
       },
       {
         id: 2,
-        name: '私人礼订',
+        name: '订单',
         icon: '/images/tabBar/icon2.png',
-        iconActive: '/images/tabBar/icon2.png',
-        url: '/pages/customized/customized'
-      },
-      {
-        id: 3,
-        name: '预约体验',
-        icon: '/images/tabBar/icon3.png',
-        iconActive: '/images/tabBar/icon3.png',
+        iconActive: '/images/tabBar/icon2_act.png',
         url: '/pages/order/order'
       },
       {
-        id: 4,
-        name: '限定礼遇',
-        icon: '/images/tabBar/icon4.png',
-        iconActive: '/images/tabBar/icon4.png',
-        url: '/pages/gift/gift'
-      },
-      {
-        id: 5,
-        name: '个人中心',
-        icon: '/images/tabBar/icon5.png',
-        iconActive: '/images/tabBar/icon4.png',
-        url: '/pages/personal/personal'
+        id: 3,
+        name: '我的',
+        icon: '/images/tabBar/icon3.png',
+        iconActive: '/images/tabBar/icon3_act.png',
+        url: '/pages/order/order'
       }],
   },
 
@@ -71,18 +57,6 @@ Component({
     async updateActive(value) {
       this.setData({ active: value });
       this.triggerEvent('navChange', value);
-      wx.showLoading({
-        title: '',
-      });
-      //更新用户数据
-      let res2 = await API.GetUserInfo({});
-      wx.hideLoading();
-      app.data.userMsg = res2.data;
-      if (res2.data.mobile == '') {
-        app.data.Flag_Phone = 0;
-      } else {
-        app.data.Flag_Phone = 1;
-      }
     },
 
     //=========== Event ============
@@ -91,50 +65,19 @@ Component({
       currentNum = index;
       if (index != this.data.active){
         this.toUrl(index);
-        return
-        if (app.data.Flag_Phone == 0) {
-          this.setData({ showAuth: true, getInfo: 'getNumber' })
-        } else {
-          this.toUrl(index);
-        }
       }
       
-    },
-    // 取消授权
-    onAuthCancle(e) {
-      console.log(e.detail);
-      //===================测试
-      this.toUrl(currentNum);
-    },
-    // 拿到授权
-    onAuthSure(e) {
-      console.log(e.detail);
-      this.toUrl(currentNum);
     },
     toUrl(index){
       switch (index) {
         case 0:
-          wx.redirectTo({
-            url: '/pages/web/web',
-          });
           Router.toHome();
-          mta.Event.stat("footer_btn_go_shop");
           break;
         case 1:
-          Router.toCustomized();
-          mta.Event.stat("footer_btn_go_customized");
+          Router.toOrder();
           break;
         case 2:
-          Router.toOrder();
-          mta.Event.stat("footer_btn_go_order");
-          break;
-        case 3:
-            Router.toGift();
-            mta.Event.stat("footer_btn_go_gift");
-            break;
-        case 4:
-          Router.toPersonal();
-          mta.Event.stat("footer_btn_go_personal");
+          Router.toUser();
           break;
       }
     }

@@ -1,5 +1,9 @@
 {
   "usingComponents": {
-    
+    "home": "/components/home/home",
+    "order": "/components/order/order",
+    "user": "/components/user/user",
+    "footer": "/components/footer/footer"
   }
+  
 }

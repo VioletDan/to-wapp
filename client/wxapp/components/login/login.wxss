@@ -1,0 +1,21 @@
+/* components/login/login.wxss */
+@import '../../app.wxss';
+.login{position: absolute;width: 100%;height: 100%;left: 0;top: 0;z-index: 10;background-color: #fff;}
+
+.box {position: absolute;top: 264rpx;left: 50%;transform: translateX(-50%);text-align: center;}
+
+.userinfoBox {margin-bottom: 210rpx;}
+.userinfoBox .avatarImg {width: 150rpx;height: 150rpx;border-radius: 50%;overflow: hidden;margin: 0 auto 43rpx;}
+.userinfoBox .avatarImg>image {width: 100%;height: 100%;opacity: 0;position: absolute;top: 0;left: 0;}
+.userinfoBox .nickName {font-size: 37rpx;margin-bottom: 56rpx;}
+.userinfoBox .tipsTxt {font-size: 28rpx;color: #a5a5a5;display: none;}
+
+.BtnBox{display: none;}
+.BtnBox .phoneBox {width: 670rpx;height: 94rpx;background-color: #d3aa79;color: #fff;margin: 0;font-size: 32rpx;}
+.BtnBox .phoneBox .icon_wx {display: inline-block;width: 26rpx;height: 26rpx;color: #fff;font-size: 36rpx;margin-right: 20rpx;}
+.BtnBox .tipsTxtOther {margin-top: 30rpx;font-size: 26rpx;color: #c89457;padding: 20rpx;display: none;}
+
+.getNumber .btnNumber{display: block;}
+.getInfo .btnAuth{display: block;}
+.getNumber .tipsTxt1{display: block;}
+.getInfo .tipsTxt2{display: block;}

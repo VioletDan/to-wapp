@@ -1,0 +1,11 @@
+<!-- components/switchWithText/switch.wxml -->
+<view>
+  <text class="title">
+    <slot></slot>
+  </text>
+  <view class="switch" style="{{getStyle}}" bindtap="hadleChange">
+    <view style="{{getActiveStyle}}">{{activeText}}</view>
+    <view style="{{getInactiveStyle}}">{{inactiveText}}</view>
+    <view class="activeCard" style="{{getHighLightStyle}}"></view>
+  </view>
+</view>

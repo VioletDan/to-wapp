@@ -1,0 +1,4 @@
+<!-- components/skeleton/skeleton.wxml -->
+<view class="skeleton {{animate ? 'skeletonAnimate' : ''}}">
+  <view wx:for="{{row}}" wx:key="index" style="width: {{width ? width + 'rpx' : '100%'}};height: {{height + 'rpx'}}"></view>
+</view>

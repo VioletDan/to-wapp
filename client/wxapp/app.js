@@ -6,6 +6,9 @@ import regeneratorRuntime from '/common/js/plugs/regeneratorRuntime';
 import promisify from '/common/js/plugs/promisify.js';
 import Init from '/common/js/base/init.js';
 import Router from 'common/js/Router.js';
+import iuser from 'common/js/base/user.js';
+const utils = require('utils/utils.js');
+
 const mta = require('common/js/mta_analysis.js');
 let first;
 let Scene = "defualt"; //来源
@@ -24,17 +27,20 @@ App({
     // this.bgm = bgm;
     this.mta = mta;
     this.config = config;
-
+    this.iuser = iuser;
+    this.utils = utils;
     first = true
 
-
+    //来源
     Scene = options.query.scene ? options.query.scene : "defualt";
     SceneValue = options.scene ? options.scene : "defualt";
-    this.beats = new Init({ API: this.API }); //new 一下init.js,这样每个页面都可以拿到
+    this.beats = new Init({
+      API: this.API
+    }); //new 一下init.js,这样每个页面都可以拿到
     console.log("Scene:" + Scene);
     console.log("SceneValue:" + SceneValue);
 
-
+    //更新版本
     this.updateManager();
 
     //播放背景音乐
@@ -44,7 +50,7 @@ App({
     // //腾讯小程序数据监测
     // this.mta.App.init({
     //   "appID":"500725890",
-  	//   "eventID":"500726382",
+    //   "eventID":"500726382",
     //   "autoReport": true, 
     //   "statParam": true, 
     //   "ignoreParams": [], 
@@ -71,46 +77,51 @@ App({
   },
 
   async initApp(cb) {
-    wx.showLoading({
-      title: '',
-    });
-    // if (this.data.session_key == '' || first) {
-    //   first = false;
-    //   await this.AppletLogin(cb);
-    // }
-    await this.AppletLogin(cb);
+    if (this.data.token == '' || first) {
+      first = false;
+      await this.AppletLogin(cb);
+    } else {
+      if (cb) cb();
+    }
     let pages = getCurrentPages();
     let page = pages[pages.length - 1];
-    // page.footclick = this.footclick;
-    page.setData({ appData: this.data });
+    page.setData({
+      appData: this.data
+    });
   },
   // code换openid
   async AppletLogin(cb) {
+    wx.showLoading({
+      title: '',
+    });
     const login = promisify(wx.login);
-    let { code } = await login();
+    let {
+      code
+    } = await login();
     console.log(code)
-    let res = await this.API.AppletLogin({ code: code });
+    let res = await this.API.AppletLogin({
+      code: code
+    });
     wx.hideLoading();
-    if (res.error == 0) {
-      this.data.openid = res.data.openid
-      this.data.session_key = res.data.session_key;
+    if (res.code == 200) {
+      this.data.actionCode = res.data.actionCode || '';
+      this.data.wxuid = res.data.wxuid || '';
       this.data.token = res.data.token;
-      icom.storage('openid', this.data.openid);
-      icom.storage('session_key', this.data.session_key);
-      icom.storage('token', this.data.token)
+      icom.storage('token', this.data.token);
+
+      //actionCode:BindPhone 代表要用户去绑定手机号
+      if (this.data.actionCode && this.data.actionCode === 'BindPhone') {
+        this.data.Flag_Info = 0 //1是 0否
+        this.data.Flag_Phone = 0 //1是 0否
+      } else {
+        this.data.Flag_Info = 1 //1是 0否
+        this.data.Flag_Phone = 1 //1是 0否
+      }
     } else {
       icom.alert(res.msg);
       return;
     }
-    let res2 = await this.API.GetUserInfo({});
-    this.data.userMsg = res2.data;
-    if (res2.data.mobile == '') {
-      this.data.Flag_Phone = 0;
-      this.data.Flag_Info = 0;
-    } else {
-      this.data.Flag_Phone = 1;
-      this.data.Flag_Info = 1;
-    }
+
     // 如果只需要其中一个授权，另外一个这里赋值=1即可
     // this.data.Flag_Info = res2.result.Flag_Info    //1是 0否
     // this.data.Flag_Phone = res2.result.Flag_Phone     //1是 0否
@@ -120,10 +131,12 @@ App({
    * 全局参数
    * */
   data: {
-    froms: '',
-    //用户信息username=姓名,mobile=电话, addr=地址,email=邮箱,isLQ=是否可以领取
-    userMsg: {},
-    
+    coordinate: {
+      latitude: 31.04958,
+      longitude: 121.20283
+    },
+    shopInfo: {},
+    userAddress: []
   },
   //初始化 end
   setShareData: function (options) {
@@ -134,7 +147,9 @@ App({
     };
     let opts = {};
     Object.assign(opts, defaults, options);
-    opts.path = icom.combineUrl(opts.path, { scene: Scene });
+    opts.path = icom.combineUrl(opts.path, {
+      scene: Scene
+    });
     console.log(opts);
     return {
       title: opts.title,
@@ -166,4 +181,118 @@ App({
     if (day < 10) day = "0" + day;
     return `${date.getFullYear()}.${month}.${day}`;
   },
+
+  checkAddressPermission(callback) {
+    const that = this
+    wx.chooseAddress({
+      success: (res) => {
+        callback(res)
+      },
+      fail: (res) => {
+        wx.getSetting({
+          success: (res) => {
+            if (!res.authSetting["scope.address"]) {
+              that.needAddressPermission(callback)
+            }
+          },
+        })
+      }
+    })
+  },
+
+  checkLocationPermission(callback) {
+    const that = this
+    wx.getLocation({
+      // type: 'gcj02',
+      success(res) {
+        wx.setStorageSync('LastAddress', JSON.stringify(res))
+        callback(res)
+      },
+      fail(res) {
+        wx.getSetting({
+          success: function (res) {
+            if (!res.authSetting["scope.userLocation"]) {
+              that.needLocationPermission(callback)
+            }
+          }
+        })
+      }
+    })
+  },
+
+  needAddressPermission(callback) {
+    const that = this
+    wx.showModal({
+      title: '是否授权获取收货地址',
+      content: '需要获取您的收货地址，请确认授权，否则无法下单',
+      success(res) {
+        if (res.confirm) {
+          wx.openSetting({
+            success: function (data) {
+              if (data.authSetting["scope.address"] === true) {
+                wx.showToast({
+                  title: "授权成功",
+                  icon: "success",
+                  duration: 1000
+                });
+                wx.chooseAddress({
+                  success: (res) => {
+                    callback(res)
+                  },
+                });
+              }
+            }
+          });
+        } else if (res.cancel) {
+          // that.needAddressPermission(callback)
+          wx.navigateTo({
+            url: "/pages/store/store"
+          })
+        }
+      }
+    })
+  },
+
+  needLocationPermission(callback) {
+    const that = this
+    wx.showModal({
+      title: '是否授权获取当前位置',
+      content: '需要获取您的地理位置，请确认授权，否则无法计算您与店铺的距离',
+      success(res) {
+        if (res.confirm) {
+          wx.openSetting({
+            success: function (data) {
+              if (data.authSetting["scope.userLocation"] === true) {
+                wx.showToast({
+                  title: "授权成功",
+                  icon: "success",
+                  duration: 1000
+                });
+                wx.getLocation({
+                  type: "wgs84",
+                  success(res) {
+                    callback(res)
+                  }
+                });
+              }
+            }
+          });
+        } else if (res.cancel) {
+          that.needLocationPermission(callback)
+        }
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 })
