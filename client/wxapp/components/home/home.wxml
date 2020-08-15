@@ -108,6 +108,7 @@
 				<view class="modalOperate">
 					<text class="iconfont icon_share"></text>
 					<text class="iconfont icon_close" bindtap="closeModal"></text>
+					<button class="button" open-type="share">分享</button>
 				</view>
 				<view class="position">{{current + 1}} / {{modalData.imgList.length}}</view>
 				<view class="modelContentShow">
