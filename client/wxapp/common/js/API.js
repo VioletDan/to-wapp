@@ -41,11 +41,8 @@ class API {
       dataType: "json"
     });
     console.log('APIname:=========' + method, res.data)
-    if (!res.data) {
-      wx.showToast({
-        title: res.data.msg,
-        icon: "none"
-      })
+    if (!res.data.data || !res.data) {
+      icom.sign(res.data.msg|| '网络异常了');
       return null;
     } else {
       return res.data;
@@ -60,6 +57,46 @@ class API {
   // 绑定手机号
   async GetUserPhone(data) {
     return this._send('/auth/bindphone', data, 'POST');
+  }
+
+  // 获取连锁店所有店铺，由近到远排序
+  async GetAllShops(data) {
+    return this._send('/api/v1/shops', data, 'GET');
+  }
+
+  // 获取店铺的详细信息
+  async GetShopInfo(data) {
+    return this._send('/api/v1/shop/info', data, 'GET');
+  }
+  
+  // 店铺分类和商品
+  async GetShopMenuList(data) {
+    return this._send('/api/v1/shopfoods', data, 'GET');
+  }
+
+  // 获取用户的地址列表
+  async GetUserAdressList(data) {
+    return this._send('/address/list', data, 'GET');
+  }
+
+  // 保存用户的地址
+  async SaveUserAdress(data) {
+    return this._send('/address/save', data, 'POST');
+  }
+
+  // 修改用户的地址
+  async EditorUserAdress(data) {
+    return this._send('/address/update', data, 'POST');
+  }
+
+  // 预下单
+  async preOrder(data) {
+    return this._send('/api/v1/preorder', data, 'POST');
+  }
+
+  // 支付
+  async payOrder(data) {
+    return this._send('/wechatPay/pay', data, 'POST');
   }
 }
 

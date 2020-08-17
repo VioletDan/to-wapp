@@ -1,2 +1,45 @@
 <!--components/order/order.wxml-->
-<text>components/order/order.wxml</text>
+<view class="content">
+  <view class="tabBar">
+    <van-tabs active="{{ active }}" bind:change="onChange" tab-class="topBabs" color="#2c2c2c;">
+      <van-tab title="当前订单">
+        <view class="listBox">
+          <scroll-view scroll-y class="listBoxscroll">
+            <view class="listItem" wx:for="{{currentList}}" wx:key="index" data-index="index">
+              <view class="top flexBox">
+                <view class="storeName">{{item.storeName}}</view>
+                <view class="orderStatus">
+                  <text wx:if="{{item.oderStatus == 1}}">制作中</text>
+                  <text wx:if="{{item.oderStatus == 2}}">已完成</text>
+                  <text wx:if="{{item.oderStatus == 3}}">已送达</text>
+                  <text wx:if="{{item.oderStatus == 4}}">已取消</text>
+                  <text class="iconCommon">></text>
+                </view>
+              </view>
+              <view class="center orderImgList">
+                <view class="imgList">
+                  <image class="img" wx:for="{{item.proList}}" wx:key="index" src="{{item.imgUrl}}" mode="widthFix"></image>
+                </view>
+              </view>
+              <view class="bottom">
+                <view class="tips" wx:if="{{orderType==2 && item.oderStatus == 1}}">订单制作完成,等待骑手接单</view>
+                <view class="num">订单编号:{{item.orderNumber}}</view>
+                <view class="info flexBox">
+                  <view class="time">下单时间:{{item.orderTime}}</view>
+                  <view class="totalPrize">￥{{item.totalPrize}}</view>
+                </view>
+              </view>
+              <view class="buttonBox flexBox">
+                <view></view>
+                <view class="btn">再来一单</view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </van-tab>
+      <van-tab title="历史订单">
+
+      </van-tab>
+    </van-tabs>
+  </view>
+</view>

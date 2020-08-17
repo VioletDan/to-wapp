@@ -19,21 +19,22 @@
             <text class="iconCommon">></text>
           </view>
           <view class="guideTopLeft guideTakeout" wx:else catchtap="goReceiveAddress">
-            <text class="storeName" wx:if="{{userAdressInfo.name}}">{{userAdressInfo.address}}</text>
+            <text class="storeName" wx:if="{{userAdressInfo.username}}">{{userAdressInfo.address}}</text>
             <text class="storeName" wx:else>请选择门店</text>
-            <text class="storeName">{{userAdressInfo.adressHouseNum}}</text>
+            <text class="storeName">{{userAdressInfo.street}}</text>
           </view>
           <view class="guideTopRight">
             <switchWithText width="160" height="60" activeText="自提" inactiveText="外卖" checked="{{checked}}" bind:changeChecked="changeChecked"></switchWithText>
           </view>
         </view>
-        <view class="distance overtext2" wx:if="{{!checked}}">
+        <view class="distance" wx:if="{{!checked}}">
           <text class="iconfont icon_star_empty"></text> {{userOrderinfo.commercialAddress}}
+          <text>{{userOrderinfo.commercialDesc}}</text>
         </view>
         <view class="distance overtext2" wx:else>
-          <text wx:if="{{userAdressInfo.name}}">{{userAdressInfo.name}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}}) </text>
+          <text wx:if="{{userAdressInfo.username}}">{{userAdressInfo.username}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}}) </text>
           <text wx:else>配送门店已地址匹配为准</text>
-          <text>{{userAdressInfo.phone}}</text>
+          <text>{{userAdressInfo.mobile}}</text>
         </view>
         <view class="userTelBox" wx:if="{{!checked}}">
           <view class="left">
@@ -79,7 +80,7 @@
             <text class="tips">￥{{userOrderinfo.userRunMoney}}</text>
           </view>
         </view>
-        <view class="couponBox flexBox">
+        <view class="couponBox flexBox" hidden="{{true}}">
           <view class="left">喜茶券</view>
           <view class="right">
             <text class="tips" wx:if="{{userOrderinfo.userCouponNum === 0}}">暂无可用</text>
@@ -89,7 +90,7 @@
         <view class="remarksBox flexBox">
           <view class="left">备注</view>
           <view class="right">
-            {{!checked ? '不打包' : '无接触配送,打包'}}
+            {{userOrderinfo.remarksTxt}}
             <text class="iconCommon">></text>
           </view>
         </view>

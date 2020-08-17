@@ -7,6 +7,7 @@ import promisify from '/common/js/plugs/promisify.js';
 import Init from '/common/js/base/init.js';
 import Router from 'common/js/Router.js';
 import iuser from 'common/js/base/user.js';
+import Toast from 'miniprogram/@vant/weapp/dist/toast/toast';
 const utils = require('utils/utils.js');
 
 const mta = require('common/js/mta_analysis.js');

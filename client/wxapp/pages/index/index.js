@@ -20,8 +20,6 @@ Page({
     $page = this;
     $query = option;
     console.log('getQueryString', option);
-    //测试版
-    return
     app.initApp(()=>{
       if(app.data.actionCode) {
         this.setData({
@@ -33,6 +31,7 @@ Page({
   onReady: function () {
   }, //监听页面初次渲染完成
   onShow: function () {
+    this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
   }, //监听页面显示
   onHide: function () { }, //监听页面隐藏
   onUnload: function () { }, //监听页面卸载

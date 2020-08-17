@@ -1,0 +1,37 @@
+// var res = [{
+      //   "_id": "f149f6775ea28002001877dc52d9e2e3",
+      //   "areaCode": "021",
+      //   "areaId": "310117",
+      //   "areaName": "松江区",
+      //   "brandId": 206445,
+      //   "brandName": "豆腐先生",
+      //   "busiCode": 10782,
+      //   "busiName": "松江大学城",
+      //   "cityCode": "310100",
+      //   "cityName": "上海市",
+      //   "commercialAddress": "上海市松江区文汇路818号淘点点",
+      //   "commercialContact": "郑鑫",
+      //   "commercialDesc": "豆腐先生",
+      //   "commercialId": 810485944,
+      //   "commercialLogo": "https://img-static.keruyun.com/mind/rc-upload-1583396354627-11.png",
+      //   "commercialName": "豆腐先生",
+      //   "commercialPhone": "",
+      //   "latitude": 31.04958,
+      //   "longitude": 121.20283,
+      //   "openTimes": [
+      //     {
+      //       "items": [
+      //         {
+      //           "endTime": "23:00",
+      //           "startTime": "00:00",
+      //           "type": 0
+      //         }
+      //       ],
+      //       "timeType": 0,
+      //       "type": 0
+      //     }
+      //   ],
+      //   "pCode": "",
+      //   "pName": "",
+      //   "status": 0
+      // }];

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "订单结算",
+  "usingComponents": {
+    "van-count-down": "/miniprogram/@vant/weapp/dist/count-down/index"
+  },
+  "navigationBarBackgroundColor": "#fefefe"
+}

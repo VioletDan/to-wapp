@@ -1,24 +1,25 @@
 const app = getApp();
-const { utils, icom, Toast } = app;
+const {
+  API,
+  utils,
+  icom,
+  Toast
+} = app;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    addressList: []
+    addressList: [],
+    appData: app.data,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getAddressList()
-    .then(res => {
-      // this.setData({
-      //   addressList: res
-      // })
-    })
+    this.getAddressList();
   },
 
   /**
@@ -33,13 +34,9 @@ Page({
    */
   onShow: function () {
     //取出地址列表
-    if (icom.storage('userAdressInfoList')){
-      var userAdressInfoList = JSON.parse(icom.storage('userAdressInfoList'));
-      // console.log(userAdressInfoList);
-      this.setData({
-        addressList: userAdressInfoList
-      })
-    } 
+    if (app.data.addressListTitle) {
+      this.getAddressList();
+    }
   },
 
   /**
@@ -78,39 +75,53 @@ Page({
   },
   // 获取地址数据
   getAddressList() {
-    return new Promise((resolve) => {
-      const data = [{
-        name: '将军',
-        gender: 1,
-        mobile: 17621399872,
-        address: {
-          name: '徐汇区日月光'
-        },
-        detail: '1099号19楼'
-      }]
-
-      resolve(data)
-    })
+    icom.loading('加载中');
+    //获取用户的地址列表
+    API.GetUserAdressList({}).then(res => {
+      icom.loadingHide();
+      if (res.data.length > 0) {
+        this.setData({
+          addressList:res.data
+        })
+      }
+    });
+  },
+  onClose(event) {
+    const { position, instance } = event.detail;
+    switch (position) {
+      case 'right':
+        icom.dilaog({
+          title: '确定删除吗？'
+        }, (res) => {
+          if (res.confirm) {
+            instance.close();
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+            instance.close();
+          }
+        });
+        break;
+    }
   },
   // 跳转添加地址页面
   addAddress() {
-    app.globalData.userEditorAdressInfo = null;
-   wx.navigateTo({
+    app.data.userEditorAdressInfo = null;
+    wx.navigateTo({
       url: '/pages/addAddress/addAddress'
     })
   },
   //选中一个地址
-  selectItemClick(e){
+  selectItemClick(e) {
     // console.log(e.currentTarget.dataset.index);
     var index = e.currentTarget.dataset.index;
-    app.globalData.userAdressInfo = this.data.addressList[index];
+    app.data.userAdressInfo = this.data.addressList[index];
     wx.navigateBack({});
   },
   //编辑地址
-  editorClick(e){
+  editorClick(e) {
     var index = e.currentTarget.dataset.index;
-    app.globalData.userEditorAdressInfo = this.data.addressList[index];
-    app.globalData.userEditorAdressInfo.currentIndex = index;
+    app.data.userEditorAdressInfo = this.data.addressList[index];
+    app.data.userEditorAdressInfo.currentIndex = index;
     wx.navigateTo({
       url: '/pages/addAddress/addAddress',
     });

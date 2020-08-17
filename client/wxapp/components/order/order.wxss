@@ -1,1 +1,16 @@
 /* components/order/order.wxss */
+.content { width: 100%; height: 100%;overflow: hidden;background-color: #f7f7f7;}
+.topBabs .van-hairline--top-bottom:after {border-top: none;}
+.listBox .flexBox{display: flex;justify-content: space-between;align-items: center;}
+.listBox {height: 100%;overflow: hidden;}
+.listBox .listBoxscroll{height: 600px;}
+.listBox .listItem{width: 100%;background-color: #fff;min-height: 430rpx;margin-top: 20rpx;box-sizing: border-box;padding: 36rpx 45rpx 40rpx 40rpx;}
+.listBox .listItem .top {font-size: 28rpx}
+.listBox .listItem .top .orderStatus{color:#3d3d3d;font-size: 24rpx;}
+.listBox .listItem .center .imgList{width: 100%;padding: 35rpx 0;overflow: hidden;white-space: nowrap;}
+.listBox .listItem .center .imgList .img{width: 120rpx;height: auto;margin-right: 20rpx;vertical-align: middle;}
+.listBox .listItem .bottom{color:#3d3d3d;font-size: 24rpx;}
+.listBox .listItem .bottom .tips{color: #d2ad7d;margin-bottom: 10rpx;}
+.listBox .listItem .bottom .num{margin-bottom: 10rpx;}
+.listBox .listItem .bottom .totalPrize{color: #000;font-weight: 700;}
+.listBox .listItem .buttonBox .btn{font-size: 24rpx;width: 146rpx;height: 56rpx;margin-top: 36rpx;border: 2px solid #d2ad7d;text-align: center;color: #d2ad7d;line-height: 56rpx;}

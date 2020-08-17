@@ -1,9 +1,20 @@
 // components/home/home.js
 const app = getApp()
-const {API,beats,icom,config,mta,regeneratorRuntime,promisify,Router,utils} = app;
+const {
+  API,
+  beats,
+  icom,
+  config,
+  mta,
+  regeneratorRuntime,
+  promisify,
+  Router,
+  utils
+} = app;
 
 var $page = null;
-
+var _currentId = null,
+  _currentItem = null; //当前选中产品的id
 Component({
   /**
    * 组件的属性列表
@@ -81,6 +92,12 @@ Component({
 
     //========== Private ===========
     initData() {
+      icom.loading('加载中');
+      if(app.data.perOrder) {
+        this.setData({
+          cardList:[]
+        })
+      }
       this.initCar()
       this.setPage()
     },
@@ -93,48 +110,20 @@ Component({
     /**
      * 获取门店详情
      */
-    getShopInfo() {
-      var res = [{
-        "_id": "f149f6775ea28002001877dc52d9e2e3",
-        "areaCode": "021",
-        "areaId": "310117",
-        "areaName": "松江区",
-        "brandId": 206445,
-        "brandName": "豆腐先生",
-        "busiCode": 10782,
-        "busiName": "松江大学城",
-        "cityCode": "310100",
-        "cityName": "上海市",
-        "commercialAddress": "上海市松江区文汇路818号淘点点",
-        "commercialContact": "郑鑫",
-        "commercialDesc": "豆腐先生",
-        "commercialId": 810485944,
-        "commercialLogo": "https://img-static.keruyun.com/mind/rc-upload-1583396354627-11.png",
-        "commercialName": "豆腐先生",
-        "commercialPhone": "",
-        "latitude": 31.04958,
-        "longitude": 121.20283,
-        "openTimes": [
-          {
-            "items": [
-              {
-                "endTime": "23:00",
-                "startTime": "00:00",
-                "type": 0
-              }
-            ],
-            "timeType": 0,
-            "type": 0
-          }
-        ],
-        "pCode": "",
-        "pName": "",
-        "status": 0
-      }];
+    async getShopInfo() {
+      let {
+        data
+      } = await API.GetShopInfo({});
+      let _info = data;
+      _info.commercialName = _info.shopname;
+      _info.commercialDesc = _info.notice;
+      app.data.coordinate.latitude = _info.latitude;
+      app.data.coordinate.longitude = _info.longitude;
+      console.log('_info=================', _info);
       this.setData({
-        shopInfo: res[0],
+        shopInfo: _info,
       });
-      app.data.shopInfo = res[0];
+      app.data.shopInfo = _info;
       this.setCommercialInfo();
     },
     goStoreList() {
@@ -168,10 +157,9 @@ Component({
      */
     category() {
       return new Promise((resolve, reject) => {
-        var res = {
+        var _resMock = {
           "result": {
-            "result": [
-              {
+            "result": [{
                 "aliasName": null,
                 "name": "便当",
                 "sort": 3,
@@ -227,7 +215,10 @@ Component({
           },
           "requestID": "e0d399fe-de08-11ea-ac4c-525400c2bfee"
         };
-        resolve(res.result.result);
+        //获取店铺详细信息
+        API.GetShopMenuList({}).then(res => {
+          resolve(res.data.length >0 ? res.data : _resMock.result.result);
+        });
       })
     },
     /**
@@ -239,8 +230,7 @@ Component({
           "result": {
             "result": {
               "hasnext": false,
-              "dishTOList": [
-                {
+              "dishTOList": [{
                   "shopIdenty": 810485944,
                   "name": "秘制豆腐（小份）",
                   "aliasName": "",
@@ -261,24 +251,19 @@ Component({
                   "boxQty": 1,
                   "imgUrl": "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-78.jpg?x-oss-process=image/resize,w_640,h_480",
                   "desc": "秘制酱料精心油炸的豆腐",
-                  "categorys": [
-                    {
-                      "categoryId": 329239841631767550,
-                      "categoryName": "豆腐"
-                    }
-                  ],
-                  "saleTimes": [
-                    {
-                      "start": "00:00:00",
-                      "end": "00:00:00"
-                    }
-                  ],
+                  "categorys": [{
+                    "categoryId": 329239841631767550,
+                    "categoryName": "豆腐"
+                  }],
+                  "saleTimes": [{
+                    "start": "00:00:00",
+                    "end": "00:00:00"
+                  }],
                   "attrs": [],
                   "dishTaxes": null,
                   "brandDishId": 329245181265188860,
                   "barcode": null,
-                  "supplyCondiments": [
-                    {
+                  "supplyCondiments": [{
                       "id": 347755322008107000,
                       "name": "加辣椒",
                       "marketPrice": 0,
@@ -327,18 +312,14 @@ Component({
                   "boxQty": 1,
                   "imgUrl": "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-20.jpeg?x-oss-process=image/resize,w_640,h_480",
                   "desc": null,
-                  "categorys": [
-                    {
-                      "categoryId": 329239907684130800,
-                      "categoryName": "炸鸡"
-                    }
-                  ],
-                  "saleTimes": [
-                    {
-                      "start": "00:00:00",
-                      "end": "00:00:00"
-                    }
-                  ],
+                  "categorys": [{
+                    "categoryId": 329239907684130800,
+                    "categoryName": "炸鸡"
+                  }],
+                  "saleTimes": [{
+                    "start": "00:00:00",
+                    "end": "00:00:00"
+                  }],
                   "attrs": [],
                   "dishTaxes": null,
                   "brandDishId": 329248060352895000,
@@ -371,18 +352,14 @@ Component({
                   "boxQty": 1,
                   "imgUrl": "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-52.jpg?x-oss-process=image/resize,w_640,h_480",
                   "desc": "精品豆腐炸鸡套餐",
-                  "categorys": [
-                    {
-                      "categoryId": 329240273640885250,
-                      "categoryName": "便当"
-                    }
-                  ],
-                  "saleTimes": [
-                    {
-                      "start": "00:00:00",
-                      "end": "00:00:00"
-                    }
-                  ],
+                  "categorys": [{
+                    "categoryId": 329240273640885250,
+                    "categoryName": "便当"
+                  }],
+                  "saleTimes": [{
+                    "start": "00:00:00",
+                    "end": "00:00:00"
+                  }],
                   "attrs": [],
                   "dishTaxes": null,
                   "brandDishId": 336196471192518660,
@@ -415,18 +392,14 @@ Component({
                   "boxQty": 0,
                   "imgUrl": "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-37.jpg?x-oss-process=image/resize,w_640,h_480",
                   "desc": null,
-                  "categorys": [
-                    {
-                      "categoryId": 329240273640885250,
-                      "categoryName": "便当"
-                    }
-                  ],
-                  "saleTimes": [
-                    {
-                      "start": "00:00:00",
-                      "end": "00:00:00"
-                    }
-                  ],
+                  "categorys": [{
+                    "categoryId": 329240273640885250,
+                    "categoryName": "便当"
+                  }],
+                  "saleTimes": [{
+                    "start": "00:00:00",
+                    "end": "00:00:00"
+                  }],
                   "attrs": [],
                   "dishTaxes": null,
                   "brandDishId": 347744070317300740,
@@ -466,6 +439,8 @@ Component({
       this.getShopInfo()
 
       Promise.all([this.category(), this.dishMenu()]).then(res => {
+        // console.log(res)
+        icom.loadingHide();
         let tmpList = [];
         let tmpCategoryList = res[0];
         const tmpDishMenuList = res[1];
@@ -550,11 +525,11 @@ Component({
 
       const _this = this;
       let query = wx.createSelectorQuery().in(_this);
-      query.select('#dishList').boundingClientRect(function(response){
+      query.select('#dishList').boundingClientRect(function (response) {
         const parentTop = response.top;
         _this.data.dishMenuList.forEach((dish) => {
           query = wx.createSelectorQuery().in(_this);
-          query.select(`#dish${dish.id}`).boundingClientRect(function(res){
+          query.select(`#dish${dish.id}`).boundingClientRect(function (res) {
             _this.setData({
               scrollTopList: [
                 ..._this.data.scrollTopList,
@@ -589,8 +564,15 @@ Component({
     // 选规格(单个)
     selectConfig(e) {
       console.log(e.currentTarget.dataset);
-      const {parentIndex,item} = e.currentTarget.dataset;
-      const {id} = item;
+      const {
+        parentIndex,
+        item
+      } = e.currentTarget.dataset;
+      const {
+        id
+      } = item;
+      _currentItem = item;
+      _currentId = id;
       item.imgList = [];
       item.imgList.push(item.imgUrl);
       const cardList = wx.getStorageSync('cardList') ?
@@ -603,26 +585,36 @@ Component({
         cardList.push(item)
       }
       this.setData({
-        cardList
+        cardList,
       })
       wx.setStorageSync('cardList', JSON.stringify(cardList))
       this.initCar();
+      app.data.perOrder = false;
+
     },
     /**选规格(多个) */
-    selectConfigMore(e){
+    selectConfigMore(e) {
       console.log(e.currentTarget.dataset);
-      const {parentIndex,item} = e.currentTarget.dataset;
-      const {id} = item;
+      const {
+        parentIndex,
+        item
+      } = e.currentTarget.dataset;
+      const {
+        id
+      } = item;
+      _currentItem = item;
+      _currentId = id;
       item.imgList = [];
       item.imgList.push(item.imgUrl);
       item.component = item.desc;
       this.setData({
         showModal: true,
       })
-      this.dishDetailes(item,id);
+      this.dishDetailes(item, id);
+      app.data.perOrder = false;
     },
     /**render模态框 */
-    dishDetailes(obj,id){
+    dishDetailes(obj, id) {
       this.setData({
         modalData: obj,
         selectConfig: {
@@ -693,63 +685,88 @@ Component({
     },
     // 加入购物车
     addCard() {
-      let selectNum = 0
-      let totalPrice = 0
       const cardList = wx.getStorageSync('cardList') ?
         JSON.parse(wx.getStorageSync('cardList')) : []
-
-      if (cardList && Array.isArray(cardList)) {
-        const index = cardList.findIndex(
-          (select) =>
-          select.id === this.data.selectConfig.id &&
-          JSON.stringify(select.configIdArr) ===
-          JSON.stringify(this.data.selectConfig.configIdArr)
-        )
-
-        if (index > -1) {
-          cardList[index].configNum += this.data.selectConfig.configNum
-          cardList[index].name = this.data.selectConfig.name
-        } else {
-          cardList.push(this.data.selectConfig)
-        }
-
-        cardList.forEach((card) => {
-          selectNum += card.configNum
-          totalPrice += card.price * card.configNum
-        })
-
-        this.setData({
-          cardList: cardList,
-          selectInfo: {
-            selectNum,
-            totalPrice,
-          },
-        })
-
-        wx.setStorageSync('cardList', JSON.stringify(cardList))
-        wx.setStorageSync(
-          'selectInfo',
-          JSON.stringify({
-            selectNum,
-            totalPrice,
-          })
-        )
-
-        this.closeModal()
+      const selectIndex = cardList.findIndex(card => card.id === _currentId)
+      if (selectIndex > -1) {
+        cardList[selectIndex].num = this.data.selectConfig.configNum + cardList[selectIndex].num;
+      } else {
+        _currentItem.num = this.data.selectConfig.configNum + _currentItem.num;
+        cardList.push(_currentItem);
       }
+      this.setData({
+        cardList
+      })
+      wx.setStorageSync('cardList', JSON.stringify(cardList));
+      console.log(this.data.cardList)
+      this.initCar();
+      this.closeModal();
+      // let selectNum = 0
+      // let totalPrice = 0
+      // const cardList = wx.getStorageSync('cardList') ?
+      //   JSON.parse(wx.getStorageSync('cardList')) : []
+
+      // if (cardList && Array.isArray(cardList)) {
+      //   const index = cardList.findIndex(
+      //     (select) =>
+      //     select.id === this.data.selectConfig.id &&
+      //     JSON.stringify(select.configIdArr) ===
+      //     JSON.stringify(this.data.selectConfig.configIdArr)
+      //   )
+
+      //   if (index > -1) {
+      //     cardList[index].configNum += this.data.selectConfig.configNum
+      //     cardList[index].name = this.data.selectConfig.name
+      //   } else {
+      //     cardList.push(this.data.selectConfig)
+      //   }
+
+      //   cardList.forEach((card) => {
+      //     selectNum += card.configNum
+      //     totalPrice += card.price * card.configNum
+      //   })
+
+      //   this.setData({
+      //     cardList: cardList,
+      //     selectInfo: {
+      //       selectNum,
+      //       totalPrice,
+      //     },
+      //   })
+
+      //   wx.setStorageSync('cardList', JSON.stringify(cardList))
+      //   wx.setStorageSync(
+      //     'selectInfo',
+      //     JSON.stringify({
+      //       selectNum,
+      //       totalPrice,
+      //     })
+      //   )
+
+      //   this.closeModal()
+      // }
     },
     showCardDetail() {
+
       this.setData({
         cardMaskShow: !this.data.cardMaskShow,
       })
     },
     clearCar() {
-      this.setData({
-        cardList: [],
-        selectInfo: {},
-        cardMaskShow: false,
-      })
-      wx.removeStorageSync('cardList')
+      icom.dilaog({
+        title: '确定清空购物车'
+      }, (res) => {
+        if (res.confirm) {
+          this.setData({
+            cardList: [],
+            selectInfo: {},
+            cardMaskShow: false,
+          })
+          wx.removeStorageSync('cardList');
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      });
     },
     initCar() {
       const total = this.data.cardList.reduce((num, item) => {

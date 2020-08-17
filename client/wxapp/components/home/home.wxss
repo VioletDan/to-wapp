@@ -127,6 +127,7 @@
 .guide .openStoreDetail.showDetail .storeDetails > view {
   display: inline-block;
   width: calc(100% - 36rpx);
+  line-height: 1.4;
 }
 
 .guide .openStoreDetail.showDetail .storeDetailsTitle {

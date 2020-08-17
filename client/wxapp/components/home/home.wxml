@@ -64,7 +64,7 @@
 			</scroll-view>
 		</view>
 		<!-- 购物车信息 -->
-		<view class="cardMask" wx:if="{{cardMaskShow}}">
+		<view class="cardMask" wx:if="{{cardMaskShow}}" bindtap="showCardDetail">
 			<view class="cardDetailContent">
 				<view class="cardDetail">
 					<text class="iconfont icon_delete"></text>

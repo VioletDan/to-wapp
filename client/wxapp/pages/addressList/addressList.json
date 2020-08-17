@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "位置",
+  "navigationBarBackgroundColor": "#FFF",
+  "usingComponents": {
+    "van-search": "/miniprogram/@vant/weapp/dist/search/index",
+    "van-popup": "/miniprogram/@vant/weapp/dist/popup/index"
+  }
+}

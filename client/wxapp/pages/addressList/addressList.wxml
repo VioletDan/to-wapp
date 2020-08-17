@@ -1,0 +1,84 @@
+<view class="addressList">
+	<van-popup
+	 show="{{ showSearch }}"
+	 position="right"
+   duration="{{0}}"
+   custom-style="width: 100%;height: 100%;"
+   overlay-style="background-color: #fff"
+	 bind:close="onClose"
+	>
+		<van-search
+		 class="popupSearchBtn"
+     shape="round"
+		 value="{{ searchValue }}"
+		 placeholder="搜索地点"
+     show-action
+     focus="{{true}}"
+		 bind:search="onSearch"
+		 bind:cancel="closePopup"
+    />
+    
+    <view class="popupAddressScrollView addressScrollView">
+			<scroll-view scroll-y>
+				<view
+				 class="addressItem"
+				 wx:for="{{nearByAddressList}}"
+				 wx:key="id"
+				 bindtap="selectNearByAddress"
+				 data-item="{{item}}"
+				>
+					<view class="leftAddress">
+						<view>{{item.title}}</view>
+						<view>{{item.address}}</view>
+					</view>
+        </view>
+			</scroll-view>
+		</view>
+
+	</van-popup>
+
+	<map
+	 id="map"
+	 longitude="{{markers[0].longitude}}"
+	 latitude="{{markers[0].latitude}}"
+	 scale="{{scale}}"
+	 markers="{{markers}}"
+	 show-location
+	 style="width: 100%; height: 460rpx;"
+	/>
+
+	<view class="box">
+		<van-search
+		 class="searchAddress"
+     value="{{ value }}"
+     readonly="{{true}}"
+		 placeholder="搜索地点"
+		 bind:tap="focusSearch"
+		/>
+		<view class="addressScrollView">
+			<scroll-view scroll-y>
+				<view
+				 class="addressItem"
+				 wx:for="{{poisList}}"
+				 wx:key="id"
+				 bindtap="selectAddress"
+				 data-item="{{item}}"
+				>
+					<view class="leftAddress">
+						<view>{{item.title}}</view>
+						<view>{{item.address}}</view>
+					</view>
+					<text class="iconfont icon_tick {{item.id === markers[0].id ? 'show' : ''}}"/>
+        </view>
+        <view class="addressItem">
+					<view class="leftAddress">
+						<view></view>
+						<view></view>
+					</view>
+        </view>
+			</scroll-view>
+		</view>
+    <view class="save" catchtap="btnSure">确定</view>
+	</view>
+</view>
+

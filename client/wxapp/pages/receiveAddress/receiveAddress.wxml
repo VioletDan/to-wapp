@@ -1,34 +1,40 @@
 <view class="receiveAddress">
-  <view wx:if="{{addressList.length === 0}}" class="{{addressList.length === 0 ? 'show' : ''}} empty">
-    <view class="">暂无地址信息</view>
-    <view class="">请点击底部按钮添加地址</view>
-  </view>
-  <view wx:else class="listBox">
-    <scroll-view scroll-y class="listBoxScroll">
-      <view class="box">
-        <view class="listItem flexBox" wx:for="{{addressList}}" wx:key="index" catchtap="selectItemClick" data-index="{{index}}">
-          <view class="left">
-            <view class="txt">
-              <text>{{item.name}} ({{item.gender == 1 ? '男士' : '女士'}})</text>
-              <text>{{item.phone}}</text>
-            </view>
-            <view class="txt">
-              <text>{{item.address}}</text>
-              <text>{{item.adressHouseNum}}</text>
-            </view>
-          </view>
-          <view class="right" catchtap="editorClick" data-index="{{index}}">
-            <text class="iconfont icon_editor"></text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </view>
+	<view wx:if="{{addressList.length === 0}}" class="{{addressList.length === 0 ? 'show' : ''}} empty">
+		<view class="">暂无地址信息</view>
+		<view class="">请点击底部按钮添加地址</view>
+	</view>
+	<view wx:else class="listBox">
+		<scroll-view scroll-y class="listBoxScroll">
+			<view class="box">
+				<block wx:for="{{addressList}}" wx:key="index">
+					<van-swipe-cell right-width="{{ 50 }}" async-close="{{true}}" bind:close="onClose" bind:click="selectItemClick" data-index="{{index}}">
+						<view class="listItem flexBox">
+							<view class="left">
+								<view class="txt">
+									<text>{{item.username}} ({{item.gender == 1 ? '男士' : '女士'}})</text>
+									<text>{{item.mobile}}</text>
+								</view>
+								<view class="txt">
+									<text>{{item.address}}</text>
+									<text>{{item.street}}</text>
+								</view>
+							</view>
+							<view class="right" catchtap="editorClick" data-index="{{index}}">
+								<text class="iconfont icon_editor"></text>
+							</view>
+						</view>
+						<view slot="right" class="rightDel">删除</view>
+					</van-swipe-cell>
+				</block>
 
-  <view class="footer">
-    <view class="addAddress" bindtap="addAddress">
-      <text>+</text>
-      <text>添加地址</text>
-    </view>
-  </view>
+			</view>
+		</scroll-view>
+	</view>
+
+	<view class="footer">
+		<view class="addAddress" bindtap="addAddress">
+			<text>+</text>
+			<text>添加地址</text>
+		</view>
+	</view>
 </view>

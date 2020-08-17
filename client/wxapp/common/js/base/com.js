@@ -167,7 +167,7 @@ const icom = function () {
         wx.showModal(opts);
     }
 
-    com.dilaog = function (options = {}) {
+    com.dilaog = function (options = {},callback = function () { }) {
         let opts = {};
         let defaults = {
             title: '',
@@ -176,7 +176,8 @@ const icom = function () {
             cancelText: '取消',
             cancelColor: '#000000',
             confirmText: '确定',
-            confirmColor: '#3CC51F'
+            confirmColor: '#3CC51F',
+            success: callback,
         };
         Object.assign(opts, defaults, options);
         wx.showModal(opts);

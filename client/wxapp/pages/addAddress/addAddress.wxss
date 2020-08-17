@@ -1,0 +1,80 @@
+.van-toast__container{top: 45%;}
+page {
+  background-color: #f7f7f7;
+  width: 100%;
+  height: 100%;
+}
+
+.addAddress {  
+  padding-top: 23rpx;
+}
+.addAddress .form {
+  padding: 0 40rpx;
+  background-color: #fff;
+  font-size: 26rpx;
+}
+
+.addAddress .form > view {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f0f0f0;
+}
+.addAddress .form > view > text:first-child {
+  font-weight: 700;
+  width: 150rpx;
+}
+.addAddress .form > view.gender > .radio {
+  display: flex;
+  align-items: center;
+}
+.addAddress .form > view.gender > .radio > radio {
+  transform:scale(0.7);
+}
+.addAddress .form > view.gender .male {
+  margin-right: 60rpx;
+}
+.addAddress .form > view.address text:nth-child(2) {
+  /* flex-grow: 1; */
+  /* display: flex; */
+  align-items: center;
+  width: calc(100% - 178rpx);
+  display: block;
+  padding-right: 20rpx;
+}
+.addAddress .form > view.address text:nth-child(2).empty {
+  color: #cccccc;
+}
+.addAddress .form > view.address text:last-child {
+  transform: rotate(-90deg);
+  font-size: 26rpx;
+}
+.addAddress .form > view.defaultAddress .radio {
+  display: flex;
+  align-items: center;
+}
+.addAddress .form > view.defaultAddress .radio > radio {
+  transform:scale(0.7);
+}
+.addAddress .form > view.defaultAddress .radio checkbox {
+  transform:scale(0.85);
+}
+.addAddress .form > view.defaultAddress .radio checkbox .wx-checkbox-input {
+  border-radius: 50%;
+}
+.addAddress .form > view.defaultAddress .radio checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+  background-color: #000;
+}
+.addAddress .form > view.save {
+  justify-content: center;
+  width: 670rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  color: #fff;
+  font-size: 36rpx;
+  border-radius: 8rpx;
+  margin: 0 auto;
+  margin-top: 32rpx;
+  background-color: #343434;
+}
