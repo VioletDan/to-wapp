@@ -25,7 +25,7 @@ class API {
     // if (!data.hasOwnProperty('sessionKey')) data.sessionKey = icom.storage('session_key');
     // if (!data.hasOwnProperty('token')) data.token = icom.storage('token') || '';
     // if (!data.hasOwnProperty('ssoShopCateId')) data.ssoShopCateId = icom.storage('ssoShopCateId') || 1;
-    // if (!data.hasOwnProperty('ssoSapid')) data.ssoSapid = icom.storage('ssoSapid') || 1;
+    // if (!data.hasOwnProperty('ssoShopId')) data.ssoShopId = icom.storage('ssoShopId') || 1;
     let res = await this.wxResuest({
       url: this.DOMAIN + method,
       data: data,
@@ -36,7 +36,7 @@ class API {
         // 'Authorization': 'Bearer ' + (icom.storage('token') || ''),
         'Authorization': icom.storage('token') || '',
         'ssoShopCateId': icom.storage('ssoShopCateId') || 1,
-        'ssoSapid': icom.storage('ssoSapid') || 1
+        'ssoShopId': icom.storage('ssoShopId') || 1
       },
       dataType: "json"
     });
