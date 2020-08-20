@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "van-button": "/miniprogram/@vant/weapp/dist/button/index",
+    "van-cell": "/miniprogram/@vant/weapp/dist/cell/index",
+    "van-icon": "/miniprogram/@vant/weapp/dist/icon/index",
+    "van-search": "/miniprogram/@vant/weapp/dist/search/index",
+    "van-popup": "/miniprogram/@vant/weapp/dist/popup/index",
+    "van-tab": "/miniprogram/@vant/weapp/dist/tab/index",
+    "van-tabs": "/miniprogram/@vant/weapp/dist/tabs/index"
+  },
+  "navigationBarTitleText": "选择门店"
+}

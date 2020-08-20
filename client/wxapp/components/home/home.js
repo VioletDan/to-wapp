@@ -119,6 +119,9 @@ Component({
       _info.commercialDesc = _info.notice;
       app.data.coordinate.latitude = _info.latitude;
       app.data.coordinate.longitude = _info.longitude;
+      app.data.ShopInfo = _info;
+      icom.storage('ssoShopCateId',_info.shopCateId);
+      icom.storage('ssoShopId',_info.shopId);
       console.log('_info=================', _info);
       this.setData({
         shopInfo: _info,
@@ -128,7 +131,7 @@ Component({
     },
     goStoreList() {
       wx.navigateTo({
-        url: '/pages/store/store',
+        url: '/pages/shops/shops',
       })
     },
     // 设置门店信息
@@ -143,6 +146,8 @@ Component({
     setDistance(curLoc) {
       var latitude = curLoc.latitude
       var longitude = curLoc.longitude
+      app.data.userCurrentDis.userCurrentLat = latitude;
+      app.data.userCurrentDis.userCurrentLon = longitude;
       $page.setData({
         distance: utils.getDistance(
           latitude,
@@ -215,6 +220,8 @@ Component({
           },
           "requestID": "e0d399fe-de08-11ea-ac4c-525400c2bfee"
         };
+        resolve(_resMock.result.result);
+        return;
         //获取店铺详细信息
         API.GetShopMenuList({}).then(res => {
           resolve(res.data.length >0 ? res.data : _resMock.result.result);

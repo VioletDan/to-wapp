@@ -5,7 +5,8 @@
     "pages/addAddress/addAddress",
     "pages/addressList/addressList",
     "pages/orderSettle/orderSettle",
-    "pages/orderSettleDetail/orderSettleDetail"
+    "pages/orderSettleDetail/orderSettleDetail",
+    "pages/shops/shops"
   ],
   "window": {
     "navigationStyle": "default",

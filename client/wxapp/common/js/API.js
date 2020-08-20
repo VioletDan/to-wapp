@@ -21,11 +21,6 @@ class API {
    * 初始化
    */
   async _send(method, data, type) {
-    //data里面不带SessionKey才赋值
-    // if (!data.hasOwnProperty('sessionKey')) data.sessionKey = icom.storage('session_key');
-    // if (!data.hasOwnProperty('token')) data.token = icom.storage('token') || '';
-    // if (!data.hasOwnProperty('ssoShopCateId')) data.ssoShopCateId = icom.storage('ssoShopCateId') || 1;
-    // if (!data.hasOwnProperty('ssoShopId')) data.ssoShopId = icom.storage('ssoShopId') || 1;
     let res = await this.wxResuest({
       url: this.DOMAIN + method,
       data: data,
@@ -36,6 +31,7 @@ class API {
         // 'Authorization': 'Bearer ' + (icom.storage('token') || ''),
         'Authorization': icom.storage('token') || '',
         'ssoShopCateId': icom.storage('ssoShopCateId') || 1,
+        'ssoSapid': icom.storage('ssoSapid') || 1,
         'ssoShopId': icom.storage('ssoShopId') || 1
       },
       dataType: "json"
@@ -86,7 +82,17 @@ class API {
 
   // 修改用户的地址
   async EditorUserAdress(data) {
-    return this._send('/address/update', data, 'POST');
+    return this._send('/address/update/', data, 'PUT');
+  }
+
+  // 删除用户的地址
+  async DeletUserAdress(data) {
+    return this._send('/address/del/'+ data.id +'', null, 'DELETE');
+  }
+
+  // 获取用户的地址详情
+  async GetUserAdressItem(data) {
+    return this._send('/address/get/'+ data.id +'', null, 'GET');
   }
 
   // 预下单

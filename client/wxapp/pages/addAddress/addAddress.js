@@ -29,12 +29,27 @@ Page({
   onLoad: function (options) {
     console.log(app.data.userEditorAdressInfo);
     if (app.data.userEditorAdressInfo) {
-      this.setData({
-        form: app.data.userEditorAdressInfo,
-        'form.name': app.data.userEditorAdressInfo.username,
-        'form.phone': app.data.userEditorAdressInfo.mobile,
-        'form.adressHouseNum': app.data.userEditorAdressInfo.street
-      })
+      icom.loading();
+      API.GetUserAdressItem({
+        id: app.data.userEditorAdressInfo.id
+      }).then(res => {
+        if (res) {
+          icom.loadingHide();
+          this.setData({
+            form: res.data,
+            'form.name': res.data.username,
+            'form.phone': res.data.mobile,
+            'form.adressHouseNum': res.data.street
+          })
+        }
+      });
+
+      // this.setData({
+      //   form: app.data.userEditorAdressInfo,
+      //   'form.name': app.data.userEditorAdressInfo.username,
+      //   'form.phone': app.data.userEditorAdressInfo.mobile,
+      //   'form.adressHouseNum': app.data.userEditorAdressInfo.street
+      // })
     }
   },
 
@@ -140,6 +155,7 @@ Page({
       content = '请填写门牌号';
     }
     if (content != '') {
+      icom.loadingHide();
       Toast({
         type: type,
         message: content,
@@ -148,7 +164,7 @@ Page({
       });
     } else {
       //获取用户的地址列表
-      icom.sign();
+      icom.loading();
       if (app.data.userEditorAdressInfo) {
         API.EditorUserAdress({
           'id': app.data.userEditorAdressInfo.id,
@@ -161,10 +177,12 @@ Page({
           "latitude": this.data.formlatitude,
           "longitude": this.data.formlongitude
         }).then(res => {
-          icom.loadingHide();
-          app.data.userEditorAdressInfo = null;
-          //返回地址列表页
-          wx.navigateBack({})
+          if (res) {
+            icom.loadingHide();
+            app.data.userEditorAdressInfo = null;
+            //返回地址列表页
+            wx.navigateBack({})
+          }
         });
 
       } else {
@@ -178,9 +196,11 @@ Page({
           "latitude": app.data.addressListTitleLoc.latitude,
           "longitude": app.data.addressListTitleLoc.longitude
         }).then(res => {
-          icom.loadingHide();
-          //返回地址列表页
-          wx.navigateBack({})
+          if (res) {
+            icom.loadingHide();
+            //返回地址列表页
+            wx.navigateBack({})
+          }
         });
       }
 

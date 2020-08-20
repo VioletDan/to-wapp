@@ -30,6 +30,7 @@ App({
     this.config = config;
     this.iuser = iuser;
     this.utils = utils;
+    this.Toast = Toast;
     first = true
 
     //来源
@@ -136,6 +137,8 @@ App({
       latitude: 31.04958,
       longitude: 121.20283
     },
+    //用户当前位置
+    userCurrentDis:{},
     shopInfo: {},
     userAddress: []
   },

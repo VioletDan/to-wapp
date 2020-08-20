@@ -75,26 +75,49 @@ Page({
   },
   // 获取地址数据
   getAddressList() {
-    icom.loading('加载中');
+    icom.loading();
     //获取用户的地址列表
     API.GetUserAdressList({}).then(res => {
       icom.loadingHide();
       if (res.data.length > 0) {
         this.setData({
-          addressList:res.data
+          addressList: res.data
         })
       }
     });
   },
   onClose(event) {
-    const { position, instance } = event.detail;
+    const {
+      position,
+      instance
+    } = event.detail;
+    console.log(event)
+    let index = Number(event.currentTarget.dataset.index);
+    console.log(event)
     switch (position) {
       case 'right':
         icom.dilaog({
           title: '确定删除吗？'
         }, (res) => {
           if (res.confirm) {
-            instance.close();
+            icom.loading();
+            API.DeletUserAdress({
+              id: this.data.addressList[index].id
+            }).then(res => {
+              if (res) {
+                icom.loadingHide();
+                var _addressList = [];
+                if(index == 0) {
+                  _addressList = [];
+                }else {
+                  _addressList = this.data.addressList.splice(index, 1);
+                }
+                this.setData({
+                  addressList:_addressList
+                })
+                instance.close();
+              }
+            });
           } else if (res.cancel) {
             console.log('用户点击取消');
             instance.close();

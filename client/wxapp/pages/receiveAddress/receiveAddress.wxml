@@ -7,9 +7,9 @@
 		<scroll-view scroll-y class="listBoxScroll">
 			<view class="box">
 				<block wx:for="{{addressList}}" wx:key="index">
-					<van-swipe-cell right-width="{{ 50 }}" async-close="{{true}}" bind:close="onClose" bind:click="selectItemClick" data-index="{{index}}">
+					<van-swipe-cell right-width="{{ 50 }}" async-close="{{true}}" bind:close="onClose" data-index="{{index}}">
 						<view class="listItem flexBox">
-							<view class="left">
+							<view class="left" bind:click="selectItemClick" data-index="{{index}}">
 								<view class="txt">
 									<text>{{item.username}} ({{item.gender == 1 ? '男士' : '女士'}})</text>
 									<text>{{item.mobile}}</text>
