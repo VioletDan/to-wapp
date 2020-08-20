@@ -50,8 +50,7 @@ Component({
     showMore: false,
     cardMaskShow: false,
     detailBtnTxt: '更多',
-    cardList: wx.getStorageSync('cardList') ?
-      JSON.parse(wx.getStorageSync('cardList')) : [],
+    cardList: wx.getStorageSync('cardList') || [],
     selectInfo: {},
     showModal: false, // 显示规格模态框
     modelData: {},
@@ -87,19 +86,18 @@ Component({
     updateData() {
       //这里是外部调用的方法 如果要刷新数据的话在这里执行
       console.log('home udpate');
-      this.initData();
     },
 
     //========== Private ===========
     initData() {
       icom.loading('加载中');
-      if(app.data.perOrder) {
+      if (app.data.perOrder) {
         this.setData({
-          cardList:[]
+          cardList: []
         })
       }
       this.initCar()
-      this.setPage()
+      this.setPage()      
     },
     onPageScroll(event) {
       this.setData({
@@ -120,8 +118,8 @@ Component({
       app.data.coordinate.latitude = _info.latitude;
       app.data.coordinate.longitude = _info.longitude;
       app.data.ShopInfo = _info;
-      icom.storage('ssoShopCateId',_info.shopCateId);
-      icom.storage('ssoShopId',_info.shopId);
+      icom.storage('ssoShopCateId', _info.shopCateId);
+      icom.storage('ssoShopId', _info.shopId);
       console.log('_info=================', _info);
       this.setData({
         shopInfo: _info,
@@ -220,11 +218,9 @@ Component({
           },
           "requestID": "e0d399fe-de08-11ea-ac4c-525400c2bfee"
         };
-        resolve(_resMock.result.result);
-        return;
         //获取店铺详细信息
         API.GetShopMenuList({}).then(res => {
-          resolve(res.data.length >0 ? res.data : _resMock.result.result);
+          resolve(res.data.length > 0 ? res.data : _resMock.result.result);
         });
       })
     },
@@ -445,36 +441,37 @@ Component({
     setPage() {
       this.getShopInfo()
 
-      Promise.all([this.category(), this.dishMenu()]).then(res => {
+      Promise.all([this.category()]).then(res => {
         // console.log(res)
         icom.loadingHide();
-        let tmpList = [];
-        let tmpCategoryList = res[0];
-        const tmpDishMenuList = res[1];
+        // let tmpList = [];
+        // let tmpCategoryList = res[0];
 
-        tmpCategoryList.forEach(category => {
-          const id = category.id;
+        // tmpCategoryList.forEach(category => {
+        //   console.log('category', category, category.foodList);
 
-          var list = tmpDishMenuList.filter(
-            menu => menu.categorys[0].categoryId === id,
-          );
+        //   const id = category.id;
 
-          if (list.length > 0) {
-            list.forEach(menu => {
-              menu.num = 0
-              menu.total = 0
-            });
-            tmpList.push({
-              ...category,
-              list
-            });
-          }
-        });
+          // var list = category.foodList.filter(
+          //   menu => menu.categorys[0].categoryId === id,
+          // );
+
+          // if (category.foodList.length > 0) {
+          //   list.forEach(menu => {
+          //     menu.num = 0
+          //     menu.total = 0
+          //   });
+          //   tmpList.push({
+          //     ...category,
+          //     list
+          //   });
+          // }
+        // });        
 
         this.setData({
-          dishMenuList: tmpList,
-          activeId: tmpList[0].id
-        });
+          dishMenuList: res[0],
+          activeId: res[0][0].id
+        });        
 
         setTimeout(() => {
           this.getScrollTop();
@@ -569,22 +566,21 @@ Component({
       })
     },
     // 选规格(单个)
-    selectConfig(e) {
+    onSelectConfig(e) {
       console.log(e.currentTarget.dataset);
       const {
         parentIndex,
         item
       } = e.currentTarget.dataset;
       const {
-        id
+        foodId
       } = item;
       _currentItem = item;
-      _currentId = id;
+      _currentId = foodId;
       item.imgList = [];
       item.imgList.push(item.imgUrl);
-      const cardList = wx.getStorageSync('cardList') ?
-        JSON.parse(wx.getStorageSync('cardList')) : []
-      const selectIndex = cardList.findIndex(card => card.id === id)
+      const cardList = wx.getStorageSync('cardList') || []
+      const selectIndex = cardList.findIndex(card => card.id === foodId)
       if (selectIndex > -1) {
         cardList[selectIndex].num += 1
       } else {
@@ -594,13 +590,12 @@ Component({
       this.setData({
         cardList,
       })
-      wx.setStorageSync('cardList', JSON.stringify(cardList))
+      wx.setStorageSync('cardList', cardList)
       this.initCar();
       app.data.perOrder = false;
-
     },
     /**选规格(多个) */
-    selectConfigMore(e) {
+    onSelectConfigMore(e) {
       console.log(e.currentTarget.dataset);
       const {
         parentIndex,
@@ -692,8 +687,7 @@ Component({
     },
     // 加入购物车
     addCard() {
-      const cardList = wx.getStorageSync('cardList') ?
-        JSON.parse(wx.getStorageSync('cardList')) : []
+      const cardList = wx.getStorageSync('cardList') || []
       const selectIndex = cardList.findIndex(card => card.id === _currentId)
       if (selectIndex > -1) {
         cardList[selectIndex].num = this.data.selectConfig.configNum + cardList[selectIndex].num;
@@ -704,7 +698,7 @@ Component({
       this.setData({
         cardList
       })
-      wx.setStorageSync('cardList', JSON.stringify(cardList));
+      wx.setStorageSync('cardList', cardList);
       console.log(this.data.cardList)
       this.initCar();
       this.closeModal();

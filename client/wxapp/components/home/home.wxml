@@ -36,7 +36,7 @@
 		</view>
 		<view class="dishList" id="dishList">
 			<scroll-view scroll-y class="categoryList">
-				<view class="{{item.id === activeId ? 'active categoryItem' : 'categoryItem'}}" wx:for="{{dishMenuList}}" wx:key="id" bindtap="selectCategory" data-id="{{item.id}}">
+				<view class="{{item.id === activeId ? 'active categoryItem' : 'categoryItem'}}" wx:for="{{dishMenuList}}" wx:key="id" bindtap="selectCategory" data-id="{{item.id}}" data-ac="{{activeId}}">
 					<text class="iconfont icon_light_bulb"></text>
 					<text>{{item.name}}</text>
 				</view>
@@ -44,18 +44,18 @@
 			<scroll-view scroll-y class="detailsList" scroll-into-view="{{scrollId}}" scroll-with-animation bindscroll="bindscroll">
 				<view wx:for="{{dishMenuList}}" wx:key="id" wx:for-index="pIndex" id="{{'dish' + item.id}}" class="dishMenuContent">
 					<view class="dishMenuItemTitle">{{item.name}}</view>
-					<view wx:for="{{item.list}}" wx:key="id" wx:for-item="childItem" class="dishMenuItem" catchtap="selectConfigMore" data-item="{{childItem}}">
+					<view wx:for="{{item.foodList}}" wx:key="id" wx:for-item="childItem" class="dishMenuItem" catchtap="selectConfigMore" data-item="{{childItem}}">
 						<view class="img">
-							<image src="{{childItem.imgUrl}}"></image>
+							<image src="{{childItem.foodCover}}"></image>
 						</view>
 						<view class="dishDetails">
-							<view class="dishDetailsTitle">{{childItem.name}}</view>
+							<view class="dishDetailsTitle">{{childItem.foodTitle}}</view>
 							<view class="dishDetailsSubTitle">
-								{{childItem.desc}}
+								{{childItem.foodDesc}}
 							</view>
 							<view class="operate">
-								<text class="price">￥{{childItem.price}}</text>
-								<text class="iconfont icon_add_cir selectCate" catchtap="selectConfig" data-item="{{childItem}}" data-parentIndex="{{pIndex}}"></text>
+								<text class="price">￥{{childItem.specs[0].originPrice}}</text>
+								<text class="iconfont icon_add_cir selectCate" catchtap="onSelectConfigMore" data-item="{{childItem}}" data-parentIndex="{{pIndex}}"></text>
 							</view>
 						</view>
 					</view>
