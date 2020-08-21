@@ -120,203 +120,12 @@ let PageData = {
   centerLatitude: 31.192660, //中心纬度
   centerLongitude: 121.439361, //中心经度
   resultArr: [], //搜索结果
-  items: [{
-    "_id": "5d25bce6a95d16febb549e18",
-    "area": "杭州市",
-    "area_en": "Hangzhou City",
-    "area_id": 17,
-    "store": [{
-        "name": "来福士茶空间店",
-        "name_en": "Raffles Tea Space Store",
-        "area_id": 17,
-        "latitude": "30.248485",
-        "longitude": "120.213354",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "湖滨银泰黑金店",
-        "name_en": "Hubin Yintai Black Gold Shop",
-        "area_id": 17,
-        "latitude": "30.252900",
-        "longitude": "120.162850",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州万象城店",
-        "name_en": "Wanxiang City Shop, Hangzhou",
-        "area_id": 17,
-        "latitude": "30.253060",
-        "longitude": "120.215070",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "星光大道茶空间店",
-        "name_en": "Starlight Avenue Tea Space Shop",
-        "area_id": 17,
-        "latitude": "30.20746",
-        "longitude": "120.20947",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州城西银泰城店",
-        "name_en": "Hangzhou City West Yintai City Shop",
-        "area_id": 17,
-        "latitude": "30.299943",
-        "longitude": "120.106603",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州金沙天街茶空间店",
-        "name_en": "Hangzhou Jinsha Tianjie Tea Space Shop",
-        "area_id": 17,
-        "latitude": "30.309944",
-        "longitude": "120.326198",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州工联CC店",
-        "name_en": "CC Shop of Hangzhou Federation of Industry",
-        "area_id": 17,
-        "latitude": "30.253979",
-        "longitude": "120.164664",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "西溪印象城DP店",
-        "name_en": "Impression City DP Shop in Xixi",
-        "area_id": 17,
-        "latitude": "30.247427",
-        "longitude": "120.048719",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州国大广场热麦店",
-        "name_en": "Hot wheat shop in Hangzhou Guoda Plaza",
-        "area_id": 17,
-        "latitude": "30.269549",
-        "longitude": "120.162445",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州萧山银隆店",
-        "name_en": "Yinlong Shop, Xiaoshan, Hangzhou",
-        "area_id": 17,
-        "latitude": "30.170842",
-        "longitude": "120.268064",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      },
-      {
-        "name": "杭州临平银泰城店",
-        "name_en": "Yintai City Shop, Linping, Hangzhou",
-        "area_id": 17,
-        "latitude": "30.404601",
-        "longitude": "120.302932",
-        "time": "营业时间 10:00~22:00",
-        "address": "上海市上海市徐汇区南丹东路"
-      }
-    ],
-    "text": "杭州市",
-    "id": 17,
-    "children": [{
-        "value": "330102",
-        "label": "上城区",
-        "id": "330102",
-        "text": "上城区"
-      },
-      {
-        "value": "330103",
-        "label": "下城区",
-        "id": "330103",
-        "text": "下城区"
-      },
-      {
-        "value": "330104",
-        "label": "江干区",
-        "id": "330104",
-        "text": "江干区"
-      },
-      {
-        "value": "330105",
-        "label": "拱墅区",
-        "id": "330105",
-        "text": "拱墅区"
-      },
-      {
-        "value": "330106",
-        "label": "西湖区",
-        "id": "330106",
-        "text": "西湖区"
-      },
-      {
-        "value": "330108",
-        "label": "滨江区",
-        "id": "330108",
-        "text": "滨江区"
-      },
-      {
-        "value": "330109",
-        "label": "萧山区",
-        "id": "330109",
-        "text": "萧山区"
-      },
-      {
-        "value": "330110",
-        "label": "余杭区",
-        "id": "330110",
-        "text": "余杭区"
-      },
-      {
-        "value": "330122",
-        "label": "桐庐县",
-        "id": "330122",
-        "text": "桐庐县"
-      },
-      {
-        "value": "330127",
-        "label": "淳安县",
-        "id": "330127",
-        "text": "淳安县"
-      },
-      {
-        "value": "330182",
-        "label": "建德市",
-        "id": "330182",
-        "text": "建德市"
-      },
-      {
-        "value": "330183",
-        "label": "富阳市",
-        "id": "330183",
-        "text": "富阳市"
-      },
-      {
-        "value": "330185",
-        "label": "临安市",
-        "id": "330185",
-        "text": "临安市"
-      },
-      {
-        "value": "330186",
-        "label": "其它区",
-        "id": "330186",
-        "text": "其它区"
-      }
-    ]
-  }]
+  items: []
 };
 
 Page({
   data: Object.assign({
+    appData: app.data,
     userInfo: {},
     hasUserInfo: false,
     show: false,
@@ -326,7 +135,12 @@ Page({
     $page = this;
     $query = option;
     console.log('getQueryString', option);
-    dealData(this.data.markers, false);
+    this.setData({
+      appData: app.data,
+      currentLatitude: app.data.userCurrentDis.userCurrentLat,
+      currentLongitude: app.data.userCurrentDis.userCurrentLon,
+    });
+    this.getAllShop();
   },
   async onReady() {},
   async screenCurrentCity(arr) {
@@ -355,6 +169,20 @@ Page({
       await this.getStore(icom.storage('cityName'));
     }
   },
+  /**获取所有的店铺 */
+  getAllShop() {
+    icom.loading();
+    API.GetAllShops({
+      latitude: app.data.userCurrentDis.userCurrentLat,
+      longitude: app.data.userCurrentDis.userCurrentLon
+    }).then(res => {
+      icom.loadingHide();
+      if (res) {
+        // dealData(this.data.markers, false);
+      }
+    });
+  },
+
   searchClick(e) {
     this.setData({
       show: true
