@@ -3,15 +3,7 @@
   <scroll-view scroll-y class="orderInfoScroll">
     <view class="box">
       <!-- 门店信息 -->
-      <van-notice-bar
-          wx:if="{{checked}}"
-          custom-class="noticeBar"
-          mode="closeable"
-          color="#c8a77d"
-          backgroundColor="#fbf4ea"
-          scrollable="{{false}}"
-          text="疫情防控期减少接触，推荐订单备注「无接触配送」"
-        />
+      <van-notice-bar wx:if="{{checked}}" custom-class="noticeBar" mode="closeable" color="#c8a77d" backgroundColor="#fbf4ea" scrollable="{{false}}" text="疫情防控期减少接触，推荐订单备注「无接触配送」" />
       <view class="guide commonB">
         <view class="guideTop">
           <view class="guideTopLeft" wx:if="{{!checked}}" catchtap="goStoreList">
@@ -19,7 +11,9 @@
             <text class="iconCommon">></text>
           </view>
           <view class="guideTopLeft guideTakeout" wx:else catchtap="goReceiveAddress">
-            <text class="storeName" wx:if="{{userAdressInfo.username}}">{{userAdressInfo.address}}</text>
+            <text class="storeName" wx:if="{{userAdressInfo.username}}">
+              {{userAdressInfo.address}}
+            </text>
             <text class="storeName" wx:else>请选择门店</text>
             <text class="storeName">{{userAdressInfo.street}}</text>
           </view>
@@ -28,11 +22,14 @@
           </view>
         </view>
         <view class="distance" wx:if="{{!checked}}">
-          <text class="iconfont icon_star_empty"></text> {{userOrderinfo.commercialAddress}}
+          <text class="iconfont icon_star_empty"></text>
+          {{userOrderinfo.commercialAddress}}
           <text>{{userOrderinfo.commercialDesc}}</text>
         </view>
         <view class="distance overtext2" wx:else>
-          <text wx:if="{{userAdressInfo.username}}">{{userAdressInfo.username}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}}) </text>
+          <text wx:if="{{userAdressInfo.username}}">
+            {{userAdressInfo.username}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}})
+          </text>
           <text wx:else>配送门店已地址匹配为准</text>
           <text>{{userAdressInfo.mobile}}</text>
         </view>
@@ -50,10 +47,13 @@
       <!-- 取茶时间 -->
       <view class="getFoodTimeBox commonB">
         <view class="title commonTitle">取茶时间</view>
-        <view class="txt txt1" wx:if="{{userOrderinfo.userFoodType == 1}}">冰淇淋/鲜食等产品无需等待，可立即向店员领取</view>
+        <view class="txt txt1" wx:if="{{userOrderinfo.userFoodType == 1}}">
+          冰淇淋/鲜食等产品无需等待，可立即向店员领取
+        </view>
         <view class="txt txt2" wx:else>
           前面还有
-          <text class="txt1">{{userOrderinfo.userBeforeNum}}单/{{userOrderinfo.userAllNum}}杯</text>制作中，预计等待
+          <text class="txt1">{{userOrderinfo.userBeforeNum}}单/{{userOrderinfo.userAllNum}}杯</text>
+          制作中，预计等待
           <text class="txt1">{{userOrderinfo.needwaitTime}}</text>
           <view class="progressBox">
             <view class="progress" style="width:{{userOrderinfo.needwaitTimePrecent}}%"></view>
@@ -66,7 +66,7 @@
         <view class="listContent">
           <view class="left flexBox">
             <view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
-              <image class="img" src="{{item.imgUrl}}" mode="widthFix"></image>
+              <image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
             </view>
           </view>
           <view class="right" catchtap="showCardListClick">
@@ -94,7 +94,8 @@
             <text class="iconCommon">></text>
           </view>
         </view>
-        <view class="totalBox">共{{selectInfo.total}}件商品，小计
+        <view class="totalBox">
+          共{{selectInfo.total}}件商品，小计
           <text class="icon_money">￥{{selectInfo.totalPrice}}</text>
         </view>
       </view>
@@ -111,7 +112,8 @@
     </view>
   </scroll-view>
   <view class="orderMoneyBox">
-    <view class="totalBox">合计
+    <view class="totalBox">
+      合计
       <text class="icon_money">￥{{selectInfo.totalPrice}}</text>
     </view>
     <view class="btnPayment" catchtap="btnPaymentClick">支付</view>
@@ -128,26 +130,26 @@
       </view>
       <view class="scrollList">
         <scroll-view scroll-y class="popup_Scroll">
-            <view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
-              <view class="cardDetailListCardLeft">
-                <image class="img" src="{{item.imgUrl}}" mode="widthFix"></image>
+          <view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
+            <view class="cardDetailListCardLeft">
+              <image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
+            </view>
+            <view class="cardDetailListCardRight">
+              <view class="left">
+                <view>{{item.foodTitle}}</view>
+                <view>{{item.selectText}}</view>
               </view>
-              <view class="cardDetailListCardRight">
-                <view class="left">
-                  <view>{{item.name}}</view>
-                  <view>{{item.unit}}</view>
-                </view>
-                <view class="right">
-                  <text>￥{{item.price}}</text>
-                  <view></view>
-                  <text>数量: {{item.num}}</text>
-                </view>
+              <view class="right">
+                <text>￥{{item.price}}</text>
+                <view></view>
+                <text>数量: {{item.buyNum}}</text>
               </view>
             </view>
+          </view>
         </scroll-view>
       </view>
     </view>
   </van-popup>
 </view>
-<!----article end----->
-<van-toast id="van-toast"/>
+<!-- --article end--- -->
+<van-toast id="van-toast" />

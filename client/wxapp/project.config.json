@@ -81,6 +81,13 @@
 					"id": -1,
 					"name": "选择门店",
 					"pathName": "pages/shops/shops",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/orderSettle/orderSettle",
+					"pathName": "pages/orderSettle/orderSettle",
 					"scene": null
 				}
 			]
