@@ -66,7 +66,11 @@ Component({
 
   pageLifetimes: {
     // 组件所在页面的生命周期函数
-    show: function () {},
+    show: function () {
+      setTimeout(() => {
+        this.updateData();
+    }, 200)
+    },
     hide: function () {},
     resize: function () {},
   },
@@ -105,8 +109,8 @@ Component({
       app.data.coordinate.latitude = _info.latitude;
       app.data.coordinate.longitude = _info.longitude;
       app.data.ShopInfo = _info;
-      icom.storage("ssoShopCateId", _info.shopCateId);
-      icom.storage("ssoShopId", _info.shopId);
+      // icom.storage("ssoShopCateId", _info.shopCateId);
+      // icom.storage("ssoShopId", _info.shopId);
       console.log("_info=================", _info);
       this.setData({
         shopInfo: _info,

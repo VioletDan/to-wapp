@@ -38,7 +38,7 @@ class API {
     });
     console.log('APIname:=========' + method, res.data)
     if (!res.data.data || !res.data) {
-      icom.sign(res.data.msg|| '网络异常了');
+      icom.sign(res.data.msg || '网络异常了');
       return null;
     } else {
       return res.data;
@@ -64,7 +64,7 @@ class API {
   async GetShopInfo(data) {
     return this._send('/api/v1/shop/info', data, 'GET');
   }
-  
+
   // 店铺分类和商品
   async GetShopMenuList(data) {
     return this._send('/api/v1/shopfoods', data, 'GET');
@@ -87,12 +87,12 @@ class API {
 
   // 删除用户的地址
   async DeletUserAdress(data) {
-    return this._send('/address/del/'+ data.id +'', null, 'DELETE');
+    return this._send('/address/del/' + data.id + '', null, 'DELETE');
   }
 
   // 获取用户的地址详情
   async GetUserAdressItem(data) {
-    return this._send('/address/get/'+ data.id +'', null, 'GET');
+    return this._send('/address/get/' + data.id + '', null, 'GET');
   }
 
   // 预下单
@@ -104,6 +104,19 @@ class API {
   async payOrder(data) {
     return this._send('/wechatPay/pay', data, 'POST');
   }
+
+  // 获取用户的订单列表
+  async getOrderList(data) {
+    return this._send('/api/v1/orders/list', data, 'GET');
+  }
+
+  // 支付
+  async getOrderListDetail(data) {
+    return this._send('/api/v1/orders/' + data.orderId + '', null, 'GET');
+  }
+
+
+
 }
 
 

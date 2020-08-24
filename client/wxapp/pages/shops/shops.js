@@ -14,113 +14,15 @@ let PageData = {
   appData: app.data, //拿到全局的数据
   cityName: '上海徐汇区',
   hasLocation: false,
-  currentLatitude: 31.18826,
-  currentLongitude: 121.43687,
+  currentLatitude: '',
+  currentLongitude: '',
   scale: 14,
-  markers: [{
-      "name": "来福士茶空间店",
-      "name_en": "Raffles Tea Space Store",
-      "area_id": 17,
-      "latitude": "30.248485",
-      "longitude": "120.213354",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "湖滨银泰黑金店",
-      "name_en": "Hubin Yintai Black Gold Shop",
-      "area_id": 17,
-      "latitude": "30.252900",
-      "longitude": "120.162850",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州万象城店",
-      "name_en": "Wanxiang City Shop, Hangzhou",
-      "area_id": 17,
-      "latitude": "30.253060",
-      "longitude": "120.215070",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "星光大道茶空间店",
-      "name_en": "Starlight Avenue Tea Space Shop",
-      "area_id": 17,
-      "latitude": "30.20746",
-      "longitude": "120.20947",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州城西银泰城店",
-      "name_en": "Hangzhou City West Yintai City Shop",
-      "area_id": 17,
-      "latitude": "30.299943",
-      "longitude": "120.106603",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州金沙天街茶空间店",
-      "name_en": "Hangzhou Jinsha Tianjie Tea Space Shop",
-      "area_id": 17,
-      "latitude": "30.309944",
-      "longitude": "120.326198",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州工联CC店",
-      "name_en": "CC Shop of Hangzhou Federation of Industry",
-      "area_id": 17,
-      "latitude": "30.253979",
-      "longitude": "120.164664",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "西溪印象城DP店",
-      "name_en": "Impression City DP Shop in Xixi",
-      "area_id": 17,
-      "latitude": "30.247427",
-      "longitude": "120.048719",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州国大广场热麦店",
-      "name_en": "Hot wheat shop in Hangzhou Guoda Plaza",
-      "area_id": 17,
-      "latitude": "30.269549",
-      "longitude": "120.162445",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州萧山银隆店",
-      "name_en": "Yinlong Shop, Xiaoshan, Hangzhou",
-      "area_id": 17,
-      "latitude": "30.170842",
-      "longitude": "120.268064",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    },
-    {
-      "name": "杭州临平银泰城店",
-      "name_en": "Yintai City Shop, Linping, Hangzhou",
-      "area_id": 17,
-      "latitude": "30.404601",
-      "longitude": "120.302932",
-      "time": "营业时间 10:00~22:00",
-      "address": "上海市上海市徐汇区南丹东路"
-    }
-  ],
-  centerLatitude: 31.192660, //中心纬度
-  centerLongitude: 121.439361, //中心经度
+  markers: [],
+  centerLatitude: '', //中心纬度
+  centerLongitude: '', //中心经度
   resultArr: [], //搜索结果
-  items: []
+  items: [],
+  collectData:[],//常用收藏
 };
 
 Page({
@@ -178,7 +80,10 @@ Page({
     }).then(res => {
       icom.loadingHide();
       if (res) {
-        // dealData(this.data.markers, false);
+        this.setData({
+          markers:res.data
+        })
+        dealData(this.data.markers, false);
       }
     });
   },
@@ -230,19 +135,30 @@ Page({
     // wx.navigateTo({
     //   url: `/pages/storeInfo/storeInfo?id=${e.currentTarget.id}`,
     // })
-    let currentID = e.currentTarget.id
-    this.data.markers.map((v, index) => {
-      if (v.id == currentID) {
-        const latitude = Number(v.latitude)
-        const longitude = Number(v.longitude)
-        wx.openLocation({
-          latitude,
-          longitude,
-          scale: 18
-        })
-      }
-    })
-    icom.storage('isStore', 2)
+    let currentID = e.currentTarget.id;
+    let {item} = e.currentTarget.dataset;
+    console.log(item);
+    //跳转到当前选择的店铺
+    app.data.userCurrentDis.userCurrentLat = item.atitude;
+    app.data.userCurrentDis.userCurrentLon = item.longitude;
+    icom.storage('ssoShopCateId',item.shopCateId);
+    icom.storage('ssoShopId',item.shopId);
+    wx.navigateBack({
+      delta: 0,
+    });
+
+    // this.data.markers.map((v, index) => {
+    //   if (v.id == currentID) {
+    //     const latitude = Number(v.latitude)
+    //     const longitude = Number(v.longitude)
+    //     wx.openLocation({
+    //       latitude,
+    //       longitude,
+    //       scale: 18
+    //     })
+    //   }
+    // })
+    // icom.storage('isStore', 2)
   }
 }) //end page
 
@@ -284,7 +200,7 @@ function dealData(data, search, name) {
     v.width = 20
     v.height = 20
     v.callout = {
-      content: v.name + ' >',
+      content: v.shopname + ' >',
       borderWidth: 4,
       borderColor: '#fff',
       bgColor: "#fff",
@@ -292,7 +208,7 @@ function dealData(data, search, name) {
       borderRadius: 5,
       display: 'BYCLICK'
     }
-    if (name && name == v.name) {
+    if (name && name == v.shopname) {
       currentIndex = index + 1
     }
   })

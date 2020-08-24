@@ -10,8 +10,9 @@ const {
   promisify,
   Router,
 } = app;
-//测试
-var _cardList = icom.storage("cardList") || [];
+let pageSize = 10;
+let page = 1;
+let isGet = true;
 Component({
   /**
    * 组件的属性列表
@@ -24,53 +25,8 @@ Component({
   data: {
     cumulativeIntegral: 1,
     active: 0,
-    currentList: [
-      {
-        orderType: 1, //1自取 2外卖
-        proList: _cardList,
-        oderStatus: 1, //1制作中 2已完成 3 已送达 4已取消
-        orderNumber: "021023202005272003204560", //订单编号
-        orderTime: "2020-05-27 20:03:20", //下单时间
-        storeName: "徐汇区日月光1号",
-        totalPrize: 180,
-      },
-      {
-        orderType: 2, //1自取 2外卖
-        proList: _cardList,
-        oderStatus: 2, //1制作中 2已完成 3 已送达 4已取消
-        orderNumber: "021023202005272003204560", //订单编号
-        orderTime: "2020-05-27 20:03:20", //下单时间
-        storeName: "徐汇区日月光2号",
-        totalPrize: 123,
-      },
-      {
-        orderType: 1, //1自取 2外卖
-        proList: _cardList,
-        oderStatus: 3, //1制作中 2已完成 3 已送达 4已取消
-        orderNumber: "021023202005272003204560", //订单编号
-        orderTime: "2020-05-27 20:03:20", //下单时间
-        storeName: "徐汇区日月光3号",
-        totalPrize: 130,
-      },
-      {
-        orderType: 2, //1自取 2外卖
-        proList: _cardList,
-        oderStatus: 4, //1制作中 2已完成 3 已送达 4已取消
-        orderNumber: "021023202005272003204560", //订单编号
-        orderTime: "2020-05-27 20:03:20", //下单时间
-        storeName: "徐汇区日月光4号",
-        totalPrize: 80,
-      },
-      {
-        orderType: 2, //1自取 2外卖
-        proList: _cardList,
-        oderStatus: 1, //1制作中 2已完成 3 已送达 4已取消
-        orderNumber: "021023202005272003204560", //订单编号
-        orderTime: "2020-05-27 20:03:20", //下单时间
-        storeName: "徐汇区日月光4号",
-        totalPrize: 80,
-      },
-    ], //当前订单
+    scrollTop: 0,
+    currentList: [], //当前订单
     historyList: [], //历史订单
   },
 
@@ -104,15 +60,79 @@ Component({
     },
 
     //========== Private ===========
-    initData() {},
+    initData() {
+      page = 1;
+      isGet = true;
+      this.setData({
+        active: 0,
+        scrollTop: 0,
+        currentList: [],
+        historyList: []
+      });
+      this.getOrderList(0);
+    },
     onChange(event) {
+      isGet = true;
+      page = 1;
       this.setData({
         active: event.detail.name,
+        scrollTop: 0,
+        currentList: [],
+        historyList: []
       });
-      // wx.showToast({
-      //   title: `切换到标签 ${event.detail.name}`,
-      //   icon: 'none',
-      // });
+      this.getOrderList(this.data.active)
     },
+
+    async getOrderList(active) {
+      if (active == 1) {
+        return
+      }
+      icom.loading();
+      let res = await API.getOrderList({
+        size: pageSize,
+        current: page
+      });
+      let currentList = this.data.currentList;
+      icom.loadingHide();
+      if (res.data.records.length === 0) {
+        wx.showToast({
+          title: '没有更多数据',
+          icon: 'none'
+        })
+        isGet = false;
+      } else {
+        res.data.records.forEach((item, index) => {
+          currentList.push(item);
+        });
+        this.setData({
+          currentList: currentList
+        })
+        console.log(this.data.currentList);
+        icom.fadeList(this, 'currentList', currentList, '.scrollView', '.li');
+      }
+    },
+    /**拉到底部加载更多 */
+    scrolltolower(e) {
+      if (isGet && this.data.active == 0) {
+        page++
+        this.getOrderList(this.data.active);
+      }
+    },
+    //再来一单
+    btnOrderAgain() {
+      Router.toHome();
+    },
+    //查看订单详情
+    checkDetailClick(e) {
+      let {
+        item
+      } = e.currentTarget.dataset;
+      console.log(item);
+      app.data.userCurrentOrderDetail = item;
+      wx.navigateTo({
+        url: '/pages/orderSettleDetail/orderSettleDetail?orderId='+ item.orderId,
+      })
+
+    }
   },
 });
