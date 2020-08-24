@@ -78,6 +78,7 @@ Page({
       this.setData({
         userAdressInfo: app.data.userAdressInfo,
       });
+      this.initCar();
       console.log(app.data.userAdressInfo);
     }
   },
@@ -109,10 +110,25 @@ Page({
     const totalPrice = this.data.cardList.reduce((num, item) => {
       return (num += item.buyNum * item.price);
     }, 0);
+    let boxCost = 0;
+    if(app.data.ShopInfo.boxType == 1) {
+      boxCost = app.data.ShopInfo.boxCost;
+    }else {
+      boxCost = this.data.cardList.reduce((num, item) => {
+        return (num += item.buyNum * item.packageFee);
+      }, 0);
+    }
+
+    let sendCost = this.data.checked ? app.data.ShopInfo.sendCost : 0;
+
+    let allPrice = totalPrice + boxCost + sendCost;
     this.setData({
       selectInfo: {
         total,
         totalPrice,
+        boxCost,
+        sendCost,
+        allPrice
       },
       "userOrderinfo.commercialName": app.data.shopInfo.commercialName, // 设置门店信息
       "userOrderinfo.commercialDesc": app.data.shopInfo.commercialDesc,
@@ -153,61 +169,82 @@ Page({
       });
     }
   },
+  /**
+   * 餐盒费:餐盒费有两种，一种固定的，一种是根据餐品来，
+      boxType：
+      1:订单收费,如果按订单收费价格为：boxCost字段，固定的费用
+      2:商品收费，根据商品属性里的packageFee字段相加得到的费用，每增加一份就要加一个对应属性的餐盒费
+      2.配送费:店铺信息里的配送费字段sendCost
+      3.商品费:（商品属性里的realPerPrice*数量）有多个就要相加
+      4.总价=商品费+配送费+餐盒费
+   */
   //支付
   btnPaymentClick() {
     // icom.alert('敬请期待');
     icom.loading();
 
-    const { totalPrice } = this.data.selectInfo;
+    const { totalPrice,boxCost,sendCost,allPrice } = this.data.selectInfo;
 
     //预下单
     var obj = {
       orderDto: {
         sendType: this.data.checked ? 2 : 1, // 配送类型，1自提，2配送
-        boxCost: 0, // 餐盒费，（如果按订单收费就是店铺信息里固定的费餐盒费，如果按商品收费就要取每个商品属性里的餐盒费相加）
-        sendCost: 0, // 配送费，自提没有，配送有，
-        totalMoney: totalPrice, // 总费用，最下面有介绍，看下面
+        boxCost: boxCost, // 餐盒费，（如果按订单收费就是店铺信息里固定的费餐盒费，如果按商品收费就要取每个商品属性里的餐盒费相加）
+        sendCost: sendCost, // 配送费，自提没有，配送有，
+        totalMoney: allPrice, // 总费用，最下面有介绍，看下面
         discountMoney: 0, // 折扣费用，暂无
-        payMoney: totalPrice, // 支付的费用
+        payMoney: allPrice, // 支付的费用
         payWay: 1, // 支付方式，目前为1是微信支付
         remark: "加点孜然(假的测试备注)，谢谢！", // 备注
         tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
       },
       orderFoodDtoList: this.data.cardList,
-      userAddressId: app.data.userAdressInfo ? app.data.userAdressInfo.id : "", // 如果是配送的此值为用户填写的地址id，配送必填
-      // orderFoodDtoList: [
-      //   {
-      //     foodId: 1, // 食物id
-      //     foodSpecsId: 1, // 食物属性id
-      //     foodProperties: "不辣-正常香菜-不放蒜-正常炸", // 商品选择的参数用-拼接起来即可，这个不计入费用，只展示
-      //     buyNum: 1, // 购买的数量
-      //   },
-      //   {
-      //     foodId: 3,
-      //     foodSpecsId: 4,
-      //     foodProperties: "",
-      //     buyNum: 1,
-      //   },
-      // ],
+      userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填
     };
+    console.log('预下单=======',obj)
     API.preOrder(obj).then((res) => {
       icom.loadingHide();
       if (res) {
         console.log("res", res);
-        // app.data.perOrder = true;
-        // wx.removeStorageSync("cardList");
-        // wx.redirectTo({
-        //   url: "/pages/orderSettleDetail/orderSettleDetail",
-        // });
-
+        app.data.preOrderObj = res.data;
         API.payOrder(res.data.order).then((res) => {
           icom.loadingHide();
           if (res) {
-            app.data.perOrder = true;
-            wx.removeStorageSync("cardList");
-            wx.redirectTo({
-              url: "/pages/orderSettleDetail/orderSettleDetail",
-            });
+            // app.data.perOrder = true;
+            // wx.removeStorageSync("cardList");
+            // wx.redirectTo({
+            //   url: "/pages/orderSettleDetail/orderSettleDetail",
+            // });
+            //==========调起支付接口
+            var timeStamp = res.data.timeStamp;
+            var nonceStr = res.data.nonceStr;
+            var package_id = res.data.package;
+            var signType = res.data.signType;
+            var paySign = res.data.paySign;
+            wx.requestPayment({
+              'timeStamp': timeStamp,
+              'nonceStr': nonceStr,
+              'package': package_id,
+              'signType': signType,
+              'paySign': paySign,
+              'success': function (res) {
+                console.log("支付成功");
+                app.data.payOrder = true;
+                wx.removeStorageSync("cardList");
+                wx.redirectTo({
+                  url: "/pages/orderSettleDetail/orderSettleDetail",
+                });
+              },
+              'fail': function (res) {
+                console.log("支付失败");
+                icom.alert('支付失败');
+                wx.removeStorageSync("cardList");
+                app.data.payOrder = false;
+                wx.redirectTo({
+                  url: "/pages/orderSettleDetail/orderSettleDetail",
+                });
+              }
+            })
           }
         });
       }

@@ -21,17 +21,22 @@ Page({
        remarksTxt: '无'
     },
     cardList: [],
+    preOrderObj:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var _cardList = icom.storage('cardList') ? JSON.parse(icom.storage('cardList')) : [];
+    var _cardList = app.data.preOrderObj.orderFood;
+    console.log('preOrderObj========',app.data.preOrderObj);
+    console.log('_cardList=======',_cardList);
     this.setData({
       'userOrderinfo.needwaitTimePrecent': parseInt(this.data.userOrderinfo.userBeforeNum / this.data.userOrderinfo.userAllNum * 100),
+      'userOrderinfo.remarksTxt': app.data.preOrderObj.order.remark,
       cardList: _cardList,
-      appData: app.data
+      appData: app.data,
+      preOrderObj:app.data.preOrderObj ? app.data.preOrderObj : {}
     });
     this.initCar();
   },
@@ -68,19 +73,36 @@ Page({
   /**初始化结算页数据 */
   initCar() {
     const total = this.data.cardList.reduce((num, item) => {
-      return num += item.num
-    }, 0)
+      return (num += item.buyNum);
+    }, 0);
     const totalPrice = this.data.cardList.reduce((num, item) => {
-      return num += item.num * item.price
-    }, 0)
+      item.price = item.realPerPrice;
+      return (num += item.buyNum * item.price);
+    }, 0);
+    let boxCost = 0;
+    if(app.data.ShopInfo.boxType == 1) {
+      boxCost = app.data.ShopInfo.boxCost;
+    }else {
+      boxCost = this.data.cardList.reduce((num, item) => {
+        return (num += item.buyNum * item.packageFee);
+      }, 0);
+    }
+
+    let sendCost = this.data.checked ? app.data.ShopInfo.sendCost : 0;
+
+    let allPrice = app.data.preOrderObj.order.totalMoney;
+
     this.setData({
       selectInfo: {
         total,
         totalPrice,
+        boxCost,
+        sendCost,
+        allPrice
       },
-      'userOrderinfo.commercialName': app.data.shopInfo.commercialName, // 设置门店信息
-      'userOrderinfo.commercialDesc': app.data.shopInfo.commercialDesc,
-      'userOrderinfo.commercialAddress': app.data.shopInfo.commercialAddress,
+      "userOrderinfo.commercialName": app.data.shopInfo.commercialName, // 设置门店信息
+      "userOrderinfo.commercialDesc": app.data.shopInfo.commercialDesc,
+      "userOrderinfo.commercialAddress": app.data.shopInfo.commercialAddress,
     });
   },
   //展示商品

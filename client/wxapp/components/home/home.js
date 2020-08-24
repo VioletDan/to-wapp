@@ -79,6 +79,7 @@ Component({
     updateData() {
       //这里是外部调用的方法 如果要刷新数据的话在这里执行
       console.log("home udpate");
+      this.initData();
     },
 
     //========== Private ===========
@@ -631,6 +632,7 @@ Component({
         buyNum: 1,
         foodId: obj.specs[0].foodId,
         foodSpecsId: obj.specs[0].foodSpecsId,
+        packageFee:obj.specs[0].packageFee
       };
 
       obj.propertiesDto.forEach((properties) => {

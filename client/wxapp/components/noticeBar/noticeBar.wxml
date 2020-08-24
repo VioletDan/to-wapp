@@ -1,0 +1,5 @@
+<!--components/noticeBar/noticeBar.wxml-->
+<view class="noticeBar" wx:if="{{isBar}}">
+	{{text}}
+  <view class="colse" catchtap="closeBar">x</view>
+</view>

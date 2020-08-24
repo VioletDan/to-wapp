@@ -3,7 +3,7 @@
   <scroll-view scroll-y class="orderInfoScroll">
     <view class="box">
       <!-- 门店信息 -->
-      <van-notice-bar wx:if="{{checked}}" custom-class="noticeBar" mode="closeable" color="#c8a77d" backgroundColor="#fbf4ea" scrollable="{{false}}" text="疫情防控期减少接触，推荐订单备注「无接触配送」" />
+      <noticeBar wx:if="{{checked}}" isBar="{{checked}}" text="疫情防控期减少接触，推荐订单备注「无接触配送」" />
       <view class="guide commonB">
         <view class="guideTop">
           <view class="guideTopLeft" wx:if="{{!checked}}" catchtap="goStoreList">
@@ -26,7 +26,7 @@
           {{userOrderinfo.commercialAddress}}
           <text>{{userOrderinfo.commercialDesc}}</text>
         </view>
-        <view class="distance overtext2" wx:else>
+        <view class="distance" wx:else>
           <text wx:if="{{userAdressInfo.username}}">
             {{userAdressInfo.username}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}})
           </text>
@@ -114,7 +114,7 @@
   <view class="orderMoneyBox">
     <view class="totalBox">
       合计
-      <text class="icon_money">￥{{selectInfo.totalPrice}}</text>
+      <text class="icon_money">￥{{selectInfo.allPrice}}</text>
     </view>
     <view class="btnPayment" catchtap="btnPaymentClick">支付</view>
   </view>

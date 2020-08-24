@@ -105,13 +105,15 @@ Page({
     })
   },
   selectAddress(e) {
-    const { id, location, title} = e.currentTarget.dataset.item;
+    const { id, location, title,address,category} = e.currentTarget.dataset.item;
     const markers = [{
       ...this.data.markers[0],
       latitude: location.lat,
       longitude: location.lng,
       id,
-      title
+      title,
+      address,
+      category
     }]
 
     this.setData({
@@ -142,29 +144,31 @@ Page({
     })
   },
   selectNearByAddress(e) {
-    const { id, location, title} = e.currentTarget.dataset.item;
+    const { id, location, title,address,category} = e.currentTarget.dataset.item;
     const markers = [{
       ...this.data.markers[0],
       latitude: location.lat,
       longitude: location.lng,
       id,
-      title
+      title,
+      address,
+      category
     }]
 
-    this.getAddressApi(markers[0])
+    // this.getAddressApi(markers[0])
 
     this.setData({
       markers,
       showSearch: false
-    })
+    });
+
+    this.btnSure();
   },
   /**确定 */
   btnSure(){
     app.data.addressListTitle = this.data.markers[0].title;
-    app.data.addressListTitleLoc = {
-      latitude:this.data.markers[0].latitude,
-      longitude:this.data.markers[0].longitude
-    };
+    app.data.addressListTitleLocObj = this.data.markers[0];
+    console.log('addressListTitleLocObj======',app.data.addressListTitleLocObj);
     wx.navigateBack({})
   }
 })

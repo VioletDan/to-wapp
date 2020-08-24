@@ -19,6 +19,7 @@
     "auth": "/components/auth/auth",
     "login": "/components/login/login",
     "switchWithText": "/components/switchWithText/switchWithText",
+    "noticeBar":"/components/noticeBar/noticeBar",
     "van-calendar": "/miniprogram/@vant/weapp/dist/calendar/index",
     "van-icon": "/miniprogram/@vant/weapp/dist/icon/index",
     "van-field": "/miniprogram/@vant/weapp/dist/field/index",

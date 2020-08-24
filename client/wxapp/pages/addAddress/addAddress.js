@@ -19,7 +19,8 @@ Page({
       address: '',
       adressHouseNum: '',
       defaultAddress: 1, //1未选中 2 选中
-      isDefault: false
+      isDefault: false,
+      addressName:''
     }
   },
 
@@ -66,7 +67,10 @@ Page({
   onShow: function () {
     if (app.data.addressListTitle) {
       this.setData({
-        'form.address': app.data.addressListTitle,
+        'form.address': app.data.addressListTitleLocObj.address,
+        'form.addressName':app.data.addressListTitleLocObj.title,
+        'form.latitude':app.data.addressListTitleLocObj.latitude,
+        'form.longitude':app.data.addressListTitleLocObj.longitude,
         appData: app.data
       });
     }
@@ -174,8 +178,9 @@ Page({
           "address": this.data.form.address,
           "street": this.data.form.adressHouseNum,
           "isDefault": this.data.form.isDefault,
-          "latitude": this.data.formlatitude,
-          "longitude": this.data.formlongitude
+          "latitude": this.data.form.latitude,
+          "longitude": this.data.form.longitude,
+          "addressName":this.data.form.addressName,
         }).then(res => {
           if (res) {
             icom.loadingHide();
@@ -190,11 +195,12 @@ Page({
           "username": this.data.form.name,
           "gender": this.data.form.gender,
           "mobile": this.data.form.phone,
-          "address": this.data.form.address,
+          "address": app.data.addressListTitleLocObj.address,
           "street": this.data.form.adressHouseNum,
           "isDefault": this.data.form.isDefault,
-          "latitude": app.data.addressListTitleLoc.latitude,
-          "longitude": app.data.addressListTitleLoc.longitude
+          "latitude": app.data.addressListTitleLocObj.latitude,
+          "longitude": app.data.addressListTitleLocObj.longitude,
+          "addressName":app.data.addressListTitleLocObj.title,
         }).then(res => {
           if (res) {
             icom.loadingHide();

@@ -39,7 +39,7 @@
 
 		<view class="address" bindtap="selectAddress">
 			<text>收货地址</text>
-			<text class="{{!form.address && 'empty'}} overtext1">{{form.address ? form.address : '点击选择'}}</text>
+			<text class="{{!form.address && 'empty'}} overtext1">{{form.addressName ? form.addressName : '点击选择'}}</text>
 			<text class="iconfont icon-arrow-down" />
 
     </view>
