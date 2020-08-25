@@ -1,5 +1,10 @@
 const app = getApp();
-const { API, utils, icom, Toast } = app;
+const {
+  API,
+  utils,
+  icom,
+  Toast
+} = app;
 Page({
   /**
    * 页面的初始数据
@@ -69,14 +74,16 @@ Page({
     });
   },
   onClose(event) {
-    const { position, instance } = event.detail;
+    const {
+      position,
+      instance
+    } = event.detail;
     console.log(event);
     let index = Number(event.currentTarget.dataset.index);
     console.log(event);
     switch (position) {
       case "right":
-        icom.dilaog(
-          {
+        icom.dilaog({
             title: "确定删除吗？",
           },
           (res) => {
@@ -119,10 +126,18 @@ Page({
   selectItemClick(e) {
     // console.log(e.currentTarget.dataset.index);
     var index = e.currentTarget.dataset.index;
-    app.data.userAdressInfo = this.data.addressList[index];
-    app.data.userCurrentDis.userCurrentLat = this.data.addressList[index].latitude;
-    app.data.userCurrentDis.userCurrentLon = this.data.addressList[index].longitude;
-    wx.navigateBack({});
+    //监测是否支持配送
+    app.checkdistance({
+      latitude: this.data.addressList[index].latitude,
+      longitude: this.data.addressList[index].longitude
+    }, (res) => {
+      if (res) {
+        app.data.userAdressInfo = this.data.addressList[index];
+        app.data.userCurrentDis.userCurrentLat = this.data.addressList[index].latitude;
+        app.data.userCurrentDis.userCurrentLon = this.data.addressList[index].longitude;
+        wx.navigateBack({});
+      }
+    });
   },
   //编辑地址
   editorClick(e) {

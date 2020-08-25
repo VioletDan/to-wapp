@@ -1,12 +1,20 @@
 const app = getApp();
-const { beats, iuser, icom, utils, Toast, API } = app;
+const {
+  beats,
+  iuser,
+  icom,
+  utils,
+  Toast,
+  API
+} = app;
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     show: false,
-    checked: false, // 配送类型 1自提，2配送
+    checked: app.data.checked, // 配送类型 1自提，2配送
+    isOrderBox: true,
     userOrderinfo: {
       // 门店名称
       commercialName: "定位中。。。",
@@ -59,12 +67,14 @@ Page({
       "userOrderinfo.needwaitTimePrecent": parseInt(
         (this.data.userOrderinfo.userBeforeNum /
           this.data.userOrderinfo.userAllNum) *
-          100
+        100
       ),
       cardList: _cardList,
       appData: app.data,
+      checked: app.data.checked
     });
     this.initCar();
+    if (app.data.userAdressInfo && this.data.checked) this.checkdistance();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -77,8 +87,10 @@ Page({
     if (app.data.userAdressInfo && this.data.checked) {
       this.setData({
         userAdressInfo: app.data.userAdressInfo,
+        checked: app.data.checked
       });
       this.initCar();
+      this.checkdistance();
       console.log(app.data.userAdressInfo);
     }
   },
@@ -111,9 +123,9 @@ Page({
       return (num += item.buyNum * item.price);
     }, 0);
     let boxCost = 0;
-    if(app.data.ShopInfo.boxType == 1) {
+    if (app.data.ShopInfo.boxType == 1) {
       boxCost = app.data.ShopInfo.boxCost;
-    }else {
+    } else {
       boxCost = this.data.cardList.reduce((num, item) => {
         return (num += item.buyNum * item.packageFee);
       }, 0);
@@ -139,6 +151,7 @@ Page({
   },
   // switch
   changeChecked(e) {
+    app.data.checked = e.detail
     this.setData({
       checked: e.detail,
     });
@@ -181,9 +194,18 @@ Page({
   //支付
   btnPaymentClick() {
     // icom.alert('敬请期待');
+    if (!app.data.userAdressInfo && this.data.checked){
+      icom.alert('请选择地址');
+      return;
+    }
     icom.loading();
 
-    const { totalPrice,boxCost,sendCost,allPrice } = this.data.selectInfo;
+    const {
+      totalPrice,
+      boxCost,
+      sendCost,
+      allPrice
+    } = this.data.selectInfo;
 
     //预下单
     var obj = {
@@ -201,7 +223,7 @@ Page({
       orderFoodDtoList: this.data.cardList,
       userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填
     };
-    console.log('预下单=======',obj)
+    console.log('预下单=======', obj)
     API.preOrder(obj).then((res) => {
       icom.loadingHide();
       if (res) {
@@ -231,7 +253,7 @@ Page({
                 console.log("支付成功");
                 wx.removeStorageSync("cardList");
                 wx.redirectTo({
-                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId='+ app.data.preOrderObj.order.orderId,
+                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
                 });
               },
               'fail': function (res) {
@@ -239,7 +261,7 @@ Page({
                 icom.alert('支付失败');
                 wx.removeStorageSync("cardList");
                 wx.redirectTo({
-                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId='+ app.data.preOrderObj.order.orderId,
+                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
                 });
               }
             })
@@ -259,4 +281,22 @@ Page({
       show: false,
     });
   },
+  /**监测是否支持配送 */
+  checkdistance() {
+    app.checkdistance({
+      latitude: app.data.userCurrentDis.userCurrentLat,
+      longitude: app.data.userCurrentDis.userCurrentLon
+    }, (res) => {
+      console.log(res)
+      if (res) {
+        this.setData({
+          isOrderBox: true
+        })
+      } else {
+        this.setData({
+          isOrderBox: false
+        });
+      }
+    });
+  }
 });

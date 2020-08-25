@@ -37,8 +37,8 @@ class API {
       dataType: "json"
     });
     console.log('APIname:=========' + method, res.data)
-    if (!res.data.data || !res.data) {
-      icom.sign(res.data.msg || '网络异常了');
+    if (res.data.code != 200) {
+      icom.alert(res.data.msg || '网络异常了');
       return null;
     } else {
       return res.data;
@@ -115,7 +115,10 @@ class API {
     return this._send('/api/v1/orders/' + data.orderId + '', null, 'GET');
   }
 
-
+  // 检测是否支持配送
+  async checkdistance(data) {
+    return this._send('/api/v1/checkdistance', data, 'GET');
+  }
 
 }
 

@@ -60,5 +60,4 @@
        screen and (width:414px) and (min-height:808px) {
   .cssMedia {
   }
-  .listBox .listBoxscroll{height: 800px;}
 }

@@ -118,8 +118,8 @@ Page({
       var _cardList = res.data.orderFoodList;
       if (res.data.orderProcessList.length == 0) {
         res.data.orderProcessList = [{
-          text:'',
-          desc:'暂无信息'
+          text: '',
+          desc: '暂无信息'
         }]
       } else {
         res.data.orderProcessList.reverse().map((v, index) => {
@@ -149,5 +149,39 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone //仅为示例，并非真实的电话号码
     })
-  }
+  },
+
+  //支付
+  btnPaymentClick() {
+    API.payOrder({
+      'orderId': this.data.userOrderinfo.orderId,
+      'orderNo': this.data.userOrderinfo.orderNo
+    }).then((res) => {
+      icom.loadingHide();
+      if (res) {
+        //==========调起支付接口
+        var timeStamp = res.data.timeStamp;
+        var nonceStr = res.data.nonceStr;
+        var package_id = res.data.package;
+        var signType = res.data.signType;
+        var paySign = res.data.paySign;
+        wx.requestPayment({
+          'timeStamp': timeStamp,
+          'nonceStr': nonceStr,
+          'package': package_id,
+          'signType': signType,
+          'paySign': paySign,
+          'success': function (res) {
+            console.log("支付成功");
+            this.getOrdersDetail(this.data.userOrderinfo.orderId);
+          },
+          'fail': function (res) {
+            console.log("支付失败");
+            icom.alert('支付失败');
+            this.getOrdersDetail(this.data.userOrderinfo.orderId);
+          }
+        })
+      }
+    });
+  },
 })

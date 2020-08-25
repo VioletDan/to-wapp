@@ -1,0 +1,13 @@
+<template name="closingTime">
+	<view class="commonDiolag closingTime {{!shopInfo.isBusState ? 'modal_showDiolg' : ''}}">
+		<view class="bottomBox">
+			<image class="logo" src='/images/common/logo.png'></image>
+			<view class="txt txt1 fadeIn2">
+				{{shopInfo.busState == 0 ? '本店已暂停营业' : '本店已休息'}}
+			</view>
+			<view class="txt txt2 fadeIn2" wx:if="{{shopInfo.busState == 1}}">
+				本店营业时间：每日{{shopInfo.beginTime}}——{{shopInfo.endTime}}
+			</view>
+		</view>
+	</view>
+</template>

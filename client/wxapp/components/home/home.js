@@ -25,6 +25,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    closingTimeDiolag:false,//店铺是否打烊
     cumulativeIntegral: 1,
     // 门店列表
     shopList: [],
@@ -44,7 +45,7 @@ Component({
     activeId: "",
     scrollId: "",
     scrollTopList: [],
-    checked: false,
+    checked: app.data.checked,
     showMore: false,
     cardMaskShow: false,
     detailBtnTxt: "更多",
@@ -54,6 +55,7 @@ Component({
     modelData: {},
     current: 0,
     carSelectConfig: {},
+    shopInfo:{}
   },
 
   lifetimes: {
@@ -113,10 +115,13 @@ Component({
       app.data.ShopInfo = _info;
       // icom.storage("ssoShopCateId", _info.shopCateId);
       // icom.storage("ssoShopId", _info.shopId);
-      console.log("_info=================", _info);
       this.setData({
         shopInfo: _info,
+        'shopInfo.isBusState' : app.checkAuditTime(_info.beginTime,_info.endTime),
+        checked:app.data.checked
       });
+      console.log("_info=================", this.data.shopInfo);
+
       app.data.shopInfo = _info;
       this.setCommercialInfo();
     },
@@ -553,6 +558,7 @@ Component({
         .exec();
     },
     changeChecked(e) {
+      app.data.checked = e.detail,
       this.setData({
         checked: e.detail,
       });

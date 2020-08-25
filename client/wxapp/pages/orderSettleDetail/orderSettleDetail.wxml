@@ -15,8 +15,8 @@
 				<view class="countDownBox" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
 					<van-count-down time="{{ time }}" bind:finish="finished" />后订单将自动取消</view>
 				<view class="btnBox btnBox1" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
-					<view class="btn btn1">取消订单</view>
-					<view class="btn btn2">立即支付</view>
+					<view class="btn btn1" catchtap="finished">取消订单</view>
+					<view class="btn btn2" catchtap="btnPaymentClick">立即支付</view>
 				</view>
 				<view class="btnBox btnBox2" wx:if="{{userOrderinfo.state == 6 ||userOrderinfo.state == 7||userOrderinfo.state == 9}}">
 					<view class="btn btn3">再来一单</view>

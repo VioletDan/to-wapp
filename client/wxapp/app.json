@@ -12,7 +12,7 @@
     "navigationStyle": "default",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "JOYEAT 嘬一口",
+    "navigationBarTitleText": "豆腐先生",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {

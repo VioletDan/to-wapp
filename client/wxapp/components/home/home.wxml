@@ -1,3 +1,4 @@
+<import src="/pages/temp/temp.wxml" />
 <view class='conBox'>
   <view class="home">
     <!-- 门店信息 -->
@@ -166,4 +167,8 @@
       </block>
     </view>
   </view>
+
+  <!-- 打烊弹窗 -->
+  <closingTime id="closingTime"></closingTime>
 </view>
+<template is="closingTime" data="{{closingTimeDiolag,shopInfo}}"></template>

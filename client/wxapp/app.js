@@ -164,7 +164,8 @@ App({
       401: '骑手返回配送货品阶段一货品返还商户成功，订单结束',
       501: '因运力系统原因取消，订单结束',
       502: '因不可抗拒因素(天气，道路管制等原因)取消，订单结束…',
-    }
+    },
+    checked: false, //false 自提 true 外卖
   },
   //初始化 end
   setShareData: function (options) {
@@ -310,6 +311,44 @@ App({
         }
       }
     })
+  },
+
+  /**判断当前“时 : 分”是否在一天中某一区间内 */
+  checkAuditTime(beginTime, endTime) {
+    var nowDate = new Date();
+    var beginDate = new Date(nowDate);
+    var endDate = new Date(nowDate);
+
+    var beginIndex = beginTime.lastIndexOf("\:");
+    var beginHour = beginTime.substring(0, beginIndex);
+    var beginMinue = beginTime.substring(beginIndex + 1, beginTime.length);
+    beginDate.setHours(beginHour, beginMinue, 0, 0);
+
+    var endIndex = endTime.lastIndexOf("\:");
+    var endHour = endTime.substring(0, endIndex);
+    var endMinue = endTime.substring(endIndex + 1, endTime.length);
+    endDate.setHours(endHour, endMinue, 0, 0);
+    if (nowDate.getTime() - beginDate.getTime() >= 0 && nowDate.getTime() <= endDate.getTime()) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  /**检测是否支持配送 */
+  checkdistance(data, callback) {
+    icom.loading();
+    this.API.checkdistance({
+      latitude: data.latitude,
+      longitude: data.longitude
+    }).then((res) => {
+      icom.loadingHide();
+      if (res && res.code == 200) {
+        if (callback) callback(res);
+      }else{
+        if (callback) callback(null);
+      }
+    });
   }
 
 
