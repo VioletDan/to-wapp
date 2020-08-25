@@ -60,7 +60,7 @@ Component({
     ready() {
       Router.regTabPage("home", this);
       $page = this;
-      this.initData();
+      // this.initData();
     },
   },
 
@@ -69,7 +69,7 @@ Component({
     show: function () {
       setTimeout(() => {
         this.updateData();
-    }, 200)
+      }, 200)
     },
     hide: function () {},
     resize: function () {},
@@ -102,7 +102,9 @@ Component({
      * 获取门店详情
      */
     async getShopInfo() {
-      let { data } = await API.GetShopInfo({});
+      let {
+        data
+      } = await API.GetShopInfo({});
       let _info = data;
       _info.commercialName = _info.shopname;
       _info.commercialDesc = _info.notice;
@@ -133,10 +135,14 @@ Component({
     },
     // 计算距离
     setDistance(curLoc) {
-      var latitude = curLoc.latitude;
-      var longitude = curLoc.longitude;
-      app.data.userCurrentDis.userCurrentLat = latitude;
-      app.data.userCurrentDis.userCurrentLon = longitude;
+      var latitude = app.data.userCurrentDis.userCurrentLat ? app.data.userCurrentDis.userCurrentLat : curLoc.latitude;
+      var longitude = app.data.userCurrentDis.userCurrentLon ? app.data.userCurrentDis.userCurrentLon :curLoc.longitude;
+      if (!app.data.userCurrentDis.userCurrentLat) {
+        console.log('初始没有经纬度,获取用户定位的');
+        app.data.userCurrentDis.userCurrentLat = latitude;
+        app.data.userCurrentDis.userCurrentLon = longitude;
+      }
+
       $page.setData({
         distance: utils.getDistance(
           latitude,
@@ -153,8 +159,7 @@ Component({
       return new Promise((resolve, reject) => {
         var _resMock = {
           result: {
-            result: [
-              {
+            result: [{
                 aliasName: null,
                 name: "便当",
                 sort: 3,
@@ -225,8 +230,7 @@ Component({
           result: {
             result: {
               hasnext: false,
-              dishTOList: [
-                {
+              dishTOList: [{
                   shopIdenty: 810485944,
                   name: "秘制豆腐（小份）",
                   aliasName: "",
@@ -245,27 +249,21 @@ Component({
                   residueTotal: 1000,
                   saleTotal: 1000,
                   boxQty: 1,
-                  imgUrl:
-                    "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-78.jpg?x-oss-process=image/resize,w_640,h_480",
+                  imgUrl: "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-78.jpg?x-oss-process=image/resize,w_640,h_480",
                   desc: "秘制酱料精心油炸的豆腐",
-                  categorys: [
-                    {
-                      categoryId: 329239841631767550,
-                      categoryName: "豆腐",
-                    },
-                  ],
-                  saleTimes: [
-                    {
-                      start: "00:00:00",
-                      end: "00:00:00",
-                    },
-                  ],
+                  categorys: [{
+                    categoryId: 329239841631767550,
+                    categoryName: "豆腐",
+                  }, ],
+                  saleTimes: [{
+                    start: "00:00:00",
+                    end: "00:00:00",
+                  }, ],
                   attrs: [],
                   dishTaxes: null,
                   brandDishId: 329245181265188860,
                   barcode: null,
-                  supplyCondiments: [
-                    {
+                  supplyCondiments: [{
                       id: 347755322008107000,
                       name: "加辣椒",
                       marketPrice: 0,
@@ -312,21 +310,16 @@ Component({
                   residueTotal: 1000,
                   saleTotal: 1000,
                   boxQty: 1,
-                  imgUrl:
-                    "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-20.jpeg?x-oss-process=image/resize,w_640,h_480",
+                  imgUrl: "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-20.jpeg?x-oss-process=image/resize,w_640,h_480",
                   desc: null,
-                  categorys: [
-                    {
-                      categoryId: 329239907684130800,
-                      categoryName: "炸鸡",
-                    },
-                  ],
-                  saleTimes: [
-                    {
-                      start: "00:00:00",
-                      end: "00:00:00",
-                    },
-                  ],
+                  categorys: [{
+                    categoryId: 329239907684130800,
+                    categoryName: "炸鸡",
+                  }, ],
+                  saleTimes: [{
+                    start: "00:00:00",
+                    end: "00:00:00",
+                  }, ],
                   attrs: [],
                   dishTaxes: null,
                   brandDishId: 329248060352895000,
@@ -357,21 +350,16 @@ Component({
                   residueTotal: 1000,
                   saleTotal: 1000,
                   boxQty: 1,
-                  imgUrl:
-                    "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-52.jpg?x-oss-process=image/resize,w_640,h_480",
+                  imgUrl: "https://img-static.keruyun.com/kry-dir/rc-upload-1584350287797-52.jpg?x-oss-process=image/resize,w_640,h_480",
                   desc: "精品豆腐炸鸡套餐",
-                  categorys: [
-                    {
-                      categoryId: 329240273640885250,
-                      categoryName: "便当",
-                    },
-                  ],
-                  saleTimes: [
-                    {
-                      start: "00:00:00",
-                      end: "00:00:00",
-                    },
-                  ],
+                  categorys: [{
+                    categoryId: 329240273640885250,
+                    categoryName: "便当",
+                  }, ],
+                  saleTimes: [{
+                    start: "00:00:00",
+                    end: "00:00:00",
+                  }, ],
                   attrs: [],
                   dishTaxes: null,
                   brandDishId: 336196471192518660,
@@ -402,21 +390,16 @@ Component({
                   residueTotal: 1000,
                   saleTotal: 1000,
                   boxQty: 0,
-                  imgUrl:
-                    "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-37.jpg?x-oss-process=image/resize,w_640,h_480",
+                  imgUrl: "https://img-static.keruyun.com/kry-dir/rc-upload-1587101579682-37.jpg?x-oss-process=image/resize,w_640,h_480",
                   desc: null,
-                  categorys: [
-                    {
-                      categoryId: 329240273640885250,
-                      categoryName: "便当",
-                    },
-                  ],
-                  saleTimes: [
-                    {
-                      start: "00:00:00",
-                      end: "00:00:00",
-                    },
-                  ],
+                  categorys: [{
+                    categoryId: 329240273640885250,
+                    categoryName: "便当",
+                  }, ],
+                  saleTimes: [{
+                    start: "00:00:00",
+                    end: "00:00:00",
+                  }, ],
                   attrs: [],
                   dishTaxes: null,
                   brandDishId: 347744070317300740,
@@ -457,7 +440,7 @@ Component({
 
       Promise.all([this.category()]).then((res) => {
         // console.log(res)
-        icom.loadingHide();
+        if (icom.storage('token')) icom.loadingHide();
         // let tmpList = [];
         // let tmpCategoryList = res[0];
 
@@ -590,8 +573,13 @@ Component({
     // 选规格(单个)
     onSelectConfig(e) {
       console.log(e.currentTarget.dataset);
-      const { parentIndex, item } = e.currentTarget.dataset;
-      const { foodId } = item;
+      const {
+        parentIndex,
+        item
+      } = e.currentTarget.dataset;
+      const {
+        foodId
+      } = item;
       _currentItem = item;
       _currentId = foodId;
       item.imgList = [];
@@ -613,8 +601,13 @@ Component({
     /**选规格(多个) */
     onSelectConfigMore(e) {
       console.log(e.currentTarget.dataset);
-      const { parentIndex, item } = e.currentTarget.dataset;
-      const { foodId } = item;
+      const {
+        parentIndex,
+        item
+      } = e.currentTarget.dataset;
+      const {
+        foodId
+      } = item;
       _currentItem = item;
       _currentId = foodId;
       item.imgList = [];
@@ -636,7 +629,7 @@ Component({
         buyNum: 1,
         foodId: obj.specs[0].foodId,
         foodSpecsId: obj.specs[0].foodSpecsId,
-        packageFee:obj.specs[0].packageFee
+        packageFee: obj.specs[0].packageFee
       };
 
       obj.propertiesDto.forEach((properties) => {
@@ -684,7 +677,9 @@ Component({
     },
     selectSpecs(e) {
       const carSelectConfig = this.data.carSelectConfig;
-      const { item } = e.currentTarget.dataset;
+      const {
+        item
+      } = e.currentTarget.dataset;
 
       carSelectConfig.specs = item;
       carSelectConfig.price = item.originPrice;
@@ -698,7 +693,10 @@ Component({
     },
     selectConfigCard(e) {
       const carSelectConfig = this.data.carSelectConfig;
-      const { itemparentname, item } = e.currentTarget.dataset;
+      const {
+        itemparentname,
+        item
+      } = e.currentTarget.dataset;
 
       carSelectConfig.propertiesDto[itemparentname] = item.name;
 
@@ -725,10 +723,14 @@ Component({
     // 加入购物车
     addCard() {
       const cardList = wx.getStorageSync("cardList") || [];
-      const { foodId, foodProperties, buyNum } = this.data.carSelectConfig;
+      const {
+        foodId,
+        foodProperties,
+        buyNum
+      } = this.data.carSelectConfig;
       const selectIndex = cardList.findIndex(
         (card) =>
-          card.foodProperties === foodProperties && card.foodId === foodId
+        card.foodProperties === foodProperties && card.foodId === foodId
       );
 
       if (selectIndex > -1) {
@@ -751,8 +753,7 @@ Component({
       });
     },
     clearCar() {
-      icom.dilaog(
-        {
+      icom.dilaog({
           title: "确定清空购物车",
         },
         (res) => {

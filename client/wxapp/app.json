@@ -12,7 +12,7 @@
     "navigationStyle": "default",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "嘬一口炸鸡",
+    "navigationBarTitleText": "JOYEAT 嘬一口",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
@@ -27,7 +27,8 @@
     "van-picker": "/miniprogram/@vant/weapp/dist/picker/index",
     "van-toast": "/miniprogram/@vant/weapp/dist/toast/index",
     "van-popup": "/miniprogram/@vant/weapp/dist/popup/index",
-    "van-notice-bar": "/miniprogram/@vant/weapp/dist/notice-bar/index"
+    "van-notice-bar": "/miniprogram/@vant/weapp/dist/notice-bar/index",
+    "van-steps": "/miniprogram/@vant/weapp/dist/steps/index"
   },
   "permission": {
     "scope.userLocation": {

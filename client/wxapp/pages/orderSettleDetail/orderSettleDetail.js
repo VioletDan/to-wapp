@@ -19,12 +19,12 @@ Page({
     time: 1 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
-      commercialName: '定位中。。。',
+      shopname: '定位中。。。',
       //备注
-      remarksTxt: '无'
+      remark: '无'
     },
     cardList: [],
-    preOrderObj: {}
+    active: 0
   },
 
   /**
@@ -34,18 +34,6 @@ Page({
     console.log(options);
     if (options.orderId) {
       this.getOrdersDetail(options.orderId);
-    } else {
-      var _cardList = app.data.preOrderObj.orderFood;
-      console.log('preOrderObj========', app.data.preOrderObj);
-      console.log('_cardList=======', _cardList);
-      this.setData({
-        'userOrderinfo.needwaitTimePrecent': parseInt(this.data.userOrderinfo.userBeforeNum / this.data.userOrderinfo.userAllNum * 100),
-        'userOrderinfo.remarksTxt': app.data.preOrderObj.order.remark,
-        cardList: _cardList,
-        appData: app.data,
-        preOrderObj: app.data.preOrderObj ? app.data.preOrderObj : {}
-      });
-      this.initCar();
     }
 
   },
@@ -80,7 +68,7 @@ Page({
    */
   onShareAppMessage: function () {},
   /**初始化结算页数据 */
-  initCar(flag) {
+  initCar() {
     const total = this.data.cardList.reduce((num, item) => {
       return (num += item.buyNum);
     }, 0);
@@ -88,41 +76,16 @@ Page({
       item.price = item.realPerPrice;
       return (num += item.buyNum * item.price);
     }, 0);
-
-    if (flag) {
-      let boxCost = 0;
-      let sendCost = 0;
-      let allPrice = this.data.preOrderObj.totalMoney;
-      this.setData({
-        selectInfo: {
-          total,
-          allPrice
-        }
-      });
-    } else {
-      let boxCost = 0;
-      if (app.data.ShopInfo.boxType == 1) {
-        boxCost = app.data.ShopInfo.boxCost;
-      } else {
-        boxCost = this.data.cardList.reduce((num, item) => {
-          return (num += item.buyNum * item.packageFee);
-        }, 0);
+    let allPrice = this.data.userOrderinfo.totalMoney;
+    //商品总价
+    let shopAllPrice = (allPrice - this.data.userOrderinfo.sendCost).toFixed(2);
+    this.setData({
+      selectInfo: {
+        total,
+        allPrice,
+        shopAllPrice
       }
-      let sendCost = this.data.checked ? app.data.ShopInfo.sendCost : 0;
-      let allPrice = app.data.preOrderObj.order.totalMoney;
-      this.setData({
-        selectInfo: {
-          total,
-          totalPrice,
-          boxCost,
-          sendCost,
-          allPrice
-        },
-        "userOrderinfo.commercialName": app.data.shopInfo.commercialName, // 设置门店信息
-        "userOrderinfo.commercialDesc": app.data.shopInfo.commercialDesc,
-        "userOrderinfo.commercialAddress": app.data.shopInfo.commercialAddress,
-      });
-    }
+    });
 
 
   },
@@ -139,22 +102,52 @@ Page({
   },
   finished() {
     icom.sign('订单取消');
+    this.setData({
+      'userOrderinfo.state': 7
+    });
   },
 
   //获取订单详情
   async getOrdersDetail(orderId) {
+    icom.loading();
     let res = await API.getOrderListDetail({
       orderId: orderId
     });
+    icom.loadingHide();
     if (res.code == 200) {
       var _cardList = res.data.orderFoodList;
+      if (res.data.orderProcessList.length == 0) {
+        res.data.orderProcessList = [{
+          text:'',
+          desc:'暂无信息'
+        }]
+      } else {
+        res.data.orderProcessList.reverse().map((v, index) => {
+          v.text = '';
+          v.desc = app.data.orderProcessListDesc[v.orderStatus]
+        });
+      }
+
       this.setData({
-        preOrderObj: res.data,
+        userOrderinfo: res.data,
+        'userOrderinfo.commercialName': res.data.shopname,
         'userOrderinfo.remarksTxt': res.data.remark,
         cardList: _cardList,
         appData: app.data,
+        active: res.data.orderProcessList.length - 1
       });
-      this.initCar(true);
+      this.initCar();
     }
+  },
+
+  //拨打电话
+  makePhoneCallClick(e) {
+    let {
+      phone
+    } = e.currentTarget.dataset;
+    console.log(phone);
+    wx.makePhoneCall({
+      phoneNumber: phone //仅为示例，并非真实的电话号码
+    })
   }
 })

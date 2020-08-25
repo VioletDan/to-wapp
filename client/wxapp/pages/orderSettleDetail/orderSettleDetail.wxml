@@ -2,18 +2,53 @@
 <view class="article">
 	<scroll-view scroll-y class="orderInfoScroll">
 		<view class="box">
-		  <view class="orderRedaus"  wx:if="{{appData.payOrder}}">支付成功 取餐码 : 99999</view>
-			<view class="orderRedaus" wx:else>
-        <view>待支付</view>
-        <view><van-count-down time="{{ time }}"  bind:finish="finished"/>后订单将自动取消</view>
-        <view class="btnBox">
-          <view class="btn btn1">取消订单</view>
-          <view class="btn btn2">立即支付</view>
-        </view>
+			<view class="orderRedaus">
+				<view class="orderStatusInfo">
+					<text wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">待支付</text>
+					<text wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 1}}">已支付</text>
+					<text wx:if="{{userOrderinfo.state == 1}}">商家处理中</text>
+					<text wx:if="{{userOrderinfo.state == 2}}">{{userOrderinfo.sendType == 1 ? '待取餐' : '配送中'}}</text>
+					<text wx:if="{{userOrderinfo.state == 6}}">{{userOrderinfo.sendType == 1 ? '已取餐' : '已送达'}}</text>
+					<text wx:if="{{userOrderinfo.state == 7}}">已取消</text>
+					<text wx:if="{{userOrderinfo.state == 9}}">已退款</text>
+				</view>
+				<view class="countDownBox" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
+					<van-count-down time="{{ time }}" bind:finish="finished" />后订单将自动取消</view>
+				<view class="btnBox btnBox1" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
+					<view class="btn btn1">取消订单</view>
+					<view class="btn btn2">立即支付</view>
+				</view>
+				<view class="btnBox btnBox2" wx:if="{{userOrderinfo.state == 6 ||userOrderinfo.state == 7||userOrderinfo.state == 9}}">
+					<view class="btn btn3">再来一单</view>
+				</view>
+				<!-- 步骤条 -->
+				<view class="stepBox">
+					<view class="typeSelect">
+						<view class="left title">订单信息</view>
+					</view>
+					<van-steps steps="{{ userOrderinfo.orderProcessList }}" active="{{ active }}" direction="vertical" active-color="#d2aa79" desc-class="desTxt"/>
+				</view>
+				<!-- 配送地址 -->
+				<view class="paymentTypeBox orderAdress commonB" wx:if="{{userOrderinfo.state == 2 && userOrderinfo.sendType == 2}}">
+					<view class="typeSelect flexBox">
+						<view class="left title">配送小哥</view>
+						<view class="right"></view>
+					</view>
+					<view class="typeSelect flexBox">
+						<view class="left">{{userOrderinfo.orderDetail.deliverName}}</view>
+					</view>
+					<view class="typeSelect flexBox">
+						<view class="left">{{userOrderinfo.orderDetail.deliverMobile}}</view>
+						<view class="right" catchtap="makePhoneCallClick" data-phone="{{userOrderinfo.orderDetail.deliverMobile}}">拨打电话</view>
+					</view>
+				</view>
 			</view>
 			<!-- 商品列表 -->
 			<view class="cardListBox commonB">
-				<view class="title commonTitle">{{userOrderinfo.commercialName}}></view>
+				<view class="title commonTitle">
+					<image class="storeImg" src="{{userOrderinfo.shopLogoImg}}" lazy-load="{{true}}"></image>
+					{{userOrderinfo.shopname}}>
+				</view>
 				<view class="title commonTitle">商品列表</view>
 				<view class="listContent">
 					<view class="left flexBox">
@@ -42,21 +77,61 @@
 				<view class="remarksBox flexBox">
 					<view class="left">备注</view>
 					<view class="right">
-						{{userOrderinfo.remarksTxt}}
+						{{userOrderinfo.remark}}
 						<text class="iconCommon" hidden="{{true}}">></text>
 					</view>
 				</view>
-				<view class="totalBox">共{{selectInfo.total}}件商品，小计
+				<view class="totalBox totalBox1 flexBox">
+					<view class="left">商品总价</view>
+					<view class="right">
+						<text class="icon_money">￥{{(selectInfo.shopAllPrice)}}</text>
+					</view>
+				</view>
+				<view class="totalBox totalBox1 flexBox" wx:if="{{userOrderinfo.sendType == 2}}">
+					<view class="left">配送费</view>
+					<view class="right">
+						<text class="icon_money">￥{{userOrderinfo.sendCost}}</text>
+					</view>
+				</view>
+				<view class="totalBox">共{{selectInfo.total}}件商品，总计
 					<text class="icon_money">￥{{selectInfo.allPrice}}</text>
 				</view>
 			</view>
 			<!-- 支付方式 -->
-			<view class="paymentTypeBox commonB">
+			<view class="paymentTypeBox commonB" hidden="{{true}}">
 				<view class="typeSelect flexBox">
 					<view class="left">支付方式</view>
 					<view class="right">
 						<text class="iconfont icon_wx2" />
             <text>微信</text>
+					</view>
+				</view>
+			</view>
+			<!-- 收货地址 -->
+			<view class="paymentTypeBox orderAdress commonB" wx:if="{{userOrderinfo.sendType == 2}}">
+				<view class="typeSelect flexBox">
+					<view class="left title">收货地址</view>
+					<view class="right"></view>
+				</view>
+				<view class="typeSelect flexBox">
+					<view class="left">{{userOrderinfo.orderDetail.userUsername}} {{userOrderinfo.orderDetail.userMobile}}</view>
+				</view>
+				<view class="typeSelect flexBox">
+					<view class="left">{{userOrderinfo.orderDetail.userAddress}} {{userOrderinfo.orderDetail.userStreet}}</view>
+				</view>
+			</view>
+			<!-- 订单详情 -->
+			<view class="paymentTypeBox orderTime commonB">
+				<view class="typeSelect flexBox">
+					<view class="left title">下单时间</view>
+					<view class="right title">
+						{{userOrderinfo.createTime}}
+					</view>
+				</view>
+				<view class="typeSelect flexBox">
+					<view class="left title">订单编号</view>
+					<view class="right title">
+						{{userOrderinfo.orderNo}}
 					</view>
 				</view>
 			</view>
@@ -75,21 +150,21 @@
 			<view class="scrollList">
 				<scroll-view scroll-y class="popup_Scroll">
 					<view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
-            <view class="cardDetailListCardLeft">
-              <image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
-            </view>
-            <view class="cardDetailListCardRight">
-              <view class="left">
-                <view>{{item.foodTitle}}</view>
-                <view>{{item.selectText}}</view>
-              </view>
-              <view class="right">
-                <text>￥{{item.realPerPrice}}</text>
-                <view></view>
-                <text>数量: {{item.buyNum}}</text>
-              </view>
-            </view>
-          </view>
+						<view class="cardDetailListCardLeft">
+							<image class="img" src="{{item.foodCover}}" mode="widthFix" lazy-load="{{true}}"></image>
+						</view>
+						<view class="cardDetailListCardRight">
+							<view class="left">
+								<view>{{item.foodTitle}}</view>
+								<view>{{item.selectText}}</view>
+							</view>
+							<view class="right">
+								<text>￥{{item.realPerPrice}}</text>
+								<view></view>
+								<text>数量: {{item.buyNum}}</text>
+							</view>
+						</view>
+					</view>
 				</scroll-view>
 			</view>
 		</view>

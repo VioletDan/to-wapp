@@ -229,19 +229,17 @@ Page({
               'paySign': paySign,
               'success': function (res) {
                 console.log("支付成功");
-                app.data.payOrder = true;
                 wx.removeStorageSync("cardList");
                 wx.redirectTo({
-                  url: "/pages/orderSettleDetail/orderSettleDetail",
+                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId='+ app.data.preOrderObj.order.orderId,
                 });
               },
               'fail': function (res) {
                 console.log("支付失败");
                 icom.alert('支付失败');
                 wx.removeStorageSync("cardList");
-                app.data.payOrder = false;
                 wx.redirectTo({
-                  url: "/pages/orderSettleDetail/orderSettleDetail",
+                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId='+ app.data.preOrderObj.order.orderId,
                 });
               }
             })

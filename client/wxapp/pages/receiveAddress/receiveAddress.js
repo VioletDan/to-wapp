@@ -120,6 +120,8 @@ Page({
     // console.log(e.currentTarget.dataset.index);
     var index = e.currentTarget.dataset.index;
     app.data.userAdressInfo = this.data.addressList[index];
+    app.data.userCurrentDis.userCurrentLat = this.data.addressList[index].latitude;
+    app.data.userCurrentDis.userCurrentLon = this.data.addressList[index].longitude;
     wx.navigateBack({});
   },
   //编辑地址

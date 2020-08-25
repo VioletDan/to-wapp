@@ -139,8 +139,8 @@ Page({
     let {item} = e.currentTarget.dataset;
     console.log(item);
     //跳转到当前选择的店铺
-    app.data.userCurrentDis.userCurrentLat = item.atitude;
-    app.data.userCurrentDis.userCurrentLon = item.longitude;
+    // app.data.userCurrentDis.userCurrentLat = item.latitude;
+    // app.data.userCurrentDis.userCurrentLon = item.longitude;
     icom.storage('ssoShopCateId',item.shopCateId);
     icom.storage('ssoShopId',item.shopId);
     wx.navigateBack({

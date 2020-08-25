@@ -22,6 +22,11 @@ class Router {
     if (footer) footer.updateActive(value);
   }
 
+  _updateTitle(value) {
+    wx.setNavigationBarTitle({
+      title: value
+    })
+  }
 
   /**
    * 注册tab页面
@@ -36,6 +41,7 @@ class Router {
   toHome() {
     this._backIndex();
     this._updateFooter(0);
+    this._updateTitle('JOYEAT 嘬一口');
     let home = this.tabPage['home'];
     home.updateData();
   }
@@ -43,6 +49,7 @@ class Router {
   toOrder() {
     this._backIndex();
     this._updateFooter(1);
+    this._updateTitle('订单');
     let order = this.tabPage['order'];
     order.updateData();
   }
@@ -50,6 +57,7 @@ class Router {
   toUser() {
     this._backIndex();
     this._updateFooter(2);
+    this._updateTitle('我的')
     let user = this.tabPage['user'];
     user.updateData();
   }
