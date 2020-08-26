@@ -140,7 +140,7 @@ const icom = function () {
         wx.hideLoading();
     }
 
-    com.sign = function (title = '', icon = 'none', duration = 1000, callback = function () { }) {
+    com.sign = function (title = '', icon = 'none', duration = 2000, callback = function () { }) {
         let opts = {
             title: title,
             icon: icon,

@@ -39,6 +39,7 @@
 					<view class="btn" catchtap="btnOrderAgain">再来一单</view>
 				</view>
 			</view>
+				<view class="noData" wx:if="{{currentList.length == 0}}">暂无数据</view>
 		</scroll-view>
 	</view>
 	<!-- <view class="tabBar">

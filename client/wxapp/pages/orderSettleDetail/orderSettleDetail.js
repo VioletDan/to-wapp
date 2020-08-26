@@ -16,7 +16,7 @@ Page({
    */
   data: {
     show: false,
-    time: 1 * 60 * 1000, //倒计时
+    time: 5 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
       shopname: '定位中。。。',
@@ -153,6 +153,11 @@ Page({
 
   //支付
   btnPaymentClick() {
+    this.subscribeHandle();
+  },
+  //preOrderHandle
+  preOrderHandle() {
+    var that = this;
     API.payOrder({
       'orderId': this.data.userOrderinfo.orderId,
       'orderNo': this.data.userOrderinfo.orderNo
@@ -173,15 +178,40 @@ Page({
           'paySign': paySign,
           'success': function (res) {
             console.log("支付成功");
-            this.getOrdersDetail(this.data.userOrderinfo.orderId);
+            that.getOrdersDetail(that.data.userOrderinfo.orderId);
           },
           'fail': function (res) {
             console.log("支付失败");
             icom.alert('支付失败');
-            this.getOrdersDetail(this.data.userOrderinfo.orderId);
+            that.getOrdersDetail(that.data.userOrderinfo.orderId);
           }
         })
       }
     });
+  },
+  //处理订阅消息
+  subscribeHandle() {
+    var that = this;
+    var templateArr = this.data.userOrderinfo.sendType == 1 ? app.data.signTemplateId_arr_zt : app.data.signTemplateId_arr_ps;
+    wx.requestSubscribeMessage({
+      tmplIds: templateArr,
+      success(res) {
+        console.log('res', res)
+        let acceptTemplateIds = Object.keys(res).filter(key => res[key] === 'accept');
+        if (acceptTemplateIds.length == templateArr.length) {
+          //  说明全部同意
+          that.preOrderHandle();
+        } else {
+          //  单次拒绝
+          that.preOrderHandle();
+          return;
+        }
+      },
+      fail(err) {
+        console.log('err', err);
+        //失败
+        that.preOrderHandle();
+      }
+    })
   },
 })

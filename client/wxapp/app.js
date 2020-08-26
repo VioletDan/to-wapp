@@ -166,6 +166,8 @@ App({
       502: '因不可抗拒因素(天气，道路管制等原因)取消，订单结束…',
     },
     checked: false, //false 自提 true 外卖
+    signTemplateId_arr_zt:['nzY565nhb_O58OKBmMQqttVhiw0ROwKAArqul1g4cAU','Nb3Tpxxd8SH-kzygLL0CdASEouEynLEvYYJJ9GlORM8','e_EeZlnmP_jA_VS71ecUmnseZTGhn1qpWL1uxF9VGYY'],//模版id 自提
+    signTemplateId_arr_ps:['Nb3Tpxxd8SH-kzygLL0CdASEouEynLEvYYJJ9GlORM8','e_EeZlnmP_jA_VS71ecUmnseZTGhn1qpWL1uxF9VGYY'],//模版id 配送
   },
   //初始化 end
   setShareData: function (options) {
@@ -320,13 +322,21 @@ App({
     var endDate = new Date(nowDate);
 
     var beginIndex = beginTime.lastIndexOf("\:");
-    var beginHour = beginTime.substring(0, beginIndex);
-    var beginMinue = beginTime.substring(beginIndex + 1, beginTime.length);
+    // var beginHour = beginTime.substring(0, beginIndex);
+    // var beginMinue = beginTime.substring(beginIndex + 1, beginTime.length);
+
+    var beginHour = beginTime.substring(0, beginIndex).split(':')[0];
+    var beginMinue = beginTime.substring(0, beginIndex).split(':')[1];
+
     beginDate.setHours(beginHour, beginMinue, 0, 0);
 
     var endIndex = endTime.lastIndexOf("\:");
-    var endHour = endTime.substring(0, endIndex);
-    var endMinue = endTime.substring(endIndex + 1, endTime.length);
+    // var endHour = endTime.substring(0, endIndex);
+    // var endMinue = endTime.substring(endIndex + 1, endTime.length);
+
+    var endHour = endTime.substring(0, endIndex).split(':')[0];
+    var endMinue = endTime.substring(0, endIndex).split(':')[1];
+
     endDate.setHours(endHour, endMinue, 0, 0);
     if (nowDate.getTime() - beginDate.getTime() >= 0 && nowDate.getTime() <= endDate.getTime()) {
       return true;

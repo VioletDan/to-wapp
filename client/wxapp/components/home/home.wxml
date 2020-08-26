@@ -171,4 +171,4 @@
   <!-- 打烊弹窗 -->
   <closingTime id="closingTime"></closingTime>
 </view>
-<template is="closingTime" data="{{closingTimeDiolag,shopInfo}}"></template>
+<template is="closingTime" data="{{shopInfo}}"></template>

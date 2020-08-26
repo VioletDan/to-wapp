@@ -21,6 +21,7 @@ class API {
    * 初始化
    */
   async _send(method, data, type) {
+    if (data && !data.hasOwnProperty('noTips')) data.noTips = false;
     let res = await this.wxResuest({
       url: this.DOMAIN + method,
       data: data,
@@ -38,7 +39,11 @@ class API {
     });
     console.log('APIname:=========' + method, res.data)
     if (res.data.code != 200) {
-      icom.alert(res.data.msg || '网络异常了');
+      if (data.noTips) {
+
+      } else {
+        icom.sign(res.data.msg || '网络异常了');
+      }
       return null;
     } else {
       return res.data;
@@ -52,7 +57,7 @@ class API {
 
   // 绑定手机号
   async GetUserPhone(data) {
-    return this._send('/auth/bindphone', data, 'POST');
+    return this._send('/auth/bindphone',Object.assign(data,{noTips:true}), 'POST');
   }
 
   // 获取连锁店所有店铺，由近到远排序

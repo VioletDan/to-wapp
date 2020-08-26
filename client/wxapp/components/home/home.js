@@ -25,7 +25,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    closingTimeDiolag:false,//店铺是否打烊
     cumulativeIntegral: 1,
     // 门店列表
     shopList: [],
@@ -55,23 +54,25 @@ Component({
     modelData: {},
     current: 0,
     carSelectConfig: {},
-    shopInfo:{}
+    shopInfo:{
+      isBusState:true
+    }
   },
 
   lifetimes: {
     ready() {
       Router.regTabPage("home", this);
       $page = this;
-      // this.initData();
+      this.initData();
     },
   },
 
   pageLifetimes: {
     // 组件所在页面的生命周期函数
     show: function () {
-      setTimeout(() => {
-        this.updateData();
-      }, 200)
+      // setTimeout(() => {
+      //   this.updateData();
+      // }, 200)
     },
     hide: function () {},
     resize: function () {},
@@ -118,7 +119,8 @@ Component({
       this.setData({
         shopInfo: _info,
         'shopInfo.isBusState' : app.checkAuditTime(_info.beginTime,_info.endTime),
-        checked:app.data.checked
+        checked:app.data.checked,
+        cardList: wx.getStorageSync("cardList") || [],
       });
       console.log("_info=================", this.data.shopInfo);
 

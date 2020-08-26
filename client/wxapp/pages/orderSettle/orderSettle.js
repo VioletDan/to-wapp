@@ -176,7 +176,7 @@ Page({
   //手机号逻辑
   async getPhoneNumber(e) {
     let res = await beats.member.getPhoneNumber(e.detail);
-    if (res.data.mobile) {
+    if (res && res.data.mobile) {
       this.setData({
         "userOrderinfo.userTel": res.data.mobile,
       });
@@ -194,19 +194,23 @@ Page({
   //支付
   btnPaymentClick() {
     // icom.alert('敬请期待');
-    if (!app.data.userAdressInfo && this.data.checked){
+    var that = this;
+    if (!app.data.userAdressInfo && this.data.checked) {
       icom.alert('请选择地址');
       return;
     }
-    icom.loading();
+    this.subscribeHandle();
 
+  },
+  //预下单
+  preOrderHandle() {
+    icom.loading();
     const {
       totalPrice,
       boxCost,
       sendCost,
       allPrice
     } = this.data.selectInfo;
-
     //预下单
     var obj = {
       orderDto: {
@@ -269,6 +273,31 @@ Page({
         });
       }
     });
+  },
+  //处理订阅消息
+  subscribeHandle() {
+    var that = this;
+    var templateArr = this.data.checked ? app.data.signTemplateId_arr_ps : app.data.signTemplateId_arr_zt;
+    wx.requestSubscribeMessage({
+      tmplIds: templateArr,
+      success(res) {
+        console.log('res', res)
+        let acceptTemplateIds = Object.keys(res).filter(key => res[key] === 'accept');
+        if (acceptTemplateIds.length == templateArr.length) {
+          //  说明全部同意
+          that.preOrderHandle();
+        } else {
+          //  单次拒绝
+          that.preOrderHandle();
+          return;
+        }
+      },
+      fail(err) {
+        console.log('err', err);
+        //失败
+        that.preOrderHandle();
+      }
+    })
   },
   //展示商品
   showCardListClick() {

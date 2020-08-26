@@ -74,10 +74,16 @@
 						<text class="iconCommon">></text>
 					</view>
 				</view>
+				<view class="RunningMoney flexBox">
+					<view class="left">餐盒费</view>
+					<view class="right">
+						<text class="tips">￥{{selectInfo.boxCost}}</text>
+					</view>
+				</view>
 				<view class="RunningMoney flexBox" wx:if="{{checked}}">
 					<view class="left">配送费</view>
 					<view class="right">
-						<text class="tips">￥{{userOrderinfo.userRunMoney}}</text>
+						<text class="tips">￥{{selectInfo.sendCost}}</text>
 					</view>
 				</view>
 				<view class="couponBox flexBox" hidden="{{true}}">
