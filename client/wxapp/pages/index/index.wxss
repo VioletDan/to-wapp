@@ -9,7 +9,7 @@
   position: absolute;
   left: 0;
   width: 100%;
-  height: calc(100% - 122rpx);
+  height: calc(100% - 88rpx);
 }
 
 /**
@@ -50,6 +50,6 @@
   }
 
   .module {
-    height: calc(100% - 166rpx);
+    height: calc(100% - 122rpx);
   }
 }

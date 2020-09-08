@@ -16,11 +16,17 @@
 .home .icon_light_bulb {
   color: gold;
 }
+.home .icon_info{
+  width: 23rpx;
+  height: 17rpx;
+  vertical-align: middle;
+}
 
 /* 门店信息 start */
 
 .guide {
   padding: 10rpx 38rpx 0 30rpx;
+  border-bottom: 1rpx solid #919192;
 }
 
 .guide.fullPageInfo {
@@ -44,7 +50,7 @@
 }
 
 .guide .guideTop .guideTopLeft .storeName {
-  font-size: 30rpx;
+  font-size: 33.39rpx;
   font-weight: 700;
   margin-right: 10rpx;
 }
@@ -54,13 +60,13 @@
 }
 
 .guide .distance {
-  color: #878787;
-  font-size: 26rpx;
+  color: #919192;
+  font-size: 24.37rpx;
   margin: 4rpx 0 35rpx 0;
 }
 
 .guide .storeIntro {
-  color: #878787;
+  color: #919192;
   font-size: 24rpx;
   height: 60rpx;
 }
@@ -69,7 +75,7 @@
   display: inline-block;
   width: calc(100% - 118rpx);
   vertical-align: middle;
-  font-size: 22rpx;
+  font-size: 24.37rpx;
 }
 .guide .storeDetails.hideDetail {
   display: none;
@@ -93,7 +99,7 @@
   float: right;
   width: 118rpx;
   font-size: 22rpx;
-  color: #9e9e9e;
+  color: #919192;
   padding: 0 10rpx 0 25rpx;
   box-sizing: border-box;
   vertical-align: middle;
@@ -168,6 +174,9 @@
 .dishList .categoryList .categoryItem.active {
   background-color: #fff;
 }
+.dishList .categoryList .categoryItem.active text{
+  color: #000;
+}
 
 .dishList .categoryList .categoryItem.active::before {
   content: "";
@@ -176,7 +185,7 @@
   left: 0;
   width: 8rpx;
   height: 100%;
-  background-color: #d3aa79;
+  background-color: #e7645c;
 }
 
 .dishList .categoryList .categoryItem .iconfont {
@@ -187,8 +196,8 @@
 }
 
 .dishList .categoryList .categoryItem text {
-  color: #9a9a9a;
-  font-size: 24rpx;
+  color: #7d7d7d;
+  font-size: 24.9rpx;
   line-height: 32rpx;
   vertical-align: middle;
   letter-spacing: 4rpx;
@@ -211,7 +220,7 @@
 }
 
 .dishList .detailsList .dishMenuItemTitle {
-  color: #6d6d6d;
+  color: #919192;
   font-size: 24rpx;
   margin-bottom: 60rpx;
   padding-left: 20px;
@@ -243,11 +252,12 @@
   font-size: 29rpx;
   font-weight: 700;
   margin-bottom: 25rpx;
+  color: #343434;
 }
 
 .dishList .detailsList .dishMenuItem .dishDetails .dishDetailsSubTitle {
-  font-size: 20rpx;
-  color: #9d9d9d;
+  font-size: 20.89rpx;
+  color: #919192;
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -264,14 +274,29 @@
 }
 
 .dishList .detailsList .dishMenuItem .dishDetails .operate .price {
-  font-size: 27rpx;
+  font-size: 31.43rpx;
   font-weight: 700;
+  color: #2f2f2f;
 }
 
 .dishList .detailsList .dishMenuItem .dishDetails .operate .selectCate {
   float: right;
-  color: #d8a974;
+  color: #adadae;
 }
+
+.dishList .detailsList .dishMenuItem .dishDetails .operate .selectCateInfo{
+  float: right;
+  color: #fff;
+  width: 48rpx;
+  height: 22rpx;
+  background-color: #e7645c;
+  border-radius: 11rpx;
+  text-align: center;
+  line-height: 22rpx;
+  font-size: 11.31rpx;
+}
+
+
 
 /* 规格模态框 start */
 .modal {
@@ -527,6 +552,8 @@
   display: flex;
   transition: bottom 200ms;
   z-index: 20;
+  background-color: #e7e7e7;
+  align-items: center;
 }
 .home .cardList.show {
   bottom: 0;
@@ -536,33 +563,41 @@
   background-color: #e7e7e7;
   height: 100rpx;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   padding: 0 33rpx;
   font-weight: 700;
   font-size: 28rpx;
 }
 .home .cardList .cardListLeft .selectNum {
-  width: 60rpx;
+  /* width: 60rpx;
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
   background-color: #d3aa79;
-  border-radius: 30rpx;
+  border-radius: 30rpx; */
   color: #fff;
+  margin-top: -15rpx;
 }
+.home .cardList .cardListLeft .selectNum .selectNumImg{width: 105rpx;height: 105rpx;border-radius: 20rpx;}
+.home .cardList .cardListLeft .selectNum  .number{font-size: 18rpx;color: #fff;width: 23rpx;height: 23rpx;border-radius: 50%;background-color: #e7645c;text-align: center;line-height: 23rpx;isplay: block;position: absolute;top: -12rpx;right: -12rpx;}
+
 .home .cardList .cardListLeft .totalPrice {
-  color: #000;
+  color: #303030;
+  font-size: 30.25rpx;
+  margin-left: 30rpx;
 }
 .home .cardList .cardListRight {
-  font-size: 28rpx;
+  font-size: 26.36rpx;
   font-weight: 700;
-  width: 200rpx;
-  height: 100rpx;
-  line-height: 100rpx;
+  width: 110rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   text-align: center;
-  background-color: #d3aa79;
+  background-color: #e7645c;
   color: #fff;
+  border-radius: 24rpx;
+  margin-right: 25rpx;
 }
 .home .cardMask {
   position: fixed;

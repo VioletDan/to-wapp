@@ -26,11 +26,11 @@ Component({
     },
     backgroundColor: {
       type: String,
-      value: "rgba(0, 0, 0, .1)"
+      value: "#f7f7f7"
     },
     highLightColor: {
       type: String,
-      value: "#000"
+      value: "#e7645c"
     },
     activeText: {
       type: String,

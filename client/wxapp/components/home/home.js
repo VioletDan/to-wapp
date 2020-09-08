@@ -31,7 +31,7 @@ Component({
     // 门店信息
     shopInfo: {},
     // 门店名称
-    commercialName: "定位中。。。",
+    commercialName: "定位中...",
     // 门店描述
     commercialDesc: "",
     // 当前距离

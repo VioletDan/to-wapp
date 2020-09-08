@@ -16,7 +16,8 @@
       <view class="distance">距离您{{distance}}km</view>
       <view class="storeIntro">
         <view class="storeDetails {{showMore ? 'hideDetail' : ''}}">
-          <text class="iconfont icon_light_bulb"></text>
+          <!-- <text class="iconfont icon_light_bulb"></text> -->
+          <image class="icon_info" src="/images/tabBar/icon_info.png"></image>
           <view class="oneHide">{{commercialDesc}}</view>
         </view>
         <view class="moreTxt" bindtap="showMoreDetail">
@@ -26,7 +27,7 @@
       </view>
       <view class="openStoreDetail {{showMore ? 'showDetail' : ''}}">
         <view class="storeDetails">
-          <text class="iconfont icon_light_bulb"></text>
+          <!-- <text class="iconfont icon_light_bulb"></text> -->
           <view>{{commercialDesc}}</view>
         </view>
         <view class="storeDetailsTitle">配送</view>
@@ -54,7 +55,8 @@
               <view class="dishDetailsSubTitle">{{childItem.foodDesc}}</view>
               <view class="operate">
                 <text class="price">￥{{childItem.specs[0].originPrice}}</text>
-                <text class="iconfont icon_add_cir selectCate" catchtap="onSelectConfigMore" data-item="{{childItem}}" data-parentIndex="{{pIndex}}"></text>
+                <text class="selectCateInfo" wx:if="{{childItem.specs.length >= 1 && childItem.propertiesDto.length>=1}}" catchtap="onSelectConfigMore" data-item="{{childItem}}" data-parentIndex="{{pIndex}}">选规格</text>
+                <text class="iconfont icon_add_cir selectCate" wx:else catchtap="onSelectConfigMore" data-item="{{childItem}}" data-parentIndex="{{pIndex}}"></text>
               </view>
             </view>
           </view>
@@ -85,7 +87,10 @@
     </view>
     <view class="cardList {{cardList.length > 0 ? 'show' : ''}}">
       <view class="cardListLeft">
-        <view class="selectNum" bindtap="showCardDetail">{{selectInfo.total}}</view>
+        <view class="selectNum" bindtap="showCardDetail">
+          <image class="selectNumImg" src="{{cardList[0].foodCover}}" mode="aspectFill"></image>
+          <text class="number" wx:if="{{cardList.length > 0}}">{{selectInfo.total}}</text>
+        </view>
         <view class="totalPrice">￥{{selectInfo.totalPrice}}</view>
       </view>
       <view class="cardListRight" bindtap="orderSettle">结算</view>
