@@ -793,8 +793,39 @@ Component({
         },
       });
     },
+
+    //购物车加减
+    reduceConfigNum2(e){
+      let {index} = e.currentTarget.dataset;
+      var item = this.data.cardList[index];
+      if(item.buyNum >=1) {
+        item.buyNum = item.buyNum - 1;
+      }
+      if(item.buyNum == 0) {
+        this.data.cardList.splice(index,1);
+      }
+      this.setData({
+        cardList : this.data.cardList
+      });
+      this.initCar();
+      wx.setStorageSync("cardList", this.data.cardList);
+    },
+    addConfigNum2(e){
+      let {index} = e.currentTarget.dataset;
+      var item = this.data.cardList[index];
+      item.buyNum = item.buyNum + 1;
+      this.setData({
+        cardList : this.data.cardList
+      });
+      this.initCar();
+      wx.setStorageSync("cardList", this.data.cardList);
+    },
+
+
+
+
     // 订单结算
-    orderSettle() {
+    orderSettle(e) {
       wx.navigateTo({
         url: "/pages/orderSettle/orderSettle",
       });
