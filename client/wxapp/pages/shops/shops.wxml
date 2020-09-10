@@ -1,7 +1,7 @@
 <!-- 顶级view的class name默认article -->
 <view class="article">
 	<!----section begin----->
-	<van-tabs class="storeVanTabs" animated>
+	<!-- <van-tabs class="storeVanTabs" animated>
 		<van-tab title="选择门店" class="vanTab">
 			<view class='content'>
 				<view class='topBox'>
@@ -50,8 +50,42 @@
 				</scroll-view>
 			</view>
 		</van-tab>
-	</van-tabs>
+	</van-tabs> -->
+	<view class='content'>
+		<view class='topBox' hidden="{{true}}">
+			<view class='currentPos' bindtap='selectCity'>
+				<van-cell title="{{cityName}}" is-link />
+			</view>
+			<view class='search' bindtap='searchClick'>
+				<van-search value="" placeholder="搜索" focus="{{false}}" />
+			</view>
+		</view>
+		<view class='mapBox'>
+			<map id="map" latitude="{{centerLatitude}}" longitude="{{centerLongitude}}" scale="{{scale}}" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 310px;" />
+		</view>
+		<view class='storeBox'>
+			<scroll-view scroll-y scroll-top="{{scrollTop}}" scroll-into-view='{{toView}}' scroll-with-animation="{{false}}">
+				<view class="itemBorder" wx:for="{{markers}}" wx:key="id" id='mark-{{item.id}}'>
+					<view class='item'>
+						<view class='left' bindtap='viewStore' id='{{item.id}}' data-item="{{item}}">
+							<view class='con'>
+								<view class='item-title'>{{item.shopname}}</view>
+								<view class='item-time'>{{item.beginTime }}-{{item.endTime}}</view>
+								<view class='item-adress'>{{item.address}}</view>
+								<view class='item-distance'>距离您{{item.distance}}km</view>
+								<text class="btnOver" wx:if="{{!item.isBusState}}">已休息</text>
+							</view>
+						</view>
+						<view class='right'>
+							<image class="iconTel" src="/images/shop/icon_tel.png" bindtap='btnTelClick' data-item="{{item}}"></image>
+							<image class="iconCheck" src="/images/shop/icon_check.png" bindtap='markertap' id='{{item.id}}' data-item="{{item}}"></image>
+						</view>
+					</view>
+				</view>
 
+			</scroll-view>
+		</view>
+	</view>
 	<!-- 弹出层 -->
 	<view class='popupCon'>
 		<van-popup show="{{ show }}" position="right" overlay="{{ true }}" bind:close="onClose" class="popupBox">

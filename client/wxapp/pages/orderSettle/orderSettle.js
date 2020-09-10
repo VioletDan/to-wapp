@@ -5,7 +5,8 @@ const {
   icom,
   utils,
   Toast,
-  API
+  API,
+  imath
 } = app;
 Page({
   /**
@@ -120,20 +121,23 @@ Page({
       return (num += item.buyNum);
     }, 0);
     const totalPrice = this.data.cardList.reduce((num, item) => {
-      return (num += item.buyNum * item.price);
+      // return (num += item.buyNum * item.price);
+      return (num = imath.accAdd(num, item.buyNum * item.price));
     }, 0);
     let boxCost = 0;
     if (app.data.ShopInfo.boxType == 1) {
       boxCost = app.data.ShopInfo.boxCost;
     } else {
       boxCost = this.data.cardList.reduce((num, item) => {
-        return (num += item.buyNum * item.packageFee);
+        // return (num += item.buyNum * item.packageFee);
+        return (num = imath.accAdd(num, item.buyNum * item.packageFee));
       }, 0);
     }
 
     let sendCost = this.data.checked ? app.data.ShopInfo.sendCost : 0;
 
-    let allPrice = totalPrice + boxCost + sendCost;
+    let allPrice = imath.accAdd(imath.accAdd(totalPrice, boxCost), sendCost);
+
     this.setData({
       selectInfo: {
         total,

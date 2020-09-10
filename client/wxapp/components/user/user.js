@@ -1,6 +1,15 @@
 // components/user/user.js
 const app = getApp()
-const { API, beats, icom, config, mta, regeneratorRuntime, promisify, Router } = app;
+const {
+  API,
+  beats,
+  icom,
+  config,
+  mta,
+  regeneratorRuntime,
+  promisify,
+  Router
+} = app;
 
 Component({
   /**
@@ -15,6 +24,8 @@ Component({
    */
   data: {
     cumulativeIntegral: 1,
+    userName: '',
+    userImg: '/images/user/img.png',
   },
 
   lifetimes: {
@@ -31,8 +42,8 @@ Component({
       //   this.updateData();
       // }, 200)
     },
-    hide: function () { },
-    resize: function () { },
+    hide: function () {},
+    resize: function () {},
   },
 
   /**
@@ -44,11 +55,61 @@ Component({
     updateData() {
       //这里是外部调用的方法 如果要刷新数据的话在这里执行
       console.log('user udpate');
-      this.initData() ;
+      this.initData();
     },
-   
+
     //========== Private ===========
     initData() {
+      this.setData({
+        appData: app.data
+      });
+      this.getUserInfo();
     },
+    getUserInfo() {
+      if (this.userInfo) {
+        app.data.Flag_Info = 1;
+        this.setData({
+          userInfo: this.userInfo,
+          userImg: this.userInfo.avatarUrl,
+          userName: this.userInfo.nickName,
+          appData: app.data
+        });
+      } //edn if
+      else {
+        wx.getUserInfo({
+          success: (res) => {
+            this.parse(res);
+          },
+          fail: () => {}
+        });
+      } //end else
+    },
+    //授权
+    getAuth(e) {
+      let {
+        auth
+      } = e.currentTarget.dataset;
+      if (!e.detail.encryptedData) {
+
+      } else {
+        this.parse(e.detail);
+      }
+    },
+    //解析
+    parse(data) {
+      this.encryptedData = data.encryptedData;
+      this.iv = data.iv;
+      this.rawData = data.rawData;
+      this.signature = data.signature;
+      this.userInfo = data.userInfo;
+      // console.log('user info', this.userInfo);
+      app.data.Flag_Info = 1;
+      this.setData({
+        userInfo: this.userInfo,
+        userImg: this.userInfo.avatarUrl,
+        userName: this.userInfo.nickName,
+        appData: app.data
+      });
+    }
   }
 })

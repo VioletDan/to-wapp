@@ -1,2 +1,27 @@
-<!--components/user/user.wxml-->
-<text>components/user/user.wxml</text>
+<view class="content">
+	<view class="topTxt">您好，欢迎开启嘬一口之旅～</view>
+	<view class="infoBox">
+		<view class="title">嘬一口会员</view>
+		<view class="btnLoginBox">
+			<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
+				点击登录
+				<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+			</view>
+			<view class="userName" wx:else>{{userName}}</view>
+		</view>
+
+		<view class="UserImgBox">
+			<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+		</view>
+	</view>
+	<view class="couponBox">
+		<view class="item">
+			<image class="img" src="/images/user/icon_coupon.png" mode="aspectFill"></image>
+			<text class="txt">优惠券</text>
+		</view>
+		<view class="item">
+			<image class="img" src="/images/user/icon_tickt.png" mode="aspectFill"></image>
+			<text class="txt">发票管理</text>
+		</view>
+	</view>
+</view>

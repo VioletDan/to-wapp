@@ -159,6 +159,15 @@ Page({
     //   }
     // })
     // icom.storage('isStore', 2)
+  },
+
+  //拨打电话
+  btnTelClick(e){
+    let currentID = e.currentTarget.id;
+    let {item} = e.currentTarget.dataset;
+    wx.makePhoneCall({
+      phoneNumber: item.contactMobile,
+    })
   }
 }) //end page
 
@@ -193,6 +202,8 @@ function dealData(data, search, name) {
   let currentIndex
   store.map((v, index) => {
     let distance = GetDistance(v.latitude, v.longitude, $page.data.currentLatitude, $page.data.currentLongitude)
+    v.address = v.address.replace('\r\n','');
+    v.isBusState = app.checkAuditTime(v.beginTime,v.endTime);
     v.distance = 0
     v.distance = Number(distance)
     v.id = index + 1

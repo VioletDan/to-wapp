@@ -10,6 +10,7 @@ const {
   promisify,
   Router,
   utils,
+  imath
 } = app;
 
 var $page = null;
@@ -54,8 +55,8 @@ Component({
     modelData: {},
     current: 0,
     carSelectConfig: {},
-    shopInfo:{
-      isBusState:true
+    shopInfo: {
+      isBusState: true
     }
   },
 
@@ -118,8 +119,8 @@ Component({
       // icom.storage("ssoShopId", _info.shopId);
       this.setData({
         shopInfo: _info,
-        'shopInfo.isBusState' : app.checkAuditTime(_info.beginTime,_info.endTime),
-        checked:app.data.checked,
+        'shopInfo.isBusState': app.checkAuditTime(_info.beginTime, _info.endTime),
+        checked: app.data.checked,
         cardList: wx.getStorageSync("cardList") || [],
       });
       console.log("_info=================", this.data.shopInfo);
@@ -143,7 +144,7 @@ Component({
     // 计算距离
     setDistance(curLoc) {
       var latitude = app.data.userCurrentDis.userCurrentLat ? app.data.userCurrentDis.userCurrentLat : curLoc.latitude;
-      var longitude = app.data.userCurrentDis.userCurrentLon ? app.data.userCurrentDis.userCurrentLon :curLoc.longitude;
+      var longitude = app.data.userCurrentDis.userCurrentLon ? app.data.userCurrentDis.userCurrentLon : curLoc.longitude;
       if (!app.data.userCurrentDis.userCurrentLat) {
         console.log('初始没有经纬度,获取用户定位的');
         app.data.userCurrentDis.userCurrentLat = latitude;
@@ -561,9 +562,9 @@ Component({
     },
     changeChecked(e) {
       app.data.checked = e.detail,
-      this.setData({
-        checked: e.detail,
-      });
+        this.setData({
+          checked: e.detail,
+        });
 
       if (e.detail) {
         // 跳转到收货地址页面
@@ -762,7 +763,9 @@ Component({
     },
     clearCar() {
       icom.dilaog({
-          title: "确定清空购物车",
+          title: "清空购物车",
+          cancelColor: '#3a3a3a',
+          confirmColor: '#3a3a3a'
         },
         (res) => {
           if (res.confirm) {
@@ -782,10 +785,10 @@ Component({
       const total = this.data.cardList.reduce((num, item) => {
         return (num += item.buyNum);
       }, 0);
-      const totalPrice = this.data.cardList.reduce((num, item) => {
-        return (num += item.buyNum * item.price);
+      let totalPrice = this.data.cardList.reduce((num, item) => {
+        // return (num += item.buyNum * item.price);
+        return (num = imath.accAdd(num, item.buyNum * item.price));
       }, 0);
-
       this.setData({
         selectInfo: {
           total,
@@ -795,27 +798,31 @@ Component({
     },
 
     //购物车加减
-    reduceConfigNum2(e){
-      let {index} = e.currentTarget.dataset;
+    reduceConfigNum2(e) {
+      let {
+        index
+      } = e.currentTarget.dataset;
       var item = this.data.cardList[index];
-      if(item.buyNum >=1) {
+      if (item.buyNum >= 1) {
         item.buyNum = item.buyNum - 1;
       }
-      if(item.buyNum == 0) {
-        this.data.cardList.splice(index,1);
+      if (item.buyNum == 0) {
+        this.data.cardList.splice(index, 1);
       }
       this.setData({
-        cardList : this.data.cardList
+        cardList: this.data.cardList
       });
       this.initCar();
       wx.setStorageSync("cardList", this.data.cardList);
     },
-    addConfigNum2(e){
-      let {index} = e.currentTarget.dataset;
+    addConfigNum2(e) {
+      let {
+        index
+      } = e.currentTarget.dataset;
       var item = this.data.cardList[index];
       item.buyNum = item.buyNum + 1;
       this.setData({
-        cardList : this.data.cardList
+        cardList: this.data.cardList
       });
       this.initCar();
       wx.setStorageSync("cardList", this.data.cardList);

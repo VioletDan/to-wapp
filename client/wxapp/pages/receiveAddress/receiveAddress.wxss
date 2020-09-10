@@ -1,12 +1,15 @@
 page{width: 100%;height: 100%;}
-.receiveAddress{width: 100%;height: 100%;background-color: #f7f7f7;border-top: 1rpx solid transparent;}
+.receiveAddress{width: 100%;height: 100%;background-color: var(--color34);border-top: 1rpx solid transparent;}
 /* 空数据 s */
 .receiveAddress .empty {
   text-align: center;
-  color: #cccbcb;
+  color: var(--color28);
   font-size: 30rpx;
-  margin-top: 400rpx;
+  margin-top: 125rpx;
   display: none;
+}
+.receiveAddress .empty>view:last-child{
+  margin-top:30rpx;
 }
 .receiveAddress .empty.show {
   display: block;
@@ -18,28 +21,32 @@ page{width: 100%;height: 100%;}
   position: fixed;
   width: 100%;
   text-align: center;
-  bottom: 40rpx;
+  bottom: 70rpx;
   left: 0;
 }
 .receiveAddress .footer .addAddress {
-  display: inline-block;
-  width: 670rpx;
-  height: 96rpx;
-  line-height: 96rpx;
-  color: #fff;
-  background-color: #424141;
-  border-radius: 6rpx;
+  width: 554rpx;
+  height: 61rpx;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.receiveAddress .footer .addAddress1{
+  color: var(--white);
+  margin-bottom: 25rpx;
+  background-color: var(--color3);
+}
+.receiveAddress .footer .addAddress2{
+  color: var(--color27);
+  background-color: var(--color35);
+}
 .receiveAddress .footer .addAddress text {
   vertical-align: middle;
-  font-size: 34rpx;
+  font-size: 26rpx;
 }
 
-.receiveAddress .footer .addAddress text:first-child {
-  font-size: 20rpx;
-  margin-right: 10rpx;
-}
 /* 底部 e */
 
 /* listBox*/

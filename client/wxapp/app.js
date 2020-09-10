@@ -116,7 +116,7 @@ App({
         this.data.Flag_Info = 0 //1是 0否
         this.data.Flag_Phone = 0 //1是 0否
       } else {
-        this.data.Flag_Info = 1 //1是 0否
+        // this.data.Flag_Info = 1 //1是 0否
         this.data.Flag_Phone = 1 //1是 0否
       }
     } else {
@@ -133,6 +133,8 @@ App({
    * 全局参数
    * */
   data: {
+    Flag_Info:0,
+    Flag_Phone:0,
     coordinate: {
       latitude: 31.04958,
       longitude: 121.20283

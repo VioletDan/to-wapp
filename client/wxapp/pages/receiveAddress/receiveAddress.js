@@ -148,4 +148,12 @@ Page({
       url: "/pages/addAddress/addAddress",
     });
   },
+  //微信导入地址
+  addAddressWechat() {
+    wx.chooseAddress({
+      success: (res) => {
+        console.log(res);
+      }
+    });
+  }
 });

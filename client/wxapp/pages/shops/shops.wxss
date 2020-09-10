@@ -12,8 +12,9 @@
 
 .content {
   width: 100%;
-  height: calc(100% - 88rpx);
-  background-color: #f7f7f7;
+  /* height: calc(100% - 88rpx); */
+  height: 100%;
+  background-color: var(--color23);
 }
 
 .topBox {
@@ -21,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--white);
 }
 
 .topBox .currentPos {
@@ -35,7 +36,7 @@
 
 .topBox .search {
   width: 140rpx;
-  background-color: #f7f7f7;
+  background-color: var(--color24);
   position: relative;
   display: none;
 }
@@ -57,62 +58,108 @@
 }
 
 .storeBox {
-  height: calc(100% - 608rpx);
-  padding: 22rpx 32rpx;
-  margin-top: 35rpx;
+  height: calc(100% - 620rpx);
+  padding: 0 50rpx;
+  /* margin-top: 35rpx; */
+  background-color: var(--color23);
 }
 
 .storeBox scroll-view {
   height: 100%;
 }
-
-.storeBox scroll-view .item {
-  padding: 25rpx 35rpx;
-  background: #fff;
-  border-radius: 15rpx;
+.storeBox scroll-view .itemBorder{
+  padding: 30rpx 35rpx 0;
+  background: var(--color6);
+  border-radius: 30rpx;
   overflow: hidden;
-  min-height: 240rpx;
   box-sizing: border-box;
+  overflow: hidden;
+}
+.storeBox scroll-view .item {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 25rpx;
+  justify-content: space-between;
+  /* margin-bottom: 25rpx; */
+  border-bottom: 1rpx solid var(--color23);
+  padding-bottom: 30rpx;
 }
-
+.storeBox scroll-view .itemBorder:first-child{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.storeBox scroll-view .itemBorder:last-child{
+  min-height: 250rpx;
+}
 .storeBox scroll-view .item>.left {
-  width: 78%;
+  /* width: 78%; */
   float: left;
-  height: 100%;
+  /* height: 165rpx; */
+  text-align: justify;
 }
 .storeBox scroll-view .item>.left .item-title{
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: bold;
+  color: var(--color25);
 }
+.storeBox scroll-view .item>.left .btnOver{
+  width: 74rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  text-align: center;
+  font-size: 10rpx;
+  color: var(--white);
+  border-radius: 14rpx;
+  background-color: var(--color3);
+  display: block;
+  position: absolute;
+  top: 6rpx;
+  right: -60rpx;
+}
+
+
 .storeBox scroll-view .item>.left .item-distance{
-  font-size: 22rpx;
-  color: #787878;
+  font-size: 14rpx;
+  color: var(--color27);
+  margin-top: 25rpx;
+}
+.storeBox scroll-view .item>.left .item-time{
+  font-size: 19rpx;
+  color: var(--color26);
   margin-top: 15rpx;
 }
-.storeBox scroll-view .item>.left .item-adress,.storeBox scroll-view .item>.left .item-time{
-  font-size: 22rpx;
-  color: #a1a1a1;
-  margin-top: 8rpx;
+.storeBox scroll-view .item>.left .item-adress{
+  font-size: 18rpx;
+  color: var(--color28);
+  margin-top: 15rpx;
 }
 .storeBox scroll-view .item>.right {
-  width: calc(100% - 78%);
+  /* width: calc(100% - 78%); */
   float: right;
-  height: 160rpx;
-  border-left: 2rpx solid #efefef;
+  /* height: 165rpx; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
+.storeBox scroll-view .item>.right image{
+  width: 69rpx;
+  height: 69rpx;
+}
+.storeBox scroll-view .item>.right image.iconTel{
+  margin-right: 30rpx;
+}
+
+
+
+
+
 
 /* popupCon */
 .popupCon .van-popup{
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--white);
   z-index: 10;
 }
 .popupCon .resultBox{
@@ -123,7 +170,7 @@
 }
 .popupCon .resultBox .title{
   font-size: 30rpx;
-  color: #000;
+  color: var(--black);
   margin-bottom: 12rpx;
   overflow: hidden;
   white-space: nowrap;
@@ -131,7 +178,7 @@
 }
 .popupCon .resultBox .adress{
   font-size: 20rpx;
-  color: #838383;
+  color: var(--color29);
   margin-top: 12rpx;
   overflow: hidden;
   white-space: nowrap;
@@ -140,16 +187,16 @@
 .popupCon .resultBox .noResult{
   padding: 30rpx 0;
   font-size: 30rpx;
-  color: #000;
+  color: var(--black);
 }
 
 .storeVanTabs .collect {
  height: calc(100% - 88rpx);
- background-color: #f5f5f6;
+ background-color: var(--color30);
 }
 
 .noData{
-  color: #000;
+  color: var(--black);
   font-size: 30rpx;
   text-align: center;
   position: absolute;
