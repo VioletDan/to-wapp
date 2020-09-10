@@ -31,9 +31,9 @@ Page({
    */
   onShow: function () {
     //取出地址列表
-    if (app.data.addressListTitle) {
+    setTimeout(() => {
       this.getAddressList();
-    }
+    }, 200)
   },
 
   /**
@@ -94,15 +94,11 @@ Page({
               }).then((res) => {
                 if (res) {
                   icom.loadingHide();
-                  var _addressList = [];
-                  if (index == 0) {
-                    _addressList = [];
-                  } else {
-                    _addressList = this.data.addressList.splice(index, 1);
-                  }
                   this.setData({
-                    addressList: _addressList,
-                  });
+                    apptList: [], // 已预约列表
+                    scrollTop: 0
+                  })
+                  this.getAddressList();
                   instance.close();
                 }
               });
@@ -132,6 +128,7 @@ Page({
       longitude: this.data.addressList[index].longitude
     }, (res) => {
       if (res) {
+        if (app.data.wechatInfo) app.data.wechatInfo = null;
         app.data.userAdressInfo = this.data.addressList[index];
         app.data.userCurrentDis.userCurrentLat = this.data.addressList[index].latitude;
         app.data.userCurrentDis.userCurrentLon = this.data.addressList[index].longitude;
@@ -152,7 +149,24 @@ Page({
   addAddressWechat() {
     wx.chooseAddress({
       success: (res) => {
-        console.log(res);
+        // console.log(res);
+        if (app.data.userEditorAdressInfo) app.data.userEditorAdressInfo = null;
+        app.data.wechatInfo = res;
+        var addressTxt = res.provinceName + res.cityName + res.countyName + res.detailInfo;
+        app.data.wechatInfo.name = res.userName;
+        app.data.wechatInfo.phone = res.telNumber;
+        app.data.wechatInfo.address = res.provinceName + res.cityName + res.countyName; //具体地址
+        app.data.wechatInfo.addressName = res.provinceName + res.cityName + res.countyName; //页面显示选择的部分地址
+        app.data.wechatInfo.adressHouseNum = res.detailInfo; //门牌号
+        app.data.wechatInfo.name = res.userName;
+        //根据地址取经纬度
+        utils.getLatAndLong(addressTxt, (res) => {
+          app.data.wechatInfo.latitude = res.lat;
+          app.data.wechatInfo.longitude = res.lng;
+          wx.navigateTo({
+            url: "/pages/addAddress/addAddress",
+          });
+        });
       }
     });
   }

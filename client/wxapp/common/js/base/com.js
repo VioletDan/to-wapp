@@ -4,49 +4,51 @@ const icom = function () {
     let com = {};
     // fadeList
     com.fadeList = function (_this, dataName, dataList, scroll, ele) {
-      _this._observer = []
-      for (let i in dataList) {
-        if (!dataList[i].appear) {
-          // 设置监听回调事件，当元素 .fadeImg{{i}},进入页面20px内就触发回调事件，设置图片为真正的图片，通过show控制
-          _this._observer[i] = wx.createIntersectionObserver(_this)
-          _this._observer[i].relativeTo(scroll).observe(ele + i, (res) => {
-            if (res.intersectionRatio > 0) {
-              dataList[i].appear = true;
-              //取消检测
-              _this._observer[i].disconnect()
+        _this._observer = []
+        for (let i in dataList) {
+            if (!dataList[i].appear) {
+                // 设置监听回调事件，当元素 .fadeImg{{i}},进入页面20px内就触发回调事件，设置图片为真正的图片，通过show控制
+                _this._observer[i] = wx.createIntersectionObserver(_this)
+                _this._observer[i].relativeTo(scroll).observe(ele + i, (res) => {
+                    if (res.intersectionRatio > 0) {
+                        dataList[i].appear = true;
+                        //取消检测
+                        _this._observer[i].disconnect()
+                    }
+                    _this.setData({
+                        [dataName]: dataList
+                    })
+                })
+
             }
-            _this.setData({ [dataName]: dataList })
-          })
 
         }
-
-      }
     }
     //合并字符串
-    com.combineUrl=function(url, option){
-      if (Object.keys(option).length === 0) {
-        return
-      }
-      url += (url.indexOf('?') < 0 ? '?' : '&') + com.param(option);
-      return url
+    com.combineUrl = function (url, option) {
+        if (Object.keys(option).length === 0) {
+            return
+        }
+        url += (url.indexOf('?') < 0 ? '?' : '&') + com.param(option);
+        return url
     }
     //拼接字符串
-    com.param = function(data) {
-      let url = ''
-      for (var k in data) {
-        let value = data[k] !== undefined ? data[k] : ''
-        url += `&${k}=${encodeURIComponent(value)}`
-      }
-      return url ? url.substring(1) : ''
+    com.param = function (data) {
+        let url = ''
+        for (var k in data) {
+            let value = data[k] !== undefined ? data[k] : ''
+            url += `&${k}=${encodeURIComponent(value)}`
+        }
+        return url ? url.substring(1) : ''
     }
     com.page = function () {
         let pages = getCurrentPages();
         return pages[pages.length - 1];
-    }//edn func
+    } //edn func
 
     com.pages = function () {
         return getCurrentPages();
-    }//edn func
+    } //edn func
 
     com.ajax = function (url, data, onSucces, onFail, method) {
         if (url && data) {
@@ -91,7 +93,7 @@ const icom = function () {
                             [animationKey]: animationClass
                         });
                     }, 20);
-                }//edn if
+                } //edn if
                 else {
                     page.setData({
                         [animationKey]: animationClass
@@ -101,13 +103,13 @@ const icom = function () {
                             [showKey]: show
                         });
                     }, animationTime);
-                }//edn else
-            }//edn if
+                } //edn else
+            } //edn if
             else {
                 page.setData({
                     [showKey]: show
                 });
-            }//end else
+            } //end else
         } //end if
     }
 
@@ -140,7 +142,7 @@ const icom = function () {
         wx.hideLoading();
     }
 
-    com.sign = function (title = '', icon = 'none', duration = 2000, callback = function () { }) {
+    com.sign = function (title = '', icon = 'none', duration = 2000, callback = function () {}) {
         let opts = {
             title: title,
             icon: icon,
@@ -155,19 +157,19 @@ const icom = function () {
         wx.hideToast();
     }
 
-  com.alert = function (content = '',title='',callback = function () { }) {
+    com.alert = function (content = '', title = '', callback = function () {}) {
         let opts = {
             content: content,
             success: callback,
             showCancel: false
         };
         if (title) {
-          opts.title=title
+            opts.title = title
         }
         wx.showModal(opts);
     }
 
-    com.dilaog = function (options = {},callback = function () { }) {
+    com.dilaog = function (options = {}, callback = function () {}) {
         let opts = {};
         let defaults = {
             title: '',
@@ -187,7 +189,7 @@ const icom = function () {
         wx.showActionSheet(options);
     }
 
-    com.getBound = function (selector, callback = function () { }) {
+    com.getBound = function (selector, callback = function () {}) {
         if (selector) {
             let bound = {};
             wx.createSelectorQuery().select(selector).boundingClientRect(function (rect) {
@@ -199,33 +201,38 @@ const icom = function () {
                 bound.height = rect.height // 节点的高度
             }).exec();
             bound_get();
-        }//end if
+        } //end if
         function bound_get() {
             setTimeout(function () {
                 if (imath.objectLength(bound) > 0) {
                     callback(bound);
-                }//edn if
+                } //edn if
                 else {
                     bound_get();
-                }//end else
+                } //end else
             }, 33);
-        }//edn func
+        } //edn func
     }
 
-    com.hitTest = function (target, source, callback = function () { }) {
+    com.hitTest = function (target, source, callback = function () {}) {
         if (source && target) {
             wx.createIntersectionObserver().relativeTo(source).observe(target, (res) => {
                 callback(res.intersectionRatio);
             });
-        }//edn if
+        } //edn if
     }
 
-    com.hitArea = function (target, source = { left: 0, right: 0, top: 0, bottom: 0 }, callback = function () { }) {
+    com.hitArea = function (target, source = {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+    }, callback = function () {}) {
         if (target) {
             wx.createIntersectionObserver().relativeToViewport(source).observe(target, (res) => {
                 callback(res.intersectionRatio);
             });
-        }//edn if
+        } //edn if
     }
 
     com.hitOff = function () {
@@ -262,6 +269,7 @@ const icom = function () {
     com.checkStr = function (str = '', type = 0) {
         if (str != '') {
             let reg;
+            let isMob = new RegExp(/^((0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/);
             switch (type) {
                 case 0:
                     reg = new RegExp(/^1[3-9]\d{9}$/); //手机号码验证
@@ -297,8 +305,14 @@ const icom = function () {
                     reg = new RegExp(/^\d{4}$/); //4位验证码验证
                     break;
             } //end switch
-            if (reg.exec(this.trim(str))) return true;
-            else return false;
+            if (type == 0) {
+                if (reg.exec(this.trim(str)) || isMob.exec(this.trim(str))) return true;
+                else return false;
+            } else {
+                if (reg.exec(this.trim(str))) return true;
+                else return false;
+            }
+
         } //end if
         else return false;
     }
@@ -381,10 +395,10 @@ const icom = function () {
     com.vibrate = function (long = true) {
         if (long) {
             wx.vibrateLong();
-        }//end if
+        } //end if
         else {
             wx.vibrateShort();
-        }//end else
+        } //end else
     }
 
     com.screenBrightness = function (vc) {
@@ -392,32 +406,32 @@ const icom = function () {
             wx.setScreenBrightness({
                 value: vc
             });
-        }//end if
+        } //end if
         else if (typeof (vc) === 'function') {
             wx.getScreenBrightness({
                 success: vc
             });
-        }//end else
+        } //end else
     }
 
-    com.screenCapture = function (callback = function () { }) {
+    com.screenCapture = function (callback = function () {}) {
         wx.onUserCaptureScreen(callback);
     }
 
-    com.clipboardData = function (vc, callback = function () { }) {
+    com.clipboardData = function (vc, callback = function () {}) {
         if (vc != null) {
             wx.setClipboardData({
                 data: vc,
                 success: callback
             })
-        }//end if
+        } //end if
         else if (typeof (vc) === 'function') {
             wx.getClipboardData({
                 success: function (res) {
                     vc(res.data);
                 }
             })
-        }//end else
+        } //end else
     }
 
     com.setData = function (data) {
@@ -425,7 +439,7 @@ const icom = function () {
         pages[pages.length - 1].setData(data);
     }
 
-    com.animation = function (style = '', name = '', duration = 1000, timingFunction = 'ease', delay = 0, iterationCount = 1, direction = 'normal', fillMode = 'forwards', callback = function () { }) {
+    com.animation = function (style = '', name = '', duration = 1000, timingFunction = 'ease', delay = 0, iterationCount = 1, direction = 'normal', fillMode = 'forwards', callback = function () {}) {
         if (style != '' && name != '') {
             let pages = getCurrentPages();
             let page = pages[pages.length - 1];
@@ -440,7 +454,7 @@ const icom = function () {
                 [style]: css
             });
             setTimeout(callback, duration + delay);
-        }//end if
+        } //end if
     }
 
     com.timeRange = function (today, start, end, type = 'in') {
@@ -448,42 +462,42 @@ const icom = function () {
         let isBefore, isAfter;
         for (var i = 0; i < list.length; i++) {
             list[i] = parseInt(list[i]);
-        }//edn if
+        } //edn if
         if (start) {
             isBefore = (list[0] < start[0]) || (list[0] == start[0] && list[1] < start[1]) || (list[0] == start[0] && list[1] == start[1] && list[2] < start[2]);
-        }//end if
+        } //end if
         if (end) {
             isAfter = (list[0] > end[0]) || (list[0] == end[0] && list[1] > end[1]) || (list[0] == end[0] && list[1] == end[1] && list[2] >= end[2]);
-        }//edn if
+        } //edn if
         if (type == 'in') return (!isBefore && !isAfter);
         else if (type == 'before') return (isBefore);
         else if (type == 'after') return (isAfter);
         else return false;
     } //edn func
 
-  com.OS = function () {
-    let info = wx.getSystemInfoSync();
-    console.log(info);
-    let os = {};
-    os.info = info;
-    os.android = info.platform == 'android';
-    os.iphone = info.brand == 'iPhone';
-    os.ios = info.platform == 'ios';
-    os.iphoneType = info.model.replace(/^iPhone \w+<$/);
-    os.iphoneX = info.model.match(/iPhone X/) ? true : false;
-    os.screenHeight = info.screenHeight;
-    os.screenWidth = info.screenWidth;
-    os.windowHeight = info.windowHeight;
-    os.windowWidth = info.windowWidth;
-    os.statusbarHeight = info.statusbarHeight;
-    os.screen159 = (info.screenWidth == 360 && info.windowHeight < 540);
-    os.screen189 = (info.screenWidth == 360 && info.windowHeight > 590) || (info.screenWidth == 393 && info.windowHeight > 660);
-    os.xiaomi = info.brand.match(/Xiaomi/) || info.brand.match(/Redmi/) ? true : false;
-    os.huawei = info.brand.match(/HUAWEI/) ? true : false;
-    os.oppo = info.brand.match(/OPPO/) ? true : false;
-    os.vivo = info.brand.match(/vivo/) ? true : false;
-    return os;
-  } //edn func
+    com.OS = function () {
+        let info = wx.getSystemInfoSync();
+        console.log(info);
+        let os = {};
+        os.info = info;
+        os.android = info.platform == 'android';
+        os.iphone = info.brand == 'iPhone';
+        os.ios = info.platform == 'ios';
+        os.iphoneType = info.model.replace(/^iPhone \w+<$/);
+        os.iphoneX = info.model.match(/iPhone X/) ? true : false;
+        os.screenHeight = info.screenHeight;
+        os.screenWidth = info.screenWidth;
+        os.windowHeight = info.windowHeight;
+        os.windowWidth = info.windowWidth;
+        os.statusbarHeight = info.statusbarHeight;
+        os.screen159 = (info.screenWidth == 360 && info.windowHeight < 540);
+        os.screen189 = (info.screenWidth == 360 && info.windowHeight > 590) || (info.screenWidth == 393 && info.windowHeight > 660);
+        os.xiaomi = info.brand.match(/Xiaomi/) || info.brand.match(/Redmi/) ? true : false;
+        os.huawei = info.brand.match(/HUAWEI/) ? true : false;
+        os.oppo = info.brand.match(/OPPO/) ? true : false;
+        os.vivo = info.brand.match(/vivo/) ? true : false;
+        return os;
+    } //edn func
 
 
     return com;

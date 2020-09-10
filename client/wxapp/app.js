@@ -349,12 +349,12 @@ App({
 
   /**检测是否支持配送 */
   checkdistance(data, callback) {
-    icom.loading();
+    // icom.loading();
     this.API.checkdistance({
       latitude: data.latitude,
       longitude: data.longitude
     }).then((res) => {
-      icom.loadingHide();
+      // icom.loadingHide();
       if (res && res.code == 200) {
         if (callback) callback(res);
       }else{

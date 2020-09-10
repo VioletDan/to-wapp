@@ -3,60 +3,44 @@
 	<scroll-view scroll-y class="orderInfoScroll">
 		<view class="box">
 			<!-- 门店信息 -->
-			<noticeBar wx:if="{{checked}}" isBar="{{checked}}" text="疫情防控期减少接触，推荐订单备注「无接触配送」" />
+			<!-- <noticeBar wx:if="{{checked}}" isBar="{{checked}}" text="疫情防控期减少接触，推荐订单备注「无接触配送」" /> -->
 			<view class="guide commonB">
 				<view class="guideTop">
-					<view class="guideTopLeft" wx:if="{{!checked}}" catchtap="goStoreList">
-						<text class="storeName">{{userOrderinfo.commercialName}}</text>
-						<text class="iconCommon">></text>
-					</view>
-					<view class="guideTopLeft guideTakeout" wx:else catchtap="goReceiveAddress">
-						<text class="storeName" wx:if="{{userAdressInfo.username}}">
-						{{userAdressInfo.address}}
-						</text>
-						<text class="storeName" wx:else>请选择地址</text>
-						<text class="storeName">{{userAdressInfo.street}}</text>
-					</view>
-					<view class="guideTopRight">
-						<switchWithText width="160" height="60" activeText="自提" inactiveText="外卖" checked="{{checked}}" bind:changeChecked="changeChecked"></switchWithText>
+					<view class="guideTopLeft" catchtap="goStoreList">
+						<text class="iconfont icon_star_empty"></text>
+						<text class="storeName">{{userOrderinfo.commercialName}} ></text>
 					</view>
 				</view>
-				<view class="distance" wx:if="{{!checked}}">
-					<text class="iconfont icon_star_empty"></text>
-					{{userOrderinfo.commercialAddress}}
-					<text>{{userOrderinfo.commercialDesc}}</text>
+				<view class="distance">
+					距离您{{appData.ShopInfo.distance}}km
 				</view>
-				<view class="distance" wx:else>
+				<view class="guideTopRight">
+					<!-- <switchWithText width="160" height="60" activeText="自提" inactiveText="外卖" checked="{{checked}}" bind:changeChecked="changeChecked"></switchWithText> -->
+					<view class="type type1 {{!checked ? 'active' : ''}}" catchtap="typeClick" data-checked="false">
+						<text class="iconfont icon_shop"></text>
+						门店自取
+					</view>
+					<view class="type type2 {{checked ? 'active' : ''}}" catchtap="typeClick" data-checked="true">
+						<text class="iconfont icon_car"></text>
+						外卖配送
+					</view>
+				</view>
+				<view class="adressBox" wx:if="{{checked}}" catchtap="goReceiveAddress">
 					<text wx:if="{{userAdressInfo.username}}">
-					{{userAdressInfo.username}}({{userAdressInfo.gender == 1 ? '男士' : '女士'}})
+					{{userAdressInfo.username}} {{userAdressInfo.mobile}}\n {{userAdressInfo.address}} {{userAdressInfo.street}}
 					</text>
-					<text wx:else>配送门店已地址匹配为准</text>
-					<text>{{userAdressInfo.mobile}}</text>
+					<text wx:else>请选择地址\n配送门店已地址匹配为准</text>
 				</view>
 				<view class="userTelBox" wx:if="{{!checked}}">
 					<view class="left">
 						<text>联系电话</text>
-						<text>{{userOrderinfo.userTel}}</text>
 					</view>
 					<view class="right">
-						自动填写
-						<button class="phoneBox" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
-					</view>
-				</view>
-			</view>
-			<!-- 取茶时间 -->
-			<view class="getFoodTimeBox commonB">
-				<view class="title commonTitle">取茶时间</view>
-				<view class="txt txt1" wx:if="{{userOrderinfo.userFoodType == 1}}">
-					冰淇淋/鲜食等产品无需等待，可立即向店员领取
-				</view>
-				<view class="txt txt2" wx:else>
-					前面还有
-					<text class="txt1">{{userOrderinfo.userBeforeNum}}单/{{userOrderinfo.userAllNum}}杯</text>
-					制作中，预计等待
-					<text class="txt1">{{userOrderinfo.needwaitTime}}</text>
-					<view class="progressBox">
-						<view class="progress" style="width:{{userOrderinfo.needwaitTimePrecent}}%"></view>
+						<text>{{userOrderinfo.userTel}}</text>
+						<view class="btnTel">
+							自动填写
+							<button class="phoneBox" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -64,14 +48,20 @@
 			<view class="cardListBox commonB">
 				<view class="title commonTitle">商品列表</view>
 				<view class="listContent">
-					<view class="left flexBox">
-						<view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
-							<image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
+					<view class="listContentItem">
+						<view class="left flexBox">
+							<view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
+								<image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
+								<view class="info">
+									<text class="txt1">{{item.foodTitle}}</text>
+									<text class="txt2">{{item.foodDesc}}</text>
+									<text class="txt3">￥{{item.price}}</text>
+								</view>
+							</view>
 						</view>
-					</view>
-					<view class="right" catchtap="showCardListClick">
-						共{{selectInfo.total}}件
-						<text class="iconCommon">></text>
+						<view class="right">
+							X{{selectInfo.total}}
+						</view>
 					</view>
 				</view>
 				<view class="RunningMoney flexBox">
@@ -84,13 +74,6 @@
 					<view class="left">配送费</view>
 					<view class="right">
 						<text class="tips">￥{{selectInfo.sendCost}}</text>
-					</view>
-				</view>
-				<view class="couponBox flexBox" hidden="{{true}}">
-					<view class="left">喜茶券</view>
-					<view class="right">
-						<text class="tips" wx:if="{{userOrderinfo.userCouponNum === 0}}">暂无可用</text>
-						<text class="iconCommon">></text>
 					</view>
 				</view>
 				<view class="remarksBox flexBox">

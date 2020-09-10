@@ -72,7 +72,8 @@ Page({
       ),
       cardList: _cardList,
       appData: app.data,
-      checked: app.data.checked
+      checked: app.data.checked,
+      appData: app.data
     });
     this.initCar();
     if (app.data.userAdressInfo && this.data.checked) this.checkdistance();
@@ -154,6 +155,23 @@ Page({
     icom.sign(`请确认下单,门店是否为「${app.data.shopInfo.commercialName}店」`);
   },
   // switch
+  typeClick(e) {
+    console.log(e)
+    let {
+      checked
+    } = e.currentTarget.dataset;
+    let _checked = JSON.parse(checked);
+    app.data.checked = _checked;
+    this.setData({
+      checked: _checked,
+    });
+    if (_checked) {
+      // 跳转到收货地址页面
+      wx.navigateTo({
+        url: "/pages/receiveAddress/receiveAddress",
+      });
+    }
+  },
   changeChecked(e) {
     app.data.checked = e.detail
     this.setData({

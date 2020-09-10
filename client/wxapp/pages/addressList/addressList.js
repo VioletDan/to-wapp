@@ -100,6 +100,8 @@ Page({
           longitude: lng,
           id: res.result.pois[0].id,
           title: res.result.pois[0].title,
+          address:res.result.pois[0].address,
+          category:res.result.pois[0].category,
         }]
       })
     })

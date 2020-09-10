@@ -4,23 +4,23 @@
 		<view class="">请点击底部按钮添加地址</view>
 	</view>
 	<view wx:else class="listBox">
-		<scroll-view scroll-y class="listBoxScroll">
+		<scroll-view scroll-y class="listBoxScroll" scroll-top="{{scrollTop}}">
 			<view class="box">
 				<block wx:for="{{addressList}}" wx:key="index">
 					<van-swipe-cell right-width="{{ 50 }}" async-close="{{true}}" bind:close="onClose" data-index="{{index}}">
 						<view class="listItem flexBox">
 							<view class="left" bindtap="selectItemClick" data-index="{{index}}">
-								<view class="txt">
-									<text>{{item.username}} ({{item.gender == 1 ? '男士' : '女士'}})</text>
+								<view class="txt txt1">
+									<text>{{item.username}}</text>
 									<text>{{item.mobile}}</text>
+									<text class="btnDefault" wx:if="{{item.isDefault}}">默认</text>
 								</view>
 								<view class="txt">
-									<text>{{item.address}}</text>
-									<text>{{item.street}}</text>
+									<text>{{item.address}}</text><text>{{item.street}}</text>
 								</view>
 							</view>
 							<view class="right" catchtap="editorClick" data-index="{{index}}">
-								<text class="iconfont icon_editor"></text>
+								<text class="icon_Editor">编辑</text>
 							</view>
 						</view>
 						<view slot="right" class="rightDel">删除</view>

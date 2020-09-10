@@ -6,8 +6,8 @@
 				<view class="top flexBox">
 					<view class="storeName">
 						<image class="storeImg" src="{{item.shopLogoImg}}"></image>
-						{{item.shopname}}
-						<text>{{item.sendType == 1 ? '自提' : '外卖'}}
+						{{item.shopname}} >
+						<text class="type">{{item.sendType == 1 ? '自提' : '外卖'}}
 						</text>
 					</view>
 					<view class="orderStatus">
@@ -18,28 +18,35 @@
 						<text wx:if="{{item.state == 6}}">{{item.sendType == 1 ? '已取餐' : '已送达'}}</text>
 						<text wx:if="{{item.state == 7}}">已取消</text>
 						<text wx:if="{{item.state == 9}}">已退款</text>
-						<text class="iconCommon">></text>
+						<!-- <text class="iconCommon">></text> -->
 					</view>
 				</view>
 				<view class="center orderImgList">
 					<view class="imgList">
-						<image class="img" wx:for="{{item.orderFoodList}}" wx:key="index" src="{{item.foodCover}}" mode="widthFix" lazy-load="{{true}}"></image>
+						<view class="listFood" wx:for="{{item.orderFoodList}}" wx:key="index" wx:if="{{index==0}}">
+							<image class="img" src="{{item.foodCover}}" mode="widthFix" lazy-load="{{true}}"></image>
+							<view class="info">
+								<text class="txt1">{{item.foodTitle}}</text>
+								<text class="txt2">{{item.foodSpecsName}}</text>
+							</view>
+						</view>
 					</view>
+					<text class="iconCommon">></text>
 				</view>
 				<view class="bottom">
 					<!-- <view class="tips" wx:if="{{orderType==2 && item.oderStatus == 1}}">订单制作完成,等待骑手接单</view> -->
-					<view class="num">订单编号:{{item.orderNo}}</view>
+					<!-- <view class="num">订单编号:{{item.orderNo}}</view> -->
 					<view class="info flexBox">
-						<view class="time">下单时间:{{item.createTime}}</view>
+						<view class="time">{{item.createTime}}</view>
 						<view class="totalPrize">￥{{item.totalMoney}}</view>
 					</view>
 				</view>
 				<view class="buttonBox flexBox">
 					<view></view>
-					<view class="btn" catchtap="btnOrderAgain">再来一单</view>
+					<!-- <view class="btn" catchtap="btnOrderAgain">再来一单</view> -->
 				</view>
 			</view>
-				<view class="noData" wx:if="{{currentList.length == 0}}">暂无数据</view>
+			<view class="noData" wx:if="{{currentList.length == 0}}">暂无数据</view>
 		</scroll-view>
 	</view>
 	<!-- <view class="tabBar">

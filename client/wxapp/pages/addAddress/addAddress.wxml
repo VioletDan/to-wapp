@@ -2,39 +2,26 @@
 	<view class="form">
 		<view class="name">
 			<text>联系人</text>
-			<input
-			 type="text"
-			 placeholder="请填写收货人的姓名"
-			 placeholder-style="color: #ccc"
-			 value="{{form.name}}"
-       bindinput="bindKeyInputName"
-			/>
+			<input type="text" placeholder="请输入收货人姓名" placeholder-style="color: #a3a3a3" value="{{form.name}}" bindinput="bindKeyInputName" />
 		</view>
 
-		<view class="gender">
+		<view class="gender" hidden="{{true}}">
 			<text>性别</text>
-      <radio-group bindchange="radioChange">
-        <label class="radio male">
-          <radio value="1" checked="{{form.gender === 1 }}" color="#000" />
-          先生
-        </label>
-        <label class="radio">
-          <radio value="2" checked="{{form.gender === 2}}" color="#000" />
-          女士
-        </label>
-      </radio-group>
+			<radio-group bindchange="radioChange">
+				<label class="radio male">
+					<radio value="1" checked="{{form.gender === 1 }}" color="#000" />
+					先生
+				</label>
+				<label class="radio">
+					<radio value="2" checked="{{form.gender === 2}}" color="#000" />
+					女士
+				</label>
+			</radio-group>
 		</view>
 
 		<view class="tel">
 			<text>手机号</text>
-			<input
-			 type="number"
-			 placeholder="请填写收货手机号码"
-			 placeholder-style="color: #ccc"
-			 value="{{form.phone}}"
-       bindinput="bindKeyInputTel"
-       maxlength="11"
-			/>
+			<input type="number" placeholder="请输入收货人手机号" placeholder-style="color: #a3a3a3;" value="{{form.phone}}" bindinput="bindKeyInputTel" maxlength="11" />
 		</view>
 
 		<view class="address" bindtap="selectAddress">
@@ -45,29 +32,20 @@
     </view>
 
     <view class="detailAddress">
-      <text>门牌号
-</text>
-			<input
-			 type="text"
-			 placeholder="例: B座8楼803"
-			 placeholder-style="color: #ccc"
-			 value="{{form.adressHouseNum}}"
-       bindinput="bindKeyInputHouseNum"
-			/>
+      <text>门牌号</text>
+			<input type="text" placeholder="例：C座1号101室" placeholder-style="color: #a3a3a3" value="{{form.adressHouseNum}}" bindinput="bindKeyInputHouseNum" />
 		</view>
 
 		<view class="defaultAddress">
 			<label class="radio">
 				<!-- <radio value="1" checked="{{form.defaultAddress === 1 }}" color="#000" /> -->
-        <checkbox-group bindchange="checkboxChange">
-          <checkbox value="{{form.defaultAddress}}" checked="{{form.isDefault}}" color="#fff" />
-        </checkbox-group>
+				<checkbox-group bindchange="checkboxChange">
+					<checkbox value="{{form.defaultAddress}}" checked="{{form.isDefault}}" color="#fff" />
+				</checkbox-group>
 				设为默认地址
 			</label>
 		</view>
-
-		<view class="save" catchtap="btnSaveClick">保存</view>
 	</view>
+	<view class="save" catchtap="btnSaveClick">保存</view>
 </view>
-<van-toast id="van-toast"/>
-
+<van-toast id="van-toast" />

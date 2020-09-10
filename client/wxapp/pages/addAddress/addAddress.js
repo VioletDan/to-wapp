@@ -20,7 +20,7 @@ Page({
       adressHouseNum: '',
       defaultAddress: 1, //1未选中 2 选中
       isDefault: false,
-      addressName:''
+      addressName: ''
     }
   },
 
@@ -28,7 +28,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.data.userEditorAdressInfo);
+    //编辑
+    console.log('app.data.userEditorAdressInfo', app.data.userEditorAdressInfo);
+    //微信导入
+    console.log('app.data.wechatInfo', app.data.wechatInfo);
+    //编辑
     if (app.data.userEditorAdressInfo) {
       icom.loading();
       API.GetUserAdressItem({
@@ -52,6 +56,12 @@ Page({
       //   'form.adressHouseNum': app.data.userEditorAdressInfo.street
       // })
     }
+    //微信导入
+    if (app.data.wechatInfo) {
+      this.setData({
+        form: Object.assign(this.data.form, app.data.wechatInfo),
+      });
+    }
   },
 
   /**
@@ -68,9 +78,9 @@ Page({
     if (app.data.addressListTitle) {
       this.setData({
         'form.address': app.data.addressListTitleLocObj.address,
-        'form.addressName':app.data.addressListTitleLocObj.title,
-        'form.latitude':app.data.addressListTitleLocObj.latitude,
-        'form.longitude':app.data.addressListTitleLocObj.longitude,
+        'form.addressName': app.data.addressListTitleLocObj.title,
+        'form.latitude': app.data.addressListTitleLocObj.latitude,
+        'form.longitude': app.data.addressListTitleLocObj.longitude,
         appData: app.data
       });
     }
@@ -180,11 +190,12 @@ Page({
           "isDefault": this.data.form.isDefault,
           "latitude": this.data.form.latitude,
           "longitude": this.data.form.longitude,
-          "addressName":this.data.form.addressName,
+          "addressName": this.data.form.addressName,
         }).then(res => {
           if (res) {
             icom.loadingHide();
-            app.data.userEditorAdressInfo = null;
+            if (app.data.userEditorAdressInfo) app.data.userEditorAdressInfo = null;
+            if (app.data.addressListTitle) app.data.addressListTitle = null;
             //返回地址列表页
             wx.navigateBack({})
           }
@@ -195,15 +206,17 @@ Page({
           "username": this.data.form.name,
           "gender": this.data.form.gender,
           "mobile": this.data.form.phone,
-          "address": app.data.addressListTitleLocObj.address,
+          "address": this.data.form.address,
           "street": this.data.form.adressHouseNum,
           "isDefault": this.data.form.isDefault,
-          "latitude": app.data.addressListTitleLocObj.latitude,
-          "longitude": app.data.addressListTitleLocObj.longitude,
-          "addressName":app.data.addressListTitleLocObj.title,
+          "latitude": this.data.form.latitude,
+          "longitude": this.data.form.longitude,
+          "addressName": this.data.form.addressName,
         }).then(res => {
           if (res) {
             icom.loadingHide();
+            if (app.data.wechatInfo) app.data.wechatInfo = null;
+            if (app.data.addressListTitle) app.data.addressListTitle = null;
             //返回地址列表页
             wx.navigateBack({})
           }

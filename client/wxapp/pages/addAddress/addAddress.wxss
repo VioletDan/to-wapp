@@ -6,24 +6,32 @@ page {
 }
 
 .addAddress {  
-  padding-top: 23rpx;
+  /* padding-top: 23rpx; */
+  height: 100%;
 }
 .addAddress .form {
-  padding: 0 40rpx;
+  padding: 0 30rpx;
   background-color: #fff;
-  font-size: 26rpx;
+  font-size: 28rpx;
 }
 
 .addAddress .form > view {
   display: flex;
   align-items: center;
-  height: 100rpx;
+  height: 90rpx;
   box-sizing: border-box;
-  border-bottom: 1px solid #f0f0f0;
+  background-color: var(--color24);
+  margin-top: 24rpx;
 }
 .addAddress .form > view > text:first-child {
   font-weight: 700;
-  width: 150rpx;
+  width: 207rpx;
+  padding-left: 30rpx;
+  color: var(--color40);
+  box-sizing: border-box;
+}
+.addAddress .form > view > input{
+  color: var(--color41);
 }
 .addAddress .form > view.gender > .radio {
   display: flex;
@@ -41,24 +49,29 @@ page {
   align-items: center;
   width: calc(100% - 178rpx);
   display: block;
-  padding-right: 20rpx;
+  /* padding-right: 20rpx; */
+  margin-left: 26rpx;
+  color: var(--color41);
 }
 .addAddress .form > view.address text:nth-child(2).empty {
-  color: #cccccc;
+  color: var(--color43);
 }
 .addAddress .form > view.address text:last-child {
   transform: rotate(-90deg);
   font-size: 26rpx;
+  margin-right: 20rpx;
 }
 .addAddress .form > view.defaultAddress .radio {
   display: flex;
   align-items: center;
+  color: var(--color9);
+  font-size: 28rpx;
 }
 .addAddress .form > view.defaultAddress .radio > radio {
   transform:scale(0.7);
 }
 .addAddress .form > view.defaultAddress .radio checkbox {
-  transform:scale(0.85);
+  transform:scale(0.7);
 }
 .addAddress .form > view.defaultAddress .radio checkbox .wx-checkbox-input {
   border-radius: 50%;
@@ -66,15 +79,18 @@ page {
 .addAddress .form > view.defaultAddress .radio checkbox .wx-checkbox-input.wx-checkbox-input-checked {
   background-color: #000;
 }
-.addAddress .form > view.save {
+.addAddress .save {
+  display: flex;
   justify-content: center;
-  width: 670rpx;
-  height: 100rpx;
-  line-height: 100rpx;
-  color: #fff;
-  font-size: 36rpx;
-  border-radius: 8rpx;
-  margin: 0 auto;
-  margin-top: 32rpx;
-  background-color: #343434;
+  width: 554rpx;
+  height: 61rpx;
+  line-height: 61rpx;
+  color: var(--white);
+  font-size: 28rpx;
+  background-color: var(--color3);
+  position: absolute;
+  bottom: 175rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
 }

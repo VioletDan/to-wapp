@@ -1,20 +1,27 @@
 /* components/order/order.wxss */
-.content { width: 100%; height: 100%;overflow: hidden;background-color: #f7f7f7;}
+.content { width: 100%; height: 100%;overflow: hidden;background-color: var(--color24);}
 .topBabs .van-hairline--top-bottom:after {border-top: none;}
 .listBox .flexBox{display: flex;justify-content: space-between;align-items: center;}
 .listBox {height: 100%;overflow: hidden;}
 .listBox .listBoxscroll{height: 100%;}
-.listBox .listItem{width: 100%;background-color: #fff;min-height: 430rpx;margin-top: 20rpx;box-sizing: border-box;padding: 36rpx 45rpx 40rpx 40rpx;}
+.listBox .listItem{width: 100%;background-color: #fff;margin-top: 20rpx;box-sizing: border-box;padding: 35rpx 35rpx 24rpx 45rpx;}
 .listBox .listItem .top {font-size: 28rpx}
-.listBox .listItem .top .storeName {text-align: left;}
-.listBox .listItem .top .storeName .storeImg{width: 40rpx;height: 40rpx;vertical-align: middle;}
-.listBox .listItem .top .orderStatus{color:#3d3d3d;font-size: 24rpx;}
-.listBox .listItem .center .imgList{width: 100%;padding: 35rpx 0;overflow: hidden;white-space: nowrap;}
-.listBox .listItem .center .imgList .img{width: 120rpx;height: auto;margin-right: 20rpx;vertical-align: middle;}
-.listBox .listItem .bottom{color:#3d3d3d;font-size: 24rpx;}
+.listBox .listItem .top .storeName {text-align: left;color: var(--color27);font-size: 30.4rpx;}
+.listBox .listItem .top .storeName .storeImg{width: 40rpx;height: 40rpx;vertical-align: middle;display: none;}
+.listBox .listItem .top .storeName .type{width: 60rpx;height: 37rpx;display: inline-block;background-color: var(--color3);color: var(--white);font-size: 20rpx;line-height: 37rpx;text-align: center;border-radius: 15rpx;margin-left: 20rpx;}
+.listBox .listItem .top .orderStatus{color: var(--color27);font-size: 30.4rpx;}
+.listBox .listItem .center .imgList{width: 100%;padding: 25rpx 0;overflow: hidden;white-space: nowrap;}
+.listBox .listItem .center .imgList .listFood{overflow: hidden;margin-right: 20rpx;}
+.listBox .listItem .center .imgList .img{width: 120rpx;height: auto;vertical-align: middle;float: left;}
+.listBox .listItem .center .imgList .info{float: left;margin-left: 45rpx;}
+.listBox .listItem .center .imgList .info .txt1{font-size: 27rpx;color: var(--color1);}
+.listBox .listItem .center .imgList .info .txt2{font-size: 20rpx;color: var(--color4);margin-top: 22rpx;display: block;}
+.listBox .listItem .center .iconCommon{color: var(--color27);font-size: 30.4rpx;position: absolute;top: 50%;transform: translateY(-50%);right: 0;}
+
+.listBox .listItem .bottom{color:var(--color31);font-size: 17rpx;}
 .listBox .listItem .bottom .tips{color: #d2ad7d;margin-bottom: 10rpx;}
 .listBox .listItem .bottom .num{margin-bottom: 10rpx;}
-.listBox .listItem .bottom .totalPrize{color: #000;font-weight: 700;}
+.listBox .listItem .bottom .totalPrize{color: var(--color7);font-weight: 700;font-size: 32rpx;}
 .listBox .listItem .buttonBox .btn{font-size: 24rpx;width: 146rpx;height: 56rpx;margin-top: 36rpx;border: 1rpx solid #d2ad7d;text-align: center;color: #d2ad7d;line-height: 56rpx;}
 
 .noData{color: #000;font-size: 30rpx;text-align: center;position: absolute;top: 50%;left: 50%;transform: translate(-50%,0);}
