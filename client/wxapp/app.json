@@ -6,7 +6,8 @@
     "pages/addressList/addressList",
     "pages/orderSettle/orderSettle",
     "pages/orderSettleDetail/orderSettleDetail",
-    "pages/shops/shops"
+    "pages/shops/shops",
+    "pages/remark/remark"
   ],
   "window": {
     "navigationStyle": "default",
@@ -19,7 +20,7 @@
     "auth": "/components/auth/auth",
     "login": "/components/login/login",
     "switchWithText": "/components/switchWithText/switchWithText",
-    "noticeBar":"/components/noticeBar/noticeBar",
+    "noticeBar": "/components/noticeBar/noticeBar",
     "van-calendar": "/miniprogram/@vant/weapp/dist/calendar/index",
     "van-icon": "/miniprogram/@vant/weapp/dist/icon/index",
     "van-field": "/miniprogram/@vant/weapp/dist/field/index",

@@ -95,6 +95,9 @@ Page({
       this.checkdistance();
       console.log(app.data.userAdressInfo);
     }
+    this.setData({
+      "userOrderinfo.remarksTxt": app.data.remarksTxt || '无',
+    });
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -191,9 +194,9 @@ Page({
     });
   },
   goStoreList() {
-    wx.navigateTo({
-      url: "/pages/store/store",
-    });
+    // wx.navigateTo({
+    //   url: "/pages/shops/shops",
+    // });
   },
   //手机号逻辑
   async getPhoneNumber(e) {
@@ -243,7 +246,7 @@ Page({
         discountMoney: 0, // 折扣费用，暂无
         payMoney: allPrice, // 支付的费用
         payWay: 1, // 支付方式，目前为1是微信支付
-        remark: "加点孜然(假的测试备注)，谢谢！", // 备注
+        remark: this.data.userOrderinfo.remarksTxt, // 备注
         tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
       },
       orderFoodDtoList: this.data.cardList,
@@ -281,6 +284,8 @@ Page({
                 wx.redirectTo({
                   url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
                 });
+                //去掉备注
+                app.data.remarksTxt = null;
               },
               'fail': function (res) {
                 console.log("支付失败");
@@ -289,6 +294,8 @@ Page({
                 wx.redirectTo({
                   url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
                 });
+                //去掉备注
+                app.data.remarksTxt = null;
               }
             })
           }
@@ -348,6 +355,12 @@ Page({
           isOrderBox: false
         });
       }
+    });
+  },
+  /**备注 */
+  btnRemarksBoxClick() {
+    wx.navigateTo({
+      url: '/pages/remark/remark',
     });
   }
 });

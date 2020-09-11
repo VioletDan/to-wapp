@@ -1,0 +1,36 @@
+/* pages/remark/remark.wxss */
+.article{
+  background-color: var(--color44);
+  padding-top: 16rpx;
+}
+.textArea{
+  width: 717rpx;
+  height: 387rpx;
+  padding: 28rpx;
+  margin: 0 auto;
+  background-color: var(--white);
+}
+.textArea textarea{
+  font-size: 25rpx;
+  color: var(--color28);
+}
+.btnSubmit {
+  display: flex;
+  justify-content: center;
+  width: 554rpx;
+  height: 61rpx;
+  line-height: 61rpx;
+  color: var(--white);
+  font-size: 28rpx;
+  background-color: var(--color3);
+  letter-spacing: 45rpx;
+  margin: 100rpx auto;
+}
+.btnSubmit button{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}

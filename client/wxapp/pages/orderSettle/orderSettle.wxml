@@ -48,9 +48,9 @@
 			<view class="cardListBox commonB">
 				<view class="title commonTitle">商品列表</view>
 				<view class="listContent">
-					<view class="listContentItem">
+					<view class="listContentItem" wx:for="{{cardList}}" wx:key="index">
 						<view class="left flexBox">
-							<view wx:for="{{cardList}}" wx:key="index" class="cardDetailListCard">
+							<view class="cardDetailListCard">
 								<image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
 								<view class="info">
 									<text class="txt1">{{item.foodTitle}}</text>
@@ -60,8 +60,18 @@
 							</view>
 						</view>
 						<view class="right">
-							X{{selectInfo.total}}
+							x{{item.buyNum}}
 						</view>
+					</view>
+				</view>
+				<view class="totalBox">
+					<text class="icon_money">总计￥{{selectInfo.totalPrice}}</text>
+				</view>
+				<view class="remarksBox flexBox" catchtap="btnRemarksBoxClick">
+					<view class="left">备注</view>
+					<view class="right overtext1">
+						<text class="txt overtext1">{{userOrderinfo.remarksTxt}}</text>
+						<text class="iconCommon">></text>
 					</view>
 				</view>
 				<view class="RunningMoney flexBox">
@@ -76,20 +86,15 @@
 						<text class="tips">￥{{selectInfo.sendCost}}</text>
 					</view>
 				</view>
-				<view class="remarksBox flexBox">
-					<view class="left">备注</view>
+				<view class="RunningMoney flexBox">
+					<view class="left">支付方式</view>
 					<view class="right">
-						{{userOrderinfo.remarksTxt}}
-						<text class="iconCommon">></text>
+						<text class="tips">微信支付</text>
 					</view>
-				</view>
-				<view class="totalBox">
-					共{{selectInfo.total}}件商品，小计
-					<text class="icon_money">￥{{selectInfo.totalPrice}}</text>
 				</view>
 			</view>
 			<!-- 支付方式 -->
-			<view class="paymentTypeBox commonB">
+			<view class="paymentTypeBox commonB" hidden="{{true}}">
 				<view class="typeSelect flexBox">
 					<view class="left">支付方式</view>
 					<view class="right">
@@ -102,17 +107,16 @@
 	</scroll-view>
 	<view class="orderMoneyBox" wx:if="{{isOrderBox}}">
 		<view class="totalBox">
-			合计
-			<text class="icon_money">￥{{selectInfo.allPrice}}</text>
+			<text class="icon_money">总计￥{{selectInfo.allPrice}}</text>
 		</view>
-		<view class="btnPayment" catchtap="btnPaymentClick">支付</view>
+		<view class="btnPayment" catchtap="btnPaymentClick">结算</view>
 	</view>
 	<!-- 是否支持配送 -->
 	<view class="orderMoneyBox isOrderBox" wx:else>
 		<view class="totalBox">
 			<text class="icon_money">无法配送到当前位置</text>
 		</view>
-		<view class="btnPayment" catchtap="goReceiveAddress">更换地址 ></view>
+		<view class="btnPayment" catchtap="goReceiveAddress">请更换地址 ></view>
 	</view>
 	<!-- 商品列表弹窗 -->
 	<van-popup show="{{ show }}" position="bottom" custom-style="min-height:20%;border-top-left-radius: 20rpx;border-top-right-radius: 20rpx;" bind:close="onClose">

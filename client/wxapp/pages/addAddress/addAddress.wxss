@@ -93,4 +93,5 @@ page {
   left: 50%;
   transform: translateX(-50%);
   margin-top: 0;
+  letter-spacing: 45rpx;
 }

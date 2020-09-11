@@ -85,9 +85,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/orderSettle/orderSettle",
+					"id": 3,
+					"name": "订单结算",
 					"pathName": "pages/orderSettle/orderSettle",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单备注",
+					"pathName": "pages/remark/remark",
+					"query": "",
 					"scene": null
 				}
 			]

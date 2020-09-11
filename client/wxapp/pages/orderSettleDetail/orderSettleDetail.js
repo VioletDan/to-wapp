@@ -19,7 +19,7 @@ Page({
     time: 5 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
-      shopname: '定位中。。。',
+      shopname: '定位中...',
       //备注
       remark: '无'
     },

@@ -256,6 +256,10 @@ page{
   --color41: #404040;
   --color42: #626262;
   --color43: #a3a3a3;
+  --color44: #e5e5e5;
+  --color45: #010101;
+  --color46: #bfbfbf;
+  --color45: #4c4c4c;
 }
 
 .hide{display: none!important;}
