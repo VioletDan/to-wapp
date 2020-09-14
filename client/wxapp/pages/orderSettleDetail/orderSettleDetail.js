@@ -16,7 +16,7 @@ Page({
    */
   data: {
     show: false,
-    time: 5 * 60 * 1000, //倒计时
+    time: 50 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
       shopname: '定位中...',
@@ -24,7 +24,8 @@ Page({
       remark: '无'
     },
     cardList: [],
-    active: 0
+    active: 0,
+    tactive: true, //选中状态
   },
 
   /**
@@ -103,7 +104,8 @@ Page({
   finished() {
     icom.sign('订单取消');
     this.setData({
-      'userOrderinfo.state': 7
+      'userOrderinfo.state': 7,
+      tactive: true
     });
   },
 
@@ -130,6 +132,7 @@ Page({
 
       this.setData({
         userOrderinfo: res.data,
+        'userOrderinfo.foodCode': 1024,
         'userOrderinfo.commercialName': res.data.shopname,
         'userOrderinfo.remarksTxt': res.data.remark,
         cardList: _cardList,
@@ -153,6 +156,9 @@ Page({
 
   //支付
   btnPaymentClick() {
+    this.setData({
+      tactive: false
+    });
     this.subscribeHandle();
   },
   //preOrderHandle
