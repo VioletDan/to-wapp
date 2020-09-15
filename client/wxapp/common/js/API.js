@@ -42,7 +42,7 @@ class API {
       if (data.noTips) {
 
       } else {
-        icom.sign(res.data.msg || '网络异常了');
+        icom.alert(res.data.msg || '网络异常了');
       }
       return null;
     } else {

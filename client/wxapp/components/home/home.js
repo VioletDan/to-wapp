@@ -168,7 +168,15 @@ Component({
       return new Promise((resolve, reject) => {
         //获取店铺详细信息
         API.GetShopMenuList({}).then((res) => {
-          resolve(res.data);
+          if (res.data.length > 0) {
+            resolve(res.data);
+          }else {
+            icom.loadingHide();
+            this.setData({
+              dishMenuList: [],
+              activeId: '',
+            });
+          }
         });
       });
     },
@@ -212,7 +220,6 @@ Component({
         //   });
         // }
         // });
-
         this.setData({
           dishMenuList: res[0],
           activeId: res[0][0].id,

@@ -10,7 +10,7 @@ const {
   promisify,
   Router,
 } = app;
-let pageSize = 10;
+let pageSize = 4;
 let page = 1;
 let isGet = true;
 Component({

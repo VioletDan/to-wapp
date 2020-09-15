@@ -9,6 +9,7 @@ const {
   promisify,
   Router,
 } = app;
+var $page = null;
 Page({
 
   /**
@@ -33,6 +34,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
+    $page = this;
     if (options.orderId) {
       this.getOrdersDetail(options.orderId);
     }
@@ -132,7 +134,6 @@ Page({
 
       this.setData({
         userOrderinfo: res.data,
-        'userOrderinfo.foodCode': 1024,
         'userOrderinfo.commercialName': res.data.shopname,
         'userOrderinfo.remarksTxt': res.data.remark,
         cardList: _cardList,
@@ -159,7 +160,7 @@ Page({
     this.setData({
       tactive: false
     });
-    this.subscribeHandle();
+    this.preOrderHandle();
   },
   //preOrderHandle
   preOrderHandle() {
@@ -185,6 +186,8 @@ Page({
           'success': function (res) {
             console.log("支付成功");
             that.getOrdersDetail(that.data.userOrderinfo.orderId);
+            //订阅消息
+            that.subscribeHandle();
           },
           'fail': function (res) {
             console.log("支付失败");
@@ -206,17 +209,13 @@ Page({
         let acceptTemplateIds = Object.keys(res).filter(key => res[key] === 'accept');
         if (acceptTemplateIds.length == templateArr.length) {
           //  说明全部同意
-          that.preOrderHandle();
         } else {
           //  单次拒绝
-          that.preOrderHandle();
-          return;
         }
       },
       fail(err) {
         console.log('err', err);
         //失败
-        that.preOrderHandle();
       }
     })
   },

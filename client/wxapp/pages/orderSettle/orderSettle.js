@@ -8,6 +8,7 @@ const {
   API,
   imath
 } = app;
+var $page = null;
 Page({
   /**
    * 页面的初始数据
@@ -63,13 +64,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    $page = this;
     var _cardList = icom.storage("cardList") || [];
     this.setData({
-      "userOrderinfo.needwaitTimePrecent": parseInt(
-        (this.data.userOrderinfo.userBeforeNum /
-          this.data.userOrderinfo.userAllNum) *
-        100
-      ),
       cardList: _cardList,
       appData: app.data,
       checked: app.data.checked,
@@ -224,7 +221,7 @@ Page({
       icom.alert('请选择地址');
       return;
     }
-    this.subscribeHandle();
+    this.preOrderHandle();
 
   },
   //预下单
@@ -280,22 +277,12 @@ Page({
               'paySign': paySign,
               'success': function (res) {
                 console.log("支付成功");
-                wx.removeStorageSync("cardList");
-                wx.redirectTo({
-                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
-                });
-                //去掉备注
-                app.data.remarksTxt = null;
+                $page.subscribeHandle();
               },
               'fail': function (res) {
                 console.log("支付失败");
                 icom.alert('支付失败');
-                wx.removeStorageSync("cardList");
-                wx.redirectTo({
-                  url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
-                });
-                //去掉备注
-                app.data.remarksTxt = null;
+                $page.paySuccess();
               }
             })
           }
@@ -312,21 +299,22 @@ Page({
       success(res) {
         console.log('res', res)
         let acceptTemplateIds = Object.keys(res).filter(key => res[key] === 'accept');
-        if (acceptTemplateIds.length == templateArr.length) {
-          //  说明全部同意
-          that.preOrderHandle();
-        } else {
-          //  单次拒绝
-          that.preOrderHandle();
-          return;
-        }
+        $page.paySuccess();
       },
       fail(err) {
         console.log('err', err);
         //失败
-        that.preOrderHandle();
+        $page.paySuccess();
       }
     })
+  },
+  paySuccess() {
+    wx.removeStorageSync("cardList");
+    wx.redirectTo({
+      url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
+    });
+    //去掉备注
+    app.data.remarksTxt = null;
   },
   //展示商品
   showCardListClick() {

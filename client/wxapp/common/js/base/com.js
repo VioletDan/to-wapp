@@ -4,16 +4,16 @@ const icom = function () {
     let com = {};
     // fadeList
     com.fadeList = function (_this, dataName, dataList, scroll, ele) {
-        _this._observer = []
+        // _this._observer = []
         for (let i in dataList) {
             if (!dataList[i].appear) {
                 // 设置监听回调事件，当元素 .fadeImg{{i}},进入页面20px内就触发回调事件，设置图片为真正的图片，通过show控制
-                _this._observer[i] = wx.createIntersectionObserver(_this)
-                _this._observer[i].relativeTo(scroll).observe(ele + i, (res) => {
+                // _this._observer[i] = wx.createIntersectionObserver(_this)
+                wx.createIntersectionObserver(_this).relativeTo(scroll).observe(ele + i, (res) => {
                     if (res.intersectionRatio > 0) {
                         dataList[i].appear = true;
                         //取消检测
-                        _this._observer[i].disconnect()
+                        wx.createIntersectionObserver(_this).disconnect()
                     }
                     _this.setData({
                         [dataName]: dataList

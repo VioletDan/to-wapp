@@ -54,7 +54,7 @@
 								<image class="img" src="{{item.foodCover}}" mode="widthFix"></image>
 								<view class="info">
 									<text class="txt1">{{item.foodTitle}}</text>
-									<text class="txt2">{{item.foodDesc}}</text>
+									<text class="txt2">{{item.foodProperties}}</text>
 									<text class="txt3">￥{{item.price}}</text>
 								</view>
 							</view>
