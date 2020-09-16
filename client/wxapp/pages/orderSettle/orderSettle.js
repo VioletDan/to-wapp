@@ -65,7 +65,7 @@ Page({
    */
   onLoad: function (options) {
     $page = this;
-    var _cardList = icom.storage("cardList") || [];
+    var _cardList = icom.storage(`cardList${icom.storage('ssoShopId')}`) || [];
     this.setData({
       cardList: _cardList,
       appData: app.data,
@@ -74,6 +74,8 @@ Page({
     });
     this.initCar();
     if (app.data.userAdressInfo && this.data.checked) this.checkdistance();
+    //轻提示
+    icom.sign(`请确认下单,门店是否为「${app.data.shopInfo.commercialName}店」`);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -151,8 +153,6 @@ Page({
       "userOrderinfo.commercialDesc": app.data.shopInfo.commercialDesc,
       "userOrderinfo.commercialAddress": app.data.shopInfo.commercialAddress,
     });
-    //轻提示
-    icom.sign(`请确认下单,门店是否为「${app.data.shopInfo.commercialName}店」`);
   },
   // switch
   typeClick(e) {
@@ -165,6 +165,7 @@ Page({
     this.setData({
       checked: _checked,
     });
+    this.initCar();
     if (_checked) {
       // 跳转到收货地址页面
       wx.navigateTo({
@@ -258,11 +259,6 @@ Page({
         API.payOrder(res.data.order).then((res) => {
           icom.loadingHide();
           if (res) {
-            // app.data.perOrder = true;
-            // wx.removeStorageSync("cardList");
-            // wx.redirectTo({
-            //   url: "/pages/orderSettleDetail/orderSettleDetail",
-            // });
             //==========调起支付接口
             var timeStamp = res.data.timeStamp;
             var nonceStr = res.data.nonceStr;
@@ -309,7 +305,7 @@ Page({
     })
   },
   paySuccess() {
-    wx.removeStorageSync("cardList");
+    icom.removeStorage(`cardList${icom.storage('ssoShopId')}`);
     wx.redirectTo({
       url: '/pages/orderSettleDetail/orderSettleDetail?orderId=' + app.data.preOrderObj.order.orderId,
     });

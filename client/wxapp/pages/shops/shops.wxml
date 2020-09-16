@@ -52,14 +52,14 @@
 		</van-tab>
 	</van-tabs> -->
 	<view class='content'>
-		<view class='topBox' hidden="{{true}}">
+		<!-- <view class='topBox'>
 			<view class='currentPos' bindtap='selectCity'>
 				<van-cell title="{{cityName}}" is-link />
 			</view>
 			<view class='search' bindtap='searchClick'>
 				<van-search value="" placeholder="搜索" focus="{{false}}" />
 			</view>
-		</view>
+		</view> -->
 		<view class='mapBox'>
 			<map id="map" latitude="{{centerLatitude}}" longitude="{{centerLongitude}}" scale="{{scale}}" markers="{{markers}}" bindmarkertap="markertap" show-location style="width: 100%; height: 310px;" />
 		</view>
@@ -87,7 +87,7 @@
 		</view>
 	</view>
 	<!-- 弹出层 -->
-	<view class='popupCon'>
+	<!-- <view class='popupCon'>
 		<van-popup show="{{ show }}" position="right" overlay="{{ true }}" bind:close="onClose" class="popupBox">
 			<van-search value="{{ searchValue }}" placeholder="请输入搜索关键词" show-action bind:change="onChange" bind:search="onSearch" bind:cancel="onCancel" focus="{{true}}" />
 			<view class='resultBox'>
@@ -98,7 +98,7 @@
 				<view class='noResult' hidden='{{resultArr.length!=0}}'>无结果</view>
 			</view>
 		</van-popup>
-	</view>
+	</view> -->
 	<!----section end----->
 </view>
 <!----article end----->

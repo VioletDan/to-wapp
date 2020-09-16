@@ -49,7 +49,7 @@ Component({
     showMore: false,
     cardMaskShow: false,
     detailBtnTxt: "更多",
-    cardList: wx.getStorageSync("cardList") || [],
+    cardList: icom.storage(`cardList${icom.storage('ssoShopId')}`) || [],
     selectInfo: {},
     showModal: false, // 显示规格模态框
     modelData: {},
@@ -93,6 +93,9 @@ Component({
     //========== Private ===========
     initData() {
       icom.loading("加载中");
+      this.setData({
+        cardList: icom.storage(`cardList${icom.storage('ssoShopId')}`) || [],
+      });
       this.initCar();
       this.setPage();
     },
@@ -121,7 +124,7 @@ Component({
         shopInfo: _info,
         'shopInfo.isBusState': app.checkAuditTime(_info.beginTime, _info.endTime),
         checked: app.data.checked,
-        cardList: wx.getStorageSync("cardList") || [],
+        cardList: icom.storage(`cardList${icom.storage('ssoShopId')}`) || [],
       });
       console.log("_info=================", this.data.shopInfo);
 
@@ -340,7 +343,7 @@ Component({
       _currentId = foodId;
       item.imgList = [];
       item.imgList.push(item.imgUrl);
-      const cardList = wx.getStorageSync("cardList") || [];
+      const cardList = icom.storage(`cardList${icom.storage('ssoShopId')}`) || [];
       const selectIndex = cardList.findIndex((card) => card.id === foodId);
       if (selectIndex > -1) {
         cardList[selectIndex].num += 1;
@@ -351,7 +354,7 @@ Component({
       this.setData({
         cardList,
       });
-      wx.setStorageSync("cardList", cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`,cardList);
       this.initCar();
     },
     /**选规格(多个) */
@@ -478,7 +481,7 @@ Component({
     },
     // 加入购物车
     addCard() {
-      const cardList = wx.getStorageSync("cardList") || [];
+      const cardList = icom.storage(`cardList${icom.storage('ssoShopId')}`) || [];
       const {
         foodId,
         foodProperties,
@@ -498,8 +501,7 @@ Component({
       this.setData({
         cardList,
       });
-      wx.setStorageSync("cardList", cardList);
-
+      icom.storage(`cardList${icom.storage('ssoShopId')}`,cardList);
       this.initCar();
       this.closeModal();
     },
@@ -521,7 +523,7 @@ Component({
               selectInfo: {},
               cardMaskShow: false,
             });
-            wx.removeStorageSync("cardList");
+            icom.removeStorage(`cardList${icom.storage('ssoShopId')}`);
           } else if (res.cancel) {
             console.log("用户点击取消");
           }
@@ -560,7 +562,7 @@ Component({
         cardList: this.data.cardList
       });
       this.initCar();
-      wx.setStorageSync("cardList", this.data.cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`,this.data.cardList);
     },
     addConfigNum2(e) {
       let {
@@ -572,7 +574,7 @@ Component({
         cardList: this.data.cardList
       });
       this.initCar();
-      wx.setStorageSync("cardList", this.data.cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`,this.data.cardList);
     },
 
 
