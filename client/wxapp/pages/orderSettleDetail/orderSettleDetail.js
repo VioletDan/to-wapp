@@ -17,7 +17,7 @@ Page({
    */
   data: {
     show: false,
-    time: 50 * 60 * 1000, //倒计时
+    time: 5 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
       shopname: '定位中...',

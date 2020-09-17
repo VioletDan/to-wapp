@@ -78,7 +78,8 @@
 						</view>
 						<view class='right'>
 							<image class="iconTel" src="/images/shop/icon_tel.png" bindtap='btnTelClick' data-item="{{item}}"></image>
-							<image class="iconCheck" src="/images/shop/icon_check.png" bindtap='markertap' id='{{item.id}}' data-item="{{item}}"></image>
+							<!-- <image class="iconCheck" src="/images/shop/icon_check.png" bindtap='markertap' id='{{item.id}}' data-item="{{item}}"></image> -->
+							<image class="iconCheck" src="/images/shop/icon_check.png" bindtap='markertapToCheck' id='{{item.id}}' data-item="{{item}}"></image>
 						</view>
 					</view>
 				</view>

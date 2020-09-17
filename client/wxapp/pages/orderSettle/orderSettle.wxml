@@ -8,7 +8,8 @@
 				<view class="guideTop">
 					<view class="guideTopLeft" catchtap="goStoreList">
 						<text class="iconfont icon_star_empty"></text>
-						<text class="storeName">{{userOrderinfo.commercialName}} ></text>
+						<text class="storeName">{{userOrderinfo.commercialName}} </text>
+						<text class="iconfont icon_arrow_right"></text>
 					</view>
 				</view>
 				<view class="distance">
@@ -29,9 +30,9 @@
 					<text wx:if="{{userAdressInfo.username}}">
 					{{userAdressInfo.username}} {{userAdressInfo.mobile}}\n {{userAdressInfo.address}} {{userAdressInfo.street}}
 					</text>
-					<text wx:else>请选择地址\n配送门店已地址匹配为准</text>
+					<text wx:else style="display:block;margin-top:20rpx;">请选择地址\n配送门店以地址匹配为准</text>
 				</view>
-				<view class="userTelBox" wx:if="{{!checked}}">
+				<!-- <view class="userTelBox" wx:if="{{!checked}}">
 					<view class="left">
 						<text>联系电话</text>
 					</view>
@@ -42,7 +43,7 @@
 							<button class="phoneBox" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<!-- 商品列表 -->
 			<view class="cardListBox commonB">
@@ -71,7 +72,7 @@
 					<view class="left">备注</view>
 					<view class="right overtext1">
 						<text class="txt overtext1">{{userOrderinfo.remarksTxt}}</text>
-						<text class="iconCommon">></text>
+						<text class="iconfont iconCommon icon_arrow_right"></text>
 					</view>
 				</view>
 				<view class="RunningMoney flexBox">
@@ -109,7 +110,7 @@
 		<view class="totalBox">
 			<text class="icon_money">总计￥{{selectInfo.allPrice}}</text>
 		</view>
-		<view class="btnPayment" catchtap="btnPaymentClick">结算</view>
+		<view class="btnPayment" catchtap="btnPaymentClick">支付</view>
 	</view>
 	<!-- 是否支持配送 -->
 	<view class="orderMoneyBox isOrderBox" wx:else>

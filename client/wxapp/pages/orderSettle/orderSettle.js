@@ -27,7 +27,7 @@ Page({
       // 当前距离
       distance: 0.0,
       //手机号
-      userTel: 18856856168,
+      userTel:  '',
       //前面还有多少单
       userBeforeNum: 1,
       //总共多少单
@@ -70,7 +70,8 @@ Page({
       cardList: _cardList,
       appData: app.data,
       checked: app.data.checked,
-      appData: app.data
+      appData: app.data,
+      'userOrderinfo.userTel':app.data.userInfoObj.phone
     });
     this.initCar();
     if (app.data.userAdressInfo && this.data.checked) this.checkdistance();

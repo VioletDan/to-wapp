@@ -7,7 +7,7 @@
 				<view class="guideTopLeft" catchtap="goStoreList">
 					<text class="iconfont icon_star_empty"></text>
 					<text class="storeName">{{commercialName}}</text>
-					<text>></text>
+					<text class="iconfont icon_arrow_right"></text>
 				</view>
 				<view class="guideTopRight">
 					<switchWithText width="160" height="60" activeText="自提" inactiveText="外卖" checked="{{checked}}" bind:changeChecked="changeChecked"></switchWithText>

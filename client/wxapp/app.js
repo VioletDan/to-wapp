@@ -109,6 +109,7 @@ App({
       this.data.actionCode = res.data.actionCode || '';
       this.data.wxuid = res.data.wxuid || '';
       this.data.token = res.data.token;
+      this.data.userInfoObj = res.data;
       icom.storage('token', this.data.token);
 
       //actionCode:BindPhone 代表要用户去绑定手机号

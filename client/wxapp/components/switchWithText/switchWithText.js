@@ -10,7 +10,7 @@ Component({
     },
     width: {
       type: String,
-      value: 40
+      value: 87
     },
     onState: {
       type: [String, Number, Boolean],
@@ -22,7 +22,7 @@ Component({
     },
     height: {
       type: String,
-      value: 20
+      value: 52
     },
     backgroundColor: {
       type: String,

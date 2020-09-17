@@ -168,6 +168,16 @@ Page({
     wx.makePhoneCall({
       phoneNumber: item.contactMobile,
     })
+  },
+  //导航
+  markertapToCheck(e){
+    let currentID = e.currentTarget.id;
+    let {item} = e.currentTarget.dataset;
+    wx.openLocation({
+      latitude : Number(item.latitude),
+      longitude : Number(item.longitude),
+      scale: 18
+    });
   }
 }) //end page
 

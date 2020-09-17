@@ -103,12 +103,12 @@ button.button-hover {background-color: transparent;}
 /*********在线字体代码start*********/
 @font-face {
   font-family: 'iconfont';  /* project id 1683578 */
-  src: url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.eot');
-  src: url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1683578_7xm89b0ywmt.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1683578_k9myhal2lr.eot');
+  src: url('//at.alicdn.com/t/font_1683578_k9myhal2lr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1683578_k9myhal2lr.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1683578_k9myhal2lr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1683578_k9myhal2lr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1683578_k9myhal2lr.svg#iconfont') format('svg');
 }
 
 /*********在线字体代码end*********/
@@ -186,10 +186,14 @@ button.button-hover {background-color: transparent;}
 }
 
 .icon_shop::before{
-  content:'\e625';
+  content:'\e613';
 }
 .icon_car::before{
   content:'\e66e';
+}
+
+.icon_arrow_right::before{
+  content:'\e604';
 }
 
 /* commonDiolag */
@@ -203,6 +207,9 @@ button.button-hover {background-color: transparent;}
 .closingTime .bottomBox .txt2{top: 185rpx;color: #7d7d7d;font-size: 25.55rpx;}
 .closingTime.modal_showDiolg{opacity: 1;pointer-events: all;}
 .closingTime.modal_showDiolg .bottomBox{animation: ani_closingTime 0.5s 0.2s linear both;}
+
+.icon_arrow_right{font-size: 34rpx;font-weight: 700;}
+
 
 @keyframes ani_closingTime{
   0%{ transform: translateY(600rpx);}

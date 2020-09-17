@@ -8,12 +8,13 @@
 .orderInfoScroll .box{background-color: var(--color24);}
 .orderInfoScroll .box .commonB{padding: 32rpx 35rpx 0 28rpx;background-color: var(--white);margin-bottom: 23rpx;}
 .orderInfoScroll .box .commonTitle{font-size: 30rpx;font-weight: 700;padding-bottom: 25rpx;color:var(--color27);}
-
+.orderInfoScroll .box .commonTitle .icon_arrow_right{font-size: 30rpx;color:var(--color27);}
 /* 门店信息 start */
 .orderInfoScroll .box .guide.fullPageInfo {height: 100%;}
 .orderInfoScroll .box .guide .guideTop {padding-bottom: 15rpx;}
 .orderInfoScroll .box .guide .guideTop .guideTopLeft {/*display: flex;*/align-items: center;}
-.orderInfoScroll .box .guide .guideTop .guideTopLeft .iconfont {margin-right: 16rpx;font-size: 26rpx;}
+.orderInfoScroll .box .guide .guideTop .guideTopLeft .iconfont {margin-right: 16rpx;font-size: 34rpx;font-weight: 700;}
+
 .orderInfoScroll .box .guide .guideTop .guideTopLeft .storeName {font-size: 33.39rpx;font-weight: 700;margin-right: 10rpx;}
 .orderInfoScroll .box .guide .guideTop .guideTopRight {font-size: 24rpx;}
 /* .orderInfoScroll .box .guide .distance {color: #878787;font-size: 24rpx;margin: 0 auto;min-height: 70rpx;padding-top: 4rpx;padding-bottom: 13rpx;border-bottom: 1px solid #f1f1f1;line-height: 1.4;} */
@@ -38,7 +39,7 @@
 .orderInfoScroll .box .cardListBox .couponBox .tips{color: #cacaca;}
 /* totalBox */
 .totalBox{padding-bottom: 44rpx;font-size: 30rpx;color:var(--color20);text-align: center; }
-.totalBox .icon_money{font-weight: 700;color:var(--color20);font-size: 30rpx;}
+.totalBox .icon_money{font-weight: 700;color:var(--color20);font-size: 40rpx;}
 
 /* cardDetailListCard */
 .orderInfoScroll .box .cardDetailListCard{overflow: hidden;margin-left: 15rpx;}
@@ -93,10 +94,10 @@
 .orderInfoScroll .box .cardListBox .remarksBox{height: 83rpx;border-top: 1rpx solid var(--color44);padding-left: 15rpx;}
 .orderInfoScroll .box .cardListBox .remarksBox  .right{color: var(--color46);max-width: 80%;display: flex;font-size: 23rpx;}
 .orderInfoScroll .box .cardListBox .remarksBox  .right .txt{width: 100%;}
-.orderInfoScroll .box .cardListBox .remarksBox .iconCommon{display: inline-block;padding-left: 45rpx;padding-right: 25rpx;color: var(--color45);}
+.orderInfoScroll .box .cardListBox .remarksBox .iconCommon{display: inline-block;padding-left: 45rpx;padding-right: 25rpx;color: var(--color45);font-size: 23rpx;}
 /* RunningMoney */
 .orderInfoScroll .box .cardListBox .RunningMoney{height: 83rpx;border-top: 1rpx solid var(--color44);padding-left: 15rpx;}
 .orderInfoScroll .box .cardListBox .RunningMoney  .right{color: var(--color45);padding-right: 25rpx;font-size: 23rpx;}
 /* totalBox */
 .orderInfoScroll .box .cardListBox .totalBox{padding-bottom: 50rpx;text-align: right; }
-.orderInfoScroll .box .cardListBox .totalBox .icon_money{font-size: 25rpx;color:var(--color20);}
+.orderInfoScroll .box .cardListBox .totalBox .icon_money{font-size: 35rpx;color:var(--color20);}

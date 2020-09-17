@@ -52,7 +52,7 @@
 			</view>
 			<!-- 商品列表 -->
 			<view class="cardListBox commonB">
-				<view class="title commonTitle">{{userOrderinfo.shopname}} ></view>
+				<view class="title commonTitle">{{userOrderinfo.shopname}} <text class="iconfont icon_arrow_right"></text></view>
 				<view class="listContent">
 					<view class="listContentItem" wx:for="{{cardList}}" wx:key="index">
 						<view class="left flexBox">
@@ -77,7 +77,7 @@
 					<view class="left">备注</view>
 					<view class="right overtext1">
 						<text class="txt overtext1">{{userOrderinfo.remarksTxt}}</text>
-						<text class="iconCommon">></text>
+						<text class="iconCommon iconfont icon_arrow_right"></text>
 					</view>
 				</view>
 				<view class="RunningMoney flexBox flexBox2" wx:if="{{userOrderinfo.state == 2 && userOrderinfo.sendType == 2}}">
