@@ -31,7 +31,9 @@ Page({
   onReady: function () {
   }, //监听页面初次渲染完成
   onShow: function () {
-    if (icom.storage('token')) this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
+    setTimeout(() => {
+      if (icom.storage('token')) this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
+    }, 200)
   }, //监听页面显示
   onHide: function () { }, //监听页面隐藏
   onUnload: function () { }, //监听页面卸载

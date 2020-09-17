@@ -32,7 +32,7 @@
 				</view>
 				<view class="storeDetailsTitle">配送</view>
 				<view>
-					<view>满30起送</view>
+					<view>满{{shopInfo.floorSendCost}}起送</view>
 				</view>
 			</view>
 		</view>

@@ -64,35 +64,19 @@ Component({
       page = 1;
       isGet = true;
       this.setData({
-        active: 0,
         scrollTop: 0,
         currentList: [],
         historyList: []
       });
       this.getOrderList(0);
     },
-    onChange(event) {
-      isGet = true;
-      page = 1;
-      this.setData({
-        active: event.detail.name,
-        scrollTop: 0,
-        currentList: [],
-        historyList: []
-      });
-      this.getOrderList(this.data.active)
-    },
-
     async getOrderList(active) {
-      if (active == 1) {
-        return
-      }
       icom.loading();
       let res = await API.getOrderList({
         size: pageSize,
         current: page
       });
-      let currentList = this.data.currentList;
+      let currentList = active == 0 ? [] : this.data.currentList;
       icom.loadingHide();
       if (res.data.records.length === 0) {
         wx.showToast({
@@ -113,9 +97,9 @@ Component({
     },
     /**拉到底部加载更多 */
     scrolltolower(e) {
-      if (isGet && this.data.active == 0) {
+      if (isGet) {
         page++
-        this.getOrderList(this.data.active);
+        this.getOrderList(1);
       }
     },
     //再来一单

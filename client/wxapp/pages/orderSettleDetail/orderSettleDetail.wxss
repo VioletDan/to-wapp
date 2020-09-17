@@ -11,7 +11,7 @@ page { height: 100%; background-color: var(--color24);}
 .orderInfoScroll .box .commonB .typeSelect{justify-content: flex-start;}
 .orderInfoScroll .box .commonB .typeSelect>view{color:var(--color28);font-size: 24rpx;margin-bottom: 20rpx;}
 .orderInfoScroll .box .commonB .typeSelect .title{}
-.orderInfoScroll .box .commonB .typeSelect .right{text-align: left;}
+.orderInfoScroll .box .commonB .typeSelect .right{text-align: left;margin-left: 20rpx;}
 .orderInfoScroll .box .commonTitle{padding-left: 15rpx;}
 /* orderRedaus */
 .orderRedaus{background-color: var(--white);width: 713rpx;height: auto;border-top-left-radius: 30rpx;border-top-right-radius: 30rpx;margin: 35rpx auto 0;box-shadow:1rpx 0px 15rpx var(--color32);padding-bottom: 40rpx;}
@@ -24,7 +24,7 @@ page { height: 100%; background-color: var(--color24);}
 
 
 .orderRedaus .stepBox{font-size: 24rpx;}
-.orderRedaus .stepBox .desTxt{font-size: 24rpx;}
+.orderRedaus .stepBox .desTxt{font-size: 24rpx;left: -30rpx;}
 .orderRedaus .stepBox .title{font-size: 28rpx;color: #676767;padding-left: 30rpx;}
 
 .orderInfoScroll .box .orderAdress{padding-top: 30rpx;}
@@ -38,3 +38,8 @@ page { height: 100%; background-color: var(--color24);}
 .orderInfoScroll .box .peisongAdress .iconTel{vertical-align: middle;display: inline-block;margin-left: 23rpx;width: 50rpx;height: 50rpx;}
 
 .orderInfoScroll .box .foodCode{color:  var(--color3);font-size: 52rpx;text-align: center;padding: 34rpx 0;}
+
+/* totalBoxDetail */
+.orderInfoScroll .box .cardListBox .totalBoxDetail{color: var(--color20);margin-bottom: 20rpx;margin-left: 15rpx;}
+.orderInfoScroll .box .cardListBox .totalBoxDetail .left{font-size: 25rpx;}
+.orderInfoScroll .box .cardListBox .totalBoxDetail .right{font-size: 35rpx;font-weight: 700;}

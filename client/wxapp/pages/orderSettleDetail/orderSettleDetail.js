@@ -8,6 +8,7 @@ const {
   regeneratorRuntime,
   promisify,
   Router,
+  imath
 } = app;
 var $page = null;
 Page({
@@ -72,25 +73,27 @@ Page({
   onShareAppMessage: function () {},
   /**初始化结算页数据 */
   initCar() {
-    const total = this.data.cardList.reduce((num, item) => {
+    let total = this.data.cardList.reduce((num, item) => {
       return (num += item.buyNum);
     }, 0);
-    const totalPrice = this.data.cardList.reduce((num, item) => {
-      item.price = item.realPerPrice;
-      return (num += item.buyNum * item.price);
-    }, 0);
-    let allPrice = this.data.userOrderinfo.totalMoney;
     //商品总价
-    let shopAllPrice = (allPrice - this.data.userOrderinfo.sendCost).toFixed(2);
+    let totalPrice = this.data.cardList.reduce((num, item) => {
+      item.price = item.realPerPrice;
+      // return (num += item.buyNum * item.price);
+      return (num = imath.accAdd(num, item.buyNum * item.price));
+    }, 0);
+    totalPrice = imath.accAdd(totalPrice,this.data.userOrderinfo.boxCost);
+    let allPrice = this.data.userOrderinfo.totalMoney;
+    //配送费
+    let sendCost = this.data.userOrderinfo.sendCost;
     this.setData({
       selectInfo: {
         total,
+        totalPrice,
+        sendCost,
         allPrice,
-        shopAllPrice
       }
     });
-
-
   },
   //展示商品
   showCardListClick() {

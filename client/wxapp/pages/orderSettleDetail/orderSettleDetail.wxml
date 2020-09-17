@@ -29,7 +29,7 @@
 					</view>
 				</view>
 				<!-- 步骤条 -->
-				<view class="stepBox" hidden="{{true}}">
+				<view class="stepBox" wx:if="{{userOrderinfo.state == 1}}">
 					<view class="typeSelect">
 						<view class="left title">订单信息</view>
 					</view>
@@ -44,8 +44,8 @@
 					<view class="typeSelect flexBox">
 						<view class="left">{{userOrderinfo.orderDetail.deliverName}}</view>
 						<view class="right" catchtap="makePhoneCallClick" data-phone="{{userOrderinfo.orderDetail.deliverMobile}}">
-								<text class="tel">{{userOrderinfo.orderDetail.deliverMobile}}</text>
-								<image class="iconTel" src="/images/common/icon_tel.png"></image>
+							<text class="tel">{{userOrderinfo.orderDetail.deliverMobile}}</text>
+							<image class="iconTel" src="/images/common/icon_tel.png"></image>
 						</view>
 					</view>
 				</view>
@@ -67,6 +67,20 @@
 						</view>
 						<view class="right">
 							x{{item.buyNum}}
+						</view>
+					</view>
+				</view>
+				<view class="totalBoxDetailBor" wx:if="{{userOrderinfo.sendType == 2}}">
+					<view class="totalBoxDetail flexBox">
+						<view class="left">商品总价</view>
+						<view class="right">
+							<text class="txt">￥{{selectInfo.totalPrice}}</text>
+						</view>
+					</view>
+					<view class="totalBoxDetail flexBox">
+						<view class="left">配送费</view>
+						<view class="right">
+							<text class="txt">￥{{selectInfo.sendCost}}</text>
 						</view>
 					</view>
 				</view>
@@ -102,13 +116,13 @@
 				<!-- 订单详情 -->
 				<view class="paymentTypeBox orderTime commonB">
 					<view class="typeSelect flexBox">
-						<view class="left title">下单时间</view>
+						<view class="left title">下单时间:</view>
 						<view class="right title">
 							{{userOrderinfo.createTime}}
 						</view>
 					</view>
 					<view class="typeSelect flexBox">
-						<view class="left title">订单编号</view>
+						<view class="left title">订单编号:</view>
 						<view class="right title">
 							{{userOrderinfo.orderNo}}
 						</view>

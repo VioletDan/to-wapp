@@ -531,7 +531,7 @@
 .modal .modalView .cofigFooter .priceDetail .addNum .iconfont {
   display: inline-block;
   /* border-radius: 50%; */
-  font-size: 32rpx;
+  font-size: 35rpx;
   text-align: center;
   /* background-color: var(--color8); */
   color: var(--color8);
