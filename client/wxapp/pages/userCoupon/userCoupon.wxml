@@ -1,0 +1,91 @@
+<view class="article">
+  <scroll-view scroll-y class="orderInfoScroll">
+    <view class="box couponList">
+      <view class="con">
+        <view class="couponListItem flexBox">
+          <view class="left">
+            <view class="txt1">饮品免单券</view>
+            <view class="date">2020-09-01至2020-09-28</view>
+            <view class="btnCheck">查看详情</view>
+            <view class="btnTips">免单券</view>
+          </view>
+          <view class="right">
+            <text class="txt">28</text>
+            <text class="txt2">元</text>
+            <view class="circle_list">
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+            </view>
+          </view>
+        </view>
+        <view class="couponListItem flexBox">
+          <view class="left">
+            <view class="txt1">饮品免单券</view>
+            <view class="date">2020-09-01至2020-09-28</view>
+            <view class="btnCheck">查看详情</view>
+            <view class="btnTips">免单券</view>
+          </view>
+          <view class="right">
+            <text class="txt">28</text>
+            <text class="txt2">元</text>
+            <view class="circle_list">
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+            </view>
+          </view>
+        </view>
+        <view class="couponListItem flexBox type2">
+          <view class="left">
+            <view class="txt1">订单满100-10元</view>
+            <view class="date">2020-09-01至2020-09-28</view>
+            <view class="btnCheck">满足一定金额可使用</view>
+            <view class="btnTips">满减券</view>
+          </view>
+          <view class="right">
+            <text class="txt">10</text>
+            <text class="txt2">元</text>
+            <text class="btnTxt3">不能使用</text>
+            <view class="circle_list">
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+              <text></text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="noList">没有更多折扣券了哦～</view>
+    </view>
+  </scroll-view>
+</view>

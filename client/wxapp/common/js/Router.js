@@ -41,7 +41,6 @@ class Router {
   toHome() {
     this._backIndex();
     this._updateFooter(0);
-    this._updateTitle('豆腐先生');
     let home = this.tabPage['home'];
     home.updateData();
   }
@@ -49,7 +48,6 @@ class Router {
   toOrder() {
     this._backIndex();
     this._updateFooter(1);
-    this._updateTitle('豆腐先生');
     let order = this.tabPage['order'];
     order.updateData();
   }
@@ -57,7 +55,6 @@ class Router {
   toUser() {
     this._backIndex();
     this._updateFooter(2);
-    this._updateTitle('豆腐先生')
     let user = this.tabPage['user'];
     user.updateData();
   }

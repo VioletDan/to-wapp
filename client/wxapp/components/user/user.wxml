@@ -15,7 +15,7 @@
 		</view>
 	</view>
 	<view class="couponBox">
-		<view class="item">
+		<view class="item" catchtap="goUserCoupon">
 			<image class="img" src="/images/user/icon_coupon.png" mode="aspectFill"></image>
 			<text class="txt">优惠券</text>
 		</view>

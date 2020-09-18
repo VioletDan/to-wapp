@@ -110,6 +110,12 @@ Component({
         userName: this.userInfo.nickName,
         appData: app.data
       });
+    },
+    //优惠券
+    goUserCoupon(){
+      wx.navigateTo({
+        url: '/pages/userCoupon/userCoupon',
+      })
     }
   }
 })

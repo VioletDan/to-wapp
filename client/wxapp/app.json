@@ -7,7 +7,8 @@
     "pages/orderSettle/orderSettle",
     "pages/orderSettleDetail/orderSettleDetail",
     "pages/shops/shops",
-    "pages/remark/remark"
+    "pages/remark/remark",
+    "pages/userCoupon/userCoupon"
   ],
   "window": {
     "navigationStyle": "default",
