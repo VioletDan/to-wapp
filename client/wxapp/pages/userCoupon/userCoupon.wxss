@@ -1,24 +1,55 @@
 /* pages/userCoupon/userCoupon.wxss */
 .article{ background-color: var(--color23);}
-.article .orderInfoScroll{height: 100%;}
+.article .orderInfoScroll{height: calc(100% - 98rpx);}
 .orderInfoScroll .box .flexBox{display: flex;justify-content: space-between;align-items: center;}
 .orderInfoScroll .couponList{height: 100%;padding: 34rpx 20px;}
 .orderInfoScroll .couponList .couponListItem{width: 100%;height: 208rpx;margin-bottom: 34rpx;}
 /* left */
-.orderInfoScroll .couponList .couponListItem .left{width: 580rpx;background-color: var(--white);height: 100%;border-top-left-radius:12rpx;border-bottom-left-radius:12rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 30rpx 0 20rpx 30rpx;}
+.orderInfoScroll .couponList .couponListItem .left{width: calc(100% - 200rpx);background-color: var(--white);height: 100%;border-top-left-radius:12rpx;border-bottom-left-radius:12rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 30rpx 0 20rpx 30rpx;}
 .orderInfoScroll .couponList .couponListItem .left .txt1{font-size: 34rpx;color: var(--color47);}
 .orderInfoScroll .couponList .couponListItem .left .date{width: 376rpx; font-size: 26rpx;color: var(--color48);padding: 25rpx 0;border-bottom: 1px solid var(--color49);}
 .orderInfoScroll .couponList .couponListItem .left .btnCheck{font-size: 26rpx;color: var(--color50);margin-top: 20rpx;}
-.orderInfoScroll .couponList .couponListItem .left .btnTips{width: 88rpx;height: 29rpx;line-height: 29rpx;text-align: center; font-size: 18rpx;color: var(--white);background-color: var(--color3);position: absolute;top: 32rpx;right: 105rpx;}
+.orderInfoScroll .couponList .couponListItem .left .btnTips{width: 88rpx;height: 29rpx;line-height: 29rpx;text-align: center; font-size: 18rpx;color: var(--white);background-color: var(--color3);position: absolute;top: 32rpx;right: 80rpx;}
 
 /* right */
-.orderInfoScroll .couponList .couponListItem .right{width: calc(100% - 508rpx);background-color: var(--color3);height: 100%;border-top-right-radius:12rpx;border-bottom-right-radius:12rpx;text-align: center;color: var(--white);display: flex;justify-content: center;align-items: center;}
+.orderInfoScroll .couponList .couponListItem .right{width: 200rpx;background-color: var(--color3);height: 100%;border-top-right-radius:12rpx;border-bottom-right-radius:12rpx;text-align: center;color: var(--white);display: flex;justify-content: center;align-items: center;}
 .orderInfoScroll .couponList .couponListItem .right .txt{font-size: 67.27rpx;}
-.orderInfoScroll .couponList .couponListItem .right .txt2{font-size: 32rpx;top: 10rpx;position: relative;}
+.orderInfoScroll .couponList .couponListItem .right .txt2{font-size: 32rpx;position: relative;}
 .orderInfoScroll .couponList .couponListItem .right .btnTxt3{color: var(--white);font-size: 22rpx;margin-top: 15rpx;display: block;}
+.orderInfoScroll .couponList .couponListItem .right .btnTxt4{font-size: 14rpx;color: var(--color3);height: 18rpx;width: 82rpx;line-height: 18rpx;background-color: var(--white);border-radius: 10rpx;display: block;position: absolute; bottom: 20rpx;margin: auto;}
 .orderInfoScroll .couponList .couponListItem .right .circle_list{position:absolute!important;top: 0; left: -3px;}
 .orderInfoScroll .couponList .couponListItem .right .circle_list:after{  content: '';  position: absolute;  top: 0;  bottom: 0;  left: 14rpx;  right: 0;  z-index: 1;  background-color: var(--white);  }  
 .orderInfoScroll .couponList .couponListItem .right .circle_list>text{display: block;background-color:var(--white);  width:13rpx;  height:13rpx;  border-radius:50%;  margin-bottom:5rpx;}  
 
 /* noList */
 .orderInfoScroll .couponList .noList{font-size: 26rpx;text-align: center;color: var(--color51);margin-top: 90rpx;}
+
+
+.orderInfoScroll .couponList .couponListItem.type2{filter: grayscale(100%);}
+
+
+/* btn */
+.btn{width: 100%;height: 98rpx;background-color: var(--white);line-height: 98rpx;text-align: center;font-size: 26rpx;color: var(--color3);}
+.btn1{display: none;}
+.btn2{display: block;}
+
+/* boxType2 */
+.article.boxType2 .orderInfoScroll .couponList{padding: 34rpx 20rpx 34rpx 75rpx;}
+.article.boxType2 .orderInfoScroll .couponList .couponListItem .left .btnTips{right: 45rpx;}
+.article.boxType2 .orderInfoScroll .couponList .couponListItem::before{content: '';font-size: 20rpx;text-align: center;line-height: 25rpx;color: var(--white); width: 25rpx;height: 25rpx;background-color: var(--color26);border-radius: 50%;position: absolute;top: 50%;transform: translateY(-50%);left: -50rpx;transition: all 300ms;} 
+.article.boxType2 .orderInfoScroll .couponList .couponListItem.active::before{content: '';background-color: var(--color3);background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAMmaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjYtYzEzOCA3OS4xNTk4MjQsIDIwMTYvMDkvMTQtMDE6MDk6MDEgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE3IChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyRENENERGQ0ZCMUUxMUVBOUEzNENCQTE1MjQwMTkxMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyRENENERGREZCMUUxMUVBOUEzNENCQTE1MjQwMTkxMCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjJEQ0Q0REZBRkIxRTExRUE5QTM0Q0JBMTUyNDAxOTEwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjJEQ0Q0REZCRkIxRTExRUE5QTM0Q0JBMTUyNDAxOTEwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+73m1VQAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACrUExURUxpcf///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////0duD1wAAAA4dFJOUwA3kz5b8A4Bh+5tY3KM/l37oPWzTAQHA6QG+TkoDw1CIOY72SwZw98XEQkk0TLYrb3xvi2R6Mzjk/K9ngAAAH5JREFUKM9jYBhagBmHODuvBRdWCVFBCz4eOI+RiR3G1BK2EOCHS7BxWnBAmZpqFkIiSCZwW1iwgBmqOhacSiiGc1hIyQMpbXULRRU090hYsBoz6JpaKCugu0jSwMKcxdDCTAPTsbJ6FhYWRnLY/CHDaqEvht3v0ibiDEMfAABzFwodGCozSwAAAABJRU5ErkJggg==);background-position: 50% 50%; background-repeat: no-repeat; background-size:100% 100%;}
+
+.article.boxType2 .btn1{display: block;}
+.article.boxType2 .btn2{display: none;}
+
+.article .btnCheck2{display: none;}
+.article.boxType2 .btnCheck1{display: none;}
+.article.boxType2 .btnCheck2{display: block;}
+
+.popupBox{width: 100%;height: 100%;position: absolute;top: 0;left: 0;}
+.popupBox .mask{width: 100%;height: 100%;position: absolute;top: 0;left: 0;background-color: rgba(0, 0, 0, 0.62);}
+.popupBox .conBox{width: 690rpx;height: 675rpx;position: absolute;top: 50%;left: 50%;transform:translate(-50%,-50%);background-color: var(--white);border-radius: 10rpx;padding-top: 33rpx;}
+.popupBox .conBox .title{text-align: center;font-size: 32rpx;color: var(--color25);}
+.popupBox .conBox .scrollBox{width: 100%;height: 445rpx;padding: 0 35rpx;margin-top: 54rpx;}
+.popupBox .conBox .scrollBox .scroll{width: 100%;height: 100%;}
+.popupBox .conBox .btn{width: 206rpx;height: 50rpx;line-height: 50rpx;border-radius: 25rpx;font-size: 30rpx;color: var(--white);background-color: var(--color3);margin: 0 auto;}

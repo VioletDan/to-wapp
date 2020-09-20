@@ -1,115 +1,115 @@
 {
-  "description": "项目配置文件",
-  "packOptions": {
-    "ignore": []
-  },
-  "setting": {
-    "urlCheck": true,
-    "es6": true,
-    "enhance": true,
-    "postcss": true,
-    "preloadBackgroundData": false,
-    "minified": true,
-    "newFeature": true,
-    "coverView": true,
-    "nodeModules": true,
-    "autoAudits": false,
-    "showShadowRootInWxmlPanel": true,
-    "scopeDataCheck": false,
-    "uglifyFileName": false,
-    "checkInvalidKey": true,
-    "checkSiteMap": true,
-    "uploadWithSourceMap": true,
-    "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
-    "useApiHook": true,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    },
-    "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
-    "packNpmManually": false,
-    "packNpmRelationList": []
-  },
-  "compileType": "miniprogram",
-  "libVersion": "2.11.2",
-  "appid": "wx9101e853edfaaab0",
-  "projectname": "%E8%B1%86%E8%85%90%E5%85%88%E7%94%9F%E5%B0%8F%E7%A8%8B%E5%BA%8F2.0",
-  "debugOptions": {
-    "hidedInDevtools": []
-  },
-  "scripts": {},
-  "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
-  "condition": {
-    "search": {
-      "current": -1,
-      "list": []
-    },
-    "conversation": {
-      "current": -1,
-      "list": []
-    },
-    "plugin": {
-      "current": -1,
-      "list": []
-    },
-    "game": {
-      "list": []
-    },
-    "gamePlugin": {
-      "current": -1,
-      "list": []
-    },
-    "miniprogram": {
-      "current": -1,
-      "list": [
-        {
-          "id": -1,
-          "name": "添加地址",
-          "pathName": "pages/addAddress/addAddress",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "地址列表",
-          "pathName": "pages/receiveAddress/receiveAddress",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "选择门店",
-          "pathName": "pages/shops/shops",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": 3,
-          "name": "订单结算",
-          "pathName": "pages/orderSettle/orderSettle",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "订单备注",
-          "pathName": "pages/remark/remark",
-          "query": "",
-          "scene": null
-        },
-        {
-          "id": -1,
-          "name": "我的优惠券",
-          "pathName": "pages/userCoupon/userCoupon",
-          "query": "",
-          "scene": null
-        }
-      ]
-    }
-  }
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"preloadBackgroundData": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"compileHotReLoad": false,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useIsolateContext": true,
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false,
+		"useMultiFrameRuntime": false,
+		"useApiHook": true,
+		"packNpmManually": false,
+		"packNpmRelationList": []
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.11.2",
+	"appid": "wx9101e853edfaaab0",
+	"projectname": "%E8%B1%86%E8%85%90%E5%85%88%E7%94%9F%E5%B0%8F%E7%A8%8B%E5%BA%8F2.0",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"scripts": {},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "添加地址",
+					"pathName": "pages/addAddress/addAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "地址列表",
+					"pathName": "pages/receiveAddress/receiveAddress",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "选择门店",
+					"pathName": "pages/shops/shops",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "订单结算",
+					"pathName": "pages/orderSettle/orderSettle",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "订单备注",
+					"pathName": "pages/remark/remark",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的优惠券",
+					"pathName": "pages/userCoupon/userCoupon",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
 }

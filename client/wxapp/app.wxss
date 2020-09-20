@@ -50,9 +50,9 @@
 .orderInfoScroll .box .cardDetailListCard .info .txt3{color: var(--color7);font-weight: 700;font-size: 32rpx;margin-top: 30rpx;display: block;}
 
 /* orderMoneyBox */
-.orderMoneyBox{height: 100rpx;background-color: #fefefe;display: flex;justify-content: space-between;align-items: center;padding: 0 40rpx 0 35rpx;}
+.orderMoneyBox{height: 100rpx;background-color: #fefefe;display: flex;justify-content: space-between;align-items: center;padding: 0 0 0 35rpx;}
 .orderMoneyBox .totalBox{padding-bottom: 0;}
-.orderMoneyBox .btnPayment{width: 110rpx;height: 50rpx;line-height: 50rpx;background-color: var(--color3);text-align: center;color: var(--white);border-radius: 25rpx;font-size: 27rpx;}
+.orderMoneyBox .btnPayment{width: 197rpx;height: 100%;line-height: 100rpx;background-color: var(--color3);text-align: center;color: var(--white);font-size: 35rpx;}
 .isOrderBox {background-color: #000;position: absolute;bottom: 0;left: 0;width: 100%;}
 .isOrderBox  .btnPayment{background-color: #000;width: auto;}
 .isOrderBox .totalBox .icon_money{color: #fff;}

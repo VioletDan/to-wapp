@@ -1,0 +1,167 @@
+<view class="content">
+	<view class="topTxt">您好，欢迎开启嘬一口之旅～</view>
+	<view class="infoBox">
+		<view class="title">嘬一口会员</view>
+		<view class="btnLoginBox">
+			<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
+				点击登录
+				<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+			</view>
+			<view class="userName" wx:else>{{userName}}</view>
+		</view>
+
+		<view class="UserImgBox">
+			<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+		</view>
+	</view>
+	<view class="couponBox">
+		<view class="item" catchtap="goUserCoupon">
+			<image class="img" src="/images/user/icon_coupon.png" mode="aspectFill"></image>
+			<text class="txt">优惠券</text>
+		</view>
+		<view class="item">
+			<image class="img" src="/images/user/icon_tickt.png" mode="aspectFill"></image>
+			<text class="txt">发票管理</text>
+		</view>
+	</view>
+</view>
+
+
+// components/user/user.js
+const app = getApp()
+const {
+  API,
+  beats,
+  icom,
+  config,
+  mta,
+  regeneratorRuntime,
+  promisify,
+  Router
+} = app;
+
+Component({
+  /**
+   * 组件的属性列表
+   */
+  properties: {
+
+  },
+
+  /**
+   * 组件的初始数据
+   */
+  data: {
+    cumulativeIntegral: 1,
+    userName: '',
+    userImg: '/images/user/img.png',
+  },
+
+  lifetimes: {
+    ready() {
+      Router.regTabPage('user', this);
+      // this.initData();
+    }
+  },
+
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () {
+      // setTimeout(() => {
+      //   this.updateData();
+      // }, 200)
+    },
+    hide: function () {},
+    resize: function () {},
+  },
+
+  /**
+   * 组件的方法列表
+   */
+  methods: {
+
+    //========== Public ===========
+    updateData() {
+      //这里是外部调用的方法 如果要刷新数据的话在这里执行
+      console.log('user udpate');
+      this.initData();
+    },
+
+    //========== Private ===========
+    initData() {
+      this.setData({
+        appData: app.data
+      });
+      this.getUserInfo();
+    },
+    getUserInfo() {
+      if (this.userInfo) {
+        app.data.Flag_Info = 1;
+        this.setData({
+          userInfo: this.userInfo,
+          userImg: this.userInfo.avatarUrl,
+          userName: this.userInfo.nickName,
+          appData: app.data
+        });
+      } //edn if
+      else {
+        wx.getUserInfo({
+          success: (res) => {
+            this.parse(res);
+          },
+          fail: () => {}
+        });
+      } //end else
+    },
+    //授权
+    getAuth(e) {
+      let {
+        auth
+      } = e.currentTarget.dataset;
+      if (!e.detail.encryptedData) {
+
+      } else {
+        this.parse(e.detail);
+      }
+    },
+    //解析
+    parse(data) {
+      this.encryptedData = data.encryptedData;
+      this.iv = data.iv;
+      this.rawData = data.rawData;
+      this.signature = data.signature;
+      this.userInfo = data.userInfo;
+      // console.log('user info', this.userInfo);
+      app.data.Flag_Info = 1;
+      this.setData({
+        userInfo: this.userInfo,
+        userImg: this.userInfo.avatarUrl,
+        userName: this.userInfo.nickName,
+        appData: app.data
+      });
+    },
+    //优惠券
+    goUserCoupon(){
+      wx.navigateTo({
+        url: '/pages/userCoupon/userCoupon',
+      })
+    }
+  }
+})
+
+/* components/user/user.wxss */
+.content { width: 100%; height: 100%;overflow: hidden;background-color: var(--white);padding: 25rpx 35rpx;}
+.content .topTxt{font-size: 27rpx;color: var(--color31);margin-bottom: 10rpx;}
+.content .infoBox{width: 100%;height: 162rpx;background-color: var(--white);border-radius: 10rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 34rpx 25rpx 0;margin-bottom: 20rpx;}
+.content .infoBox .title{font-size: 35rpx; color: var(--color25);margin-bottom: 15rpx;}
+.content .infoBox .btnLogin{width: 127rpx;height: 35rpx;border-radius: 18rpx;background-color: var(--color3);text-align: center;line-height: 35rpx;color: var(--white);font-size: 18rpx;}
+.content .infoBox .btnLogin .btnAuth{width: 100%;height: 100%;position: absolute;top: 0;left: 0;opacity: 0;}
+.content .infoBox .userName{font-size: 27rpx;color: var(--color31);}
+.content .infoBox .UserImgBox{width: 150rpx;height: 150rpx;border-radius: 50%;background-color: var(--color6);overflow: hidden;position: absolute;top: -45rpx;right: 58rpx;}
+.content .infoBox .UserImgBox .img{width: 100%;height: 100%;border-radius: 50%;}
+
+/* couponBox */
+.content .couponBox{width: 100%;background-color: var(--white);border-radius: 10rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 0 25rpx;}
+.content .couponBox .item{height: 120rpx;text-align: left;display: flex;justify-content: start;align-items: center;border-bottom: 2rpx solid var(--color15);}
+.content .couponBox .item .img{width: 131rpx;height: 71rpx;}
+.content .couponBox .item .txt{font-size: 21rpx;color: var(--color33);}

@@ -1,27 +1,53 @@
 <view class="content">
-	<view class="topTxt">您好，欢迎开启嘬一口之旅～</view>
-	<view class="infoBox">
-		<view class="title">嘬一口会员</view>
-		<view class="btnLoginBox">
-			<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
-				点击登录
-				<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+	<view class="top top1">
+		<view class="infoBox">
+			<view class="title">嘬一口会员</view>
+			<view class="btnLoginBox">
+				<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
+					点击登录
+					<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+				</view>
+				<view class="userName" wx:else>{{userName}}</view>
 			</view>
-			<view class="userName" wx:else>{{userName}}</view>
-		</view>
 
-		<view class="UserImgBox">
-			<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+			<view class="UserImgBox">
+				<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+			</view>
+		</view>
+		<view class="couponBox">
+			<view class="item" catchtap="goUserOrder">
+				<image class="img" src="/images/user/icon_oder.png" mode="widthFix"></image>
+				<text class="txt">我的订单</text>
+			</view>
+			<view class="item" catchtap="goUserAllOrder">
+				<image class="img" src="/images/user/icon_order2.png" mode="widthFix"></image>
+				<text class="txt">查看所有订单</text>
+			</view>
 		</view>
 	</view>
-	<view class="couponBox">
-		<view class="item" catchtap="goUserCoupon">
-			<image class="img" src="/images/user/icon_coupon.png" mode="aspectFill"></image>
-			<text class="txt">优惠券</text>
+	<view class="top top2">
+		<view class="btn" catchtap="btnGoOrder">立即点单</view>
+	</view>
+	<view class="top top3">
+		<view class="couponBox">
+			<view class="item" catchtap="goUserOrder">
+				<image class="img" src="/images/user/icon_jd.png" mode="widthFix"></image>
+				<text class="txt">我的集点</text>
+				<text class="txt1">满8杯自动兑换1杯</text>
+			</view>
+			<view class="pointerBox">
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+				<text class="pitem"></text>
+			</view>
 		</view>
-		<view class="item">
-			<image class="img" src="/images/user/icon_tickt.png" mode="aspectFill"></image>
-			<text class="txt">发票管理</text>
-		</view>
+	</view>
+	<view class="top top4">
+
 	</view>
 </view>

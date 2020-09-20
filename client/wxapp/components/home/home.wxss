@@ -623,16 +623,14 @@
   margin-left: 30rpx;
 }
 .home .cardList .cardListRight {
-  font-size: 26.36rpx;
+  font-size: 35rpx;
   font-weight: 700;
-  width: 110rpx;
-  height: 50rpx;
-  line-height: 50rpx;
+  width: 197rpx;
+  height: 100%;
+  line-height: 100rpx;
   text-align: center;
   background-color: var(--color3);
   color: var(--white);
-  border-radius: 24rpx;
-  margin-right: 35rpx;
 }
 .home .cardMask {
   position: fixed;

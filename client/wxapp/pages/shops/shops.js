@@ -213,6 +213,7 @@ function dealData(data, search, name) {
   store.map((v, index) => {
     let distance = GetDistance(v.latitude, v.longitude, $page.data.currentLatitude, $page.data.currentLongitude)
     v.address = v.address.replace('\r\n','');
+    v.address = v.address.split('（豆腐先生）')[0];
     v.isBusState = app.checkAuditTime(v.beginTime,v.endTime);
     v.distance = 0
     v.distance = Number(distance)

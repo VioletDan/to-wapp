@@ -270,6 +270,7 @@ page{
   --color49: #f0f0f0;
   --color50: #b2b2b2;
   --color51: #5f6572;
+  --color52: #8f8e8e;
 }
 
 .hide{display: none!important;}
