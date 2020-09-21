@@ -26,6 +26,17 @@ Component({
     cumulativeIntegral: 1,
     userName: '',
     userImg: '/images/user/img.png',
+    couponList: [{
+      title: '饮品免单券1',
+      btnType: '免单券',
+      startDate: '2020-09-01',
+      endDate: '2020-09-28',
+      typeTxt: '全场通用免单券',
+      isEnd: true, //是否即将过期
+      isUse: true, //能否使用 true 能 false 不能
+      isAct: true, //是否被选择,
+      money: 20
+    }]
   },
 
   lifetimes: {
@@ -112,7 +123,7 @@ Component({
       });
     },
     //优惠券
-    goUserCoupon(){
+    goUserCoupon() {
       wx.navigateTo({
         url: '/pages/userCoupon/userCoupon',
       })

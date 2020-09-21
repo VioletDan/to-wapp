@@ -17,7 +17,7 @@ Page({
    */
   data: {
     isPopup: false,
-    boxType: 2, // 1代表我的优惠券 2 代表 选择使用优惠券
+    boxType: 1, // 1代表我的优惠券 2 代表 选择使用优惠券
     couponList: [{
       title: '饮品免单券1',
       btnType: '免单券',

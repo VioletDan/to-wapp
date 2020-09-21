@@ -1,5 +1,6 @@
 /* components/user/user.wxss */
-.content { width: 100%; height: 100%;overflow: hidden;background-color: var(--white);padding: 10rpx 35rpx;}
+.content { width: 100%; height: 100%;background-color: var(--white);padding: 10rpx 35rpx;overflow-y: scroll;overflow-x: hidden;}
+.scrollBox{width: 100%;height: 100%;padding: 10rpx 35rpx;box-sizing: border-box;}
 .content .topTxt{font-size: 27rpx;color: var(--color31);margin-bottom: 10rpx;}
 .content .top{width: 100%;height: auto;background-color: var(--white);border-radius: 10rpx;box-shadow:1rpx 0px 15rpx var(--color32);margin-bottom: 10rpx;}
 .content .infoBox{height: 210rpx;border-top: 1rpx solid transparent;padding-left: 40rpx;}
@@ -20,8 +21,30 @@
 .content .top2 .btn{width: 362rpx;height: 57rpx;line-height: 57rpx;font-size: 27rpx;color: var(--white);background-color: var(--color3);text-align: center;}
 
 .content .top3 .couponBox .item{height: 93rpx;}
-.content .top3 .couponBox .item .txt1{font-size: 27rpx;color: var(--color52);position: absolute; right: 0;}
+.content .top3 .couponBox .item .txt1,
+.content .top4 .couponBox .item .txt1{font-size: 27rpx;color: var(--color52);position: absolute; right: 0;}
 
 .content .top3 .pointerBox{width: 475rpx;padding: 15rpx 0 50rpx;display: flex;justify-content: space-between;align-items: center;margin: 0 auto;}
 .content .top3 .pointerBox .pitem{width: 43rpx;height: 43rpx;display: block;border-radius: 50%;background-color: var(--color52);}
 .content .top3 .pointerBox .pitem.active{background-color: var(--color3);}
+
+.content .top4 .couponBox{padding-bottom: 28rpx;}
+.content .top4 .couponBox .couponListItem{width: 100%;height: 190rpx;}
+
+/* left */
+.content .top4 .couponBox .flexBox{display: flex;justify-content: space-between;align-items: center;}
+.content .top4 .couponBox .couponListItem .left{width: calc(100% - 185rpx);background-color: var(--white);height: 100%;border-top-left-radius:12rpx;border-bottom-left-radius:12rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 30rpx 0 20rpx 30rpx;}
+.content .top4 .couponBox .couponListItem .left .txt1{font-size: 34rpx;color: var(--color47);}
+.content .top4 .couponBox .couponListItem .left .date{width: 376rpx; font-size: 26rpx;color: var(--color48);padding: 25rpx 0;border-bottom: 1px solid var(--color49);}
+.content .top4 .couponBox .couponListItem .left .btnCheck{font-size: 26rpx;color: var(--color50);margin-top: 20rpx;}
+.content .top4 .couponBox .couponListItem .left .btnTips{width: 88rpx;height: 29rpx;line-height: 29rpx;text-align: center; font-size: 18rpx;color: var(--white);background-color: var(--color3);position: absolute;top: 32rpx;right: 80rpx;}
+
+/* right */
+.content .top4 .couponBox .couponListItem .right{width: 185rpx;background-color: var(--color3);height: 100%;border-top-right-radius:12rpx;border-bottom-right-radius:12rpx;text-align: center;color: var(--white);display: flex;justify-content: center;align-items: center;}
+.content .top4 .couponBox .couponListItem .right .txt{font-size: 67.27rpx;}
+.content .top4 .couponBox .couponListItem .right .txt2{font-size: 32rpx;position: relative;}
+.content .top4 .couponBox .couponListItem .right .btnTxt3{color: var(--white);font-size: 22rpx;margin-top: 15rpx;display: block;}
+.content .top4 .couponBox .couponListItem .right .btnTxt4{font-size: 14rpx;color: var(--color3);height: 18rpx;width: 82rpx;line-height: 18rpx;background-color: var(--white);border-radius: 10rpx;display: block;position: absolute; bottom: 20rpx;margin: auto;}
+.content .top4 .couponBox .couponListItem .right .circle_list{position:absolute!important;top: 0; left: -3px;}
+.content .top4 .couponBox .couponListItem .right .circle_list:after{  content: '';  position: absolute;  top: 0;  bottom: 0;  left: 14rpx;  right: 0;  z-index: 1;  background-color: var(--white);  }  
+.content .top4 .couponBox .couponListItem .right .circle_list>text{display: block;background-color:var(--white);  width:13rpx;  height:13rpx;  border-radius:50%;  margin-bottom:5rpx;}  

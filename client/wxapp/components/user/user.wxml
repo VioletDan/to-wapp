@@ -1,53 +1,93 @@
 <view class="content">
-	<view class="top top1">
-		<view class="infoBox">
-			<view class="title">嘬一口会员</view>
-			<view class="btnLoginBox">
-				<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
-					点击登录
-					<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+	<!-- <scroll-view class="scrollBox" scroll-y="{{true}}"> -->
+		<view class="top top1">
+			<view class="infoBox">
+				<view class="title">嘬一口会员</view>
+				<view class="btnLoginBox">
+					<view class="btnLogin" wx:if="{{appData.Flag_Info == 0}}">
+						点击登录
+						<button class='btnAuth' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getAuth"></button>
+					</view>
+					<view class="userName" wx:else>{{userName}}</view>
 				</view>
-				<view class="userName" wx:else>{{userName}}</view>
-			</view>
 
-			<view class="UserImgBox">
-				<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+				<view class="UserImgBox">
+					<image class="img" src="{{userImg}}" mode="aspectFill"></image>
+				</view>
+			</view>
+			<view class="couponBox">
+				<view class="item" catchtap="goUserOrder">
+					<image class="img" src="/images/user/icon_oder.png" mode="widthFix"></image>
+					<text class="txt">我的订单</text>
+				</view>
+				<view class="item" catchtap="goUserAllOrder">
+					<image class="img" src="/images/user/icon_order2.png" mode="widthFix"></image>
+					<text class="txt">查看所有订单</text>
+				</view>
 			</view>
 		</view>
-		<view class="couponBox">
-			<view class="item" catchtap="goUserOrder">
-				<image class="img" src="/images/user/icon_oder.png" mode="widthFix"></image>
-				<text class="txt">我的订单</text>
-			</view>
-			<view class="item" catchtap="goUserAllOrder">
-				<image class="img" src="/images/user/icon_order2.png" mode="widthFix"></image>
-				<text class="txt">查看所有订单</text>
+		<view class="top top2">
+			<view class="btn" catchtap="btnGoOrder">立即点单</view>
+		</view>
+		<view class="top top3">
+			<view class="couponBox">
+				<view class="item" catchtap="goUserOrder">
+					<image class="img" src="/images/user/icon_jd.png" mode="widthFix"></image>
+					<text class="txt">我的集点</text>
+					<text class="txt1">满8杯自动兑换1杯</text>
+				</view>
+				<view class="pointerBox">
+					<text class="pitem active"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+					<text class="pitem"></text>
+				</view>
 			</view>
 		</view>
-	</view>
-	<view class="top top2">
-		<view class="btn" catchtap="btnGoOrder">立即点单</view>
-	</view>
-	<view class="top top3">
-		<view class="couponBox">
-			<view class="item" catchtap="goUserOrder">
-				<image class="img" src="/images/user/icon_jd.png" mode="widthFix"></image>
-				<text class="txt">我的集点</text>
-				<text class="txt1">满8杯自动兑换1杯</text>
-			</view>
-			<view class="pointerBox">
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
-				<text class="pitem"></text>
+		<view class="top top4">
+			<view class="couponBox">
+				<view class="item" catchtap="goUserCoupon">
+					<image class="img" src="/images/user/icon_coupon.png" mode="widthFix"></image>
+					<text class="txt">我的优惠券</text>
+					<text class="txt1">查看所有优惠券</text>
+				</view>
+				<view class="couponListItem flexBox" catchtap="btnShowClick" wx:for="{{couponList}}" wx:key="index"
+					data-index="{{index}}">
+					<view class="left">
+						<view class="txt1">{{item.title}}</view>
+						<view class="date">{{item.startDate}}至{{item.endDate}}</view>
+						<view class="btnCheck btnCheck1">查看详情</view>
+						<view class="btnTips">{{item.btnType}}</view>
+					</view>
+					<view class="right">
+						<view class="border">
+							<text class="txt">{{item.money}}</text>
+							<text class="txt2">元</text>
+							<!-- <text class="btnTxt3">立即使用</text> -->
+						</view>
+						<!-- <text class="btnTxt4" wx:if="{{item.isEnd}}">即将过期</text> -->
+						<view class="circle_list">
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+							<text></text>
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
-	</view>
-	<view class="top top4">
-
-	</view>
+	<!-- </scroll-view> -->
 </view>
