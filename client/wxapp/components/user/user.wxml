@@ -91,3 +91,17 @@
 		</view>
 	<!-- </scroll-view> -->
 </view>
+
+<!-- 弹窗 -->
+<view class="popupBox" wx:if="{{isPopup}}">
+	<view class="mask"></view>
+	<view class="conBox">
+		<view class="title">饮品免单券</view>
+		<view class="scrollBox">
+			<scroll-view scroll-y class="scroll">
+
+			</scroll-view>
+		</view>
+		<view class="btn" catchtap="btnClosePopup">我知道了</view>
+	</view>
+</view>

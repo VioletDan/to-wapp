@@ -1,9 +1,9 @@
 <view class="article fadeIn">
 	<view class='content'>
 		<view class="module">
-      <home style="height:100%;display:{{currentPageIndex == 0?'block':'none'}};" id="home" class="fadeIn2"></home>
-      <order style="height:100%;display:{{currentPageIndex == 1?'block':'none'}};" id="order" class="fadeIn2"></order>
-      <user style="height:100%;display:{{currentPageIndex == 2?'block':'none'}};" id="user" class="fadeIn2"></user>
+      <user style="height:100%;display:{{currentPageIndex == 0?'block':'none'}};" id="user" class="fadeIn2"></user>
+      <home style="height:100%;display:{{currentPageIndex == 1?'block':'none'}};" id="home" class="fadeIn2"></home>
+      <order style="height:100%;display:{{currentPageIndex == 2?'block':'none'}};" id="order" class="fadeIn2"></order>
     </view>
 
     <footer bind:navChange="navChange" id="footer"></footer>

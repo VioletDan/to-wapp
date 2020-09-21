@@ -8,9 +8,14 @@ const {
   regeneratorRuntime,
   promisify,
   Router,
-  imath
+  imath,
+  QRCode,
+  rpx2px
 } = app;
 var $page = null;
+// 300rpx 在6s上为 150px
+const qrcodeWidth = rpx2px(250);
+let qrcode;
 Page({
 
   /**
@@ -28,6 +33,7 @@ Page({
     cardList: [],
     active: 0,
     tactive: true, //选中状态
+    qrcodeWidth: qrcodeWidth,
   },
 
   /**
@@ -39,7 +45,6 @@ Page({
     if (options.orderId) {
       this.getOrdersDetail(options.orderId);
     }
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -82,7 +87,7 @@ Page({
       // return (num += item.buyNum * item.price);
       return (num = imath.accAdd(num, item.buyNum * item.price));
     }, 0);
-    totalPrice = imath.accAdd(totalPrice,this.data.userOrderinfo.boxCost);
+    totalPrice = imath.accAdd(totalPrice, this.data.userOrderinfo.boxCost);
     let allPrice = this.data.userOrderinfo.totalMoney;
     //配送费
     let sendCost = this.data.userOrderinfo.sendCost;
@@ -123,6 +128,9 @@ Page({
     icom.loadingHide();
     if (res.code == 200) {
       var _cardList = res.data.orderFoodList;
+      //===========生成二维码
+      this.addQCode(res.data.orderNo);
+      //===========生成二维码
       if (res.data.orderProcessList.length == 0) {
         res.data.orderProcessList = [{
           text: '',
@@ -145,6 +153,21 @@ Page({
       });
       this.initCar();
     }
+  },
+  //生成二维码
+  addQCode(text) {
+    qrcode = new QRCode('myQrcode', {
+      text: text,
+      width: qrcodeWidth,
+      height: qrcodeWidth,
+      padding: 0, // 生成二维码四周自动留边宽度，不传入默认为0
+      correctLevel: QRCode.CorrectLevel.L, // 二维码可辨识度
+    });
+    qrcode.exportImage(function (path) {
+      $page.setData({
+        imgsrc: path
+      });
+    });
   },
 
   //拨打电话

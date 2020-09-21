@@ -38,25 +38,26 @@ class Router {
   }
 
   //去首页
-  toHome() {
+  toUser() {
     this._backIndex();
     this._updateFooter(0);
+    let user = this.tabPage['user'];
+    user.updateData();
+  }
+  //去点单
+  toHome() {
+    this._backIndex();
+    this._updateFooter(1);
     let home = this.tabPage['home'];
     home.updateData();
   }
+
   //去订单
   toOrder() {
     this._backIndex();
-    this._updateFooter(1);
+    this._updateFooter(2);
     let order = this.tabPage['order'];
     order.updateData();
-  }
-  //去我的
-  toUser() {
-    this._backIndex();
-    this._updateFooter(2);
-    let user = this.tabPage['user'];
-    user.updateData();
   }
   //=========== 这里是四个不会销毁的页面管理 END =========
 }

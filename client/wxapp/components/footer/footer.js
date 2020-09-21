@@ -1,7 +1,16 @@
 // components/footer/footer.js
 // import regeneratorRuntime from '../../common/js/plugs/regeneratorRuntime';
 const app = getApp();
-const { API, beats, icom, config, mta, regeneratorRuntime, promisify, Router } = app;
+const {
+  API,
+  beats,
+  icom,
+  config,
+  mta,
+  regeneratorRuntime,
+  promisify,
+  Router
+} = app;
 let currentNum = 0;
 Component({
   /**
@@ -18,28 +27,28 @@ Component({
     showAuth: false, //授权
     getInfo: 'getNumber',
     active: 0,
-    list: [
-      {
+    list: [{
         id: 1,
         name: '首页',
         icon: '/images/tabBar/icon1.png',
         iconActive: '/images/tabBar/icon1_act.png',
-        url: '/pages/home/home'
+        url: '/pages/user/user'
       },
       {
         id: 2,
+        name: '点单',
+        icon: '/images/tabBar/icon4.png',
+        iconActive: '/images/tabBar/icon4_act.png',
+        url: '/pages/home/home'
+      },
+      {
+        id: 3,
         name: '订单',
         icon: '/images/tabBar/icon2.png',
         iconActive: '/images/tabBar/icon2_act.png',
         url: '/pages/order/order'
-      },
-      {
-        id: 3,
-        name: '我的',
-        icon: '/images/tabBar/icon3.png',
-        iconActive: '/images/tabBar/icon3_act.png',
-        url: '/pages/order/order'
-      }],
+      }
+    ],
   },
 
   lifetimes: {
@@ -55,29 +64,33 @@ Component({
 
     //========= Public =========
     async updateActive(value) {
-      this.setData({ active: value });
+      this.setData({
+        active: value
+      });
       this.triggerEvent('navChange', value);
     },
 
     //=========== Event ============
     itemClick(e) {
-      let { index } = e.currentTarget.dataset;
+      let {
+        index
+      } = e.currentTarget.dataset;
       currentNum = index;
-      if (index != this.data.active){
+      if (index != this.data.active) {
         this.toUrl(index);
       }
-      
+
     },
-    toUrl(index){
+    toUrl(index) {
       switch (index) {
         case 0:
-          Router.toHome();
+          Router.toUser();
           break;
         case 1:
-          Router.toOrder();
+          Router.toHome();
           break;
         case 2:
-          Router.toUser();
+          Router.toOrder();
           break;
       }
     }

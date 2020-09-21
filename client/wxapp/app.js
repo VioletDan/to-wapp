@@ -9,7 +9,8 @@ import Router from 'common/js/Router.js';
 import iuser from 'common/js/base/user.js';
 import Toast from 'miniprogram/@vant/weapp/dist/toast/toast';
 const utils = require('utils/utils.js');
-
+const QRCode = require('common/js/plugs/weapp-qrcode.js');
+import rpx2px from 'common/js/plugs/rpx2px.js';
 const mta = require('common/js/mta_analysis.js');
 let first;
 let Scene = "defualt"; //来源
@@ -31,6 +32,8 @@ App({
     this.iuser = iuser;
     this.utils = utils;
     this.Toast = Toast;
+    this.QRCode = QRCode;
+    this.rpx2px = rpx2px;
     first = true
 
     //来源

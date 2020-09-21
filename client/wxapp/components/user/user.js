@@ -23,6 +23,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    isPopup: false,
     cumulativeIntegral: 1,
     userName: '',
     userImg: '/images/user/img.png',
@@ -42,7 +43,7 @@ Component({
   lifetimes: {
     ready() {
       Router.regTabPage('user', this);
-      // this.initData();
+      this.initData();
     }
   },
 
@@ -125,8 +126,19 @@ Component({
     //优惠券
     goUserCoupon() {
       wx.navigateTo({
-        url: '/pages/userCoupon/userCoupon',
+        url: '/pages/userCoupon/userCoupon?boxType=1',
       })
-    }
+    },
+    //查看详情
+    btnShowClick() {
+      this.setData({
+        isPopup: true
+      });
+    },
+    btnClosePopup() {
+      this.setData({
+        isPopup: false
+      });
+    },
   }
 })

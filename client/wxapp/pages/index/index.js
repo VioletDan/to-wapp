@@ -4,7 +4,7 @@ let prizeType = 'test';
 //-------------------------------------------------------初始化-------------------------------------------------------
 let $query, toNext, $page;
 let myVideo;
-let idArr = ['#home', '#order', '#user'];
+let idArr = ['#user','#home','#order'];
 Page({
   data: {
     currentPageIndex: 0,
@@ -32,7 +32,8 @@ Page({
   }, //监听页面初次渲染完成
   onShow: function () {
     setTimeout(() => {
-      if (icom.storage('token')) this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
+      //菜单页面才更新
+      if (icom.storage('token') && this.data.currentPageIndex != 2) this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
     }, 200)
   }, //监听页面显示
   onHide: function () { }, //监听页面隐藏

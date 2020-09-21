@@ -13,6 +13,10 @@
 					<text wx:if="{{userOrderinfo.state == 9}}">已退款</text>
 				</view>
 				<view class="foodCode" wx:if="{{userOrderinfo.state == 2 && userOrderinfo.sendType == 1}}">{{userOrderinfo.fetchCode}}</view>
+				<view class="codeBox" wx:if="{{userOrderinfo.state == 2 && userOrderinfo.sendType == 1}}">
+					<canvas class="canvas-code" canvas-id="myQrcode" style="background:#fff;width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" />
+					<!-- <image class="img" src="{{imgsrc}}"></image> -->
+				</view>
 				<view class="countDownBox" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
 					<van-count-down time="{{ time }}" bind:finish="finished" />后订单将自动取消</view>
 				<view class="guideTopRight" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">

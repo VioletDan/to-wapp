@@ -64,7 +64,7 @@ Component({
     ready() {
       Router.regTabPage("home", this);
       $page = this;
-      this.initData();
+      // this.initData();
     },
   },
 
