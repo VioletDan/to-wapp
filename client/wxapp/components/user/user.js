@@ -123,6 +123,18 @@ Component({
         appData: app.data
       });
     },
+    //我的订单
+    goUserOrder(){
+      Router.toOrder();
+    },
+    //查看所有订单
+    goUserAllOrder(){
+      Router.toOrder();
+    },
+    //立即点单
+    btnGoOrder(){
+      Router.toHome();
+    },
     //优惠券
     goUserCoupon() {
       wx.navigateTo({
