@@ -204,8 +204,12 @@ button.button-hover {background-color: transparent;}
 .closingTime .bottomBox .txt{text-align: center;width: 100%;position: absolute;left: 0;}
 .closingTime .bottomBox .txt1{top: 130rpx;color: #343434;font-size: 41.86rpx;}
 .closingTime .bottomBox .txt2{top: 185rpx;color: #7d7d7d;font-size: 25.55rpx;}
+.closingTime .bottomBox .toggleStore{width: 200rpx;height: 70rpx;background-color: var(--color3);text-align: center;line-height: 70rpx;color: #fff;font-size: 30rpx;border-radius: 13rpx;position: absolute;top: 250rpx;left: 0;right: 0;margin: auto;}
+
+
 .closingTime.modal_showDiolg{opacity: 1;pointer-events: all;}
 .closingTime.modal_showDiolg .bottomBox{animation: ani_closingTime 0.5s 0.2s linear both;}
+
 
 .icon_arrow_right{font-size: 34rpx;font-weight: 700;}
 

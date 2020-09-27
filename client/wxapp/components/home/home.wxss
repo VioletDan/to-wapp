@@ -349,14 +349,14 @@
 }
 .modal .modalView .modalOperate .iconfont {
   display: inline-block;
-  width: 21rpx;
-  height: 21rpx;
-  line-height: 21rpx;
+  width: 42rpx;
+  height: 42rpx;
+  line-height: 42rpx;
   text-align: center;
   border-radius: 28rpx;
   background-color: var(--white);
   color: var(--color9);
-  font-size: 14rpx;
+  font-size: 18rpx;
   font-weight: 700;
 }
 .modal .modalView swiper {
@@ -367,7 +367,7 @@
 .modal .modalView .position {
   position: absolute;
   right: 32rpx;
-  top: 265rpx;
+  top: 260rpx;
   z-index: 10;
   padding: 0 10rpx;
   height: 34rpx;
@@ -395,8 +395,9 @@
 }
 .modal .modalView .scrollView {
   width: 100%;
-  height: calc(100% - 378rpx - 225rpx);
+  flex: 1;
   box-sizing: border-box;
+  overflow: hidden;
 }
 .modal .modalView .scrollView scroll-view {
   height: 100%;
@@ -510,10 +511,9 @@
   padding: 0 40rpx;
 }
 .modal .modalView .cofigFooter .priceDetail {
-  margin-top: 30rpx;
+  margin: 30rpx 0;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 50rpx;
 }
 .modal .modalView .cofigFooter .priceDetail .leftDetail .price {
   font-size: 40rpx;
@@ -531,7 +531,7 @@
 .modal .modalView .cofigFooter .priceDetail .addNum .iconfont {
   display: inline-block;
   /* border-radius: 50%; */
-  font-size: 35rpx;
+  font-size: 40rpx;
   text-align: center;
   /* background-color: var(--color8); */
   color: var(--color8);
@@ -543,7 +543,7 @@
   color: var(--white);
 }
 .modal .modalView .cofigFooter .priceDetail .addNum .addNumText {
-  width: 40rpx;
+  min-width: 40rpx;
   display: inline-block;
   text-align: center;
   color: var(--color4);

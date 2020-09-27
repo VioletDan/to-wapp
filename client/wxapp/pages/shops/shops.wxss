@@ -133,7 +133,7 @@
   height: 28rpx;
   line-height: 28rpx;
   text-align: center;
-  font-size: 10rpx;
+  font-size: 22rpx;
   color: var(--white);
   border-radius: 14rpx;
   background-color: var(--color3);
@@ -141,6 +141,7 @@
   position: absolute;
   top: 6rpx;
   right: -60rpx;
+  padding: 5rpx 8rpx;
 }
 
 

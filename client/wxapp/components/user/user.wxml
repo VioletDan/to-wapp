@@ -29,7 +29,7 @@
 		<view class="top top2">
 			<view class="btn" catchtap="btnGoOrder">立即点单</view>
 		</view>
-		<view class="top top3">
+		<view class="top top3" hidden="{{true}}">
 			<view class="couponBox">
 				<view class="item" catchtap="goUserOrder">
 					<image class="img" src="/images/user/icon_jd.png" mode="widthFix"></image>
@@ -48,7 +48,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="top top4">
+		<view class="top top4" hidden="{{true}}">
 			<view class="couponBox">
 				<view class="item" catchtap="goUserCoupon">
 					<image class="img" src="/images/user/icon_coupon.png" mode="widthFix"></image>

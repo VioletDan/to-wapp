@@ -57,7 +57,8 @@ Component({
     carSelectConfig: {},
     shopInfo: {
       isBusState: true
-    }
+    },
+    disabled: false,
   },
 
   lifetimes: {
@@ -70,11 +71,11 @@ Component({
 
   pageLifetimes: {
     // 组件所在页面的生命周期函数
-    show: function () {
-      // setTimeout(() => {
-      //   this.updateData();
-      // }, 200)
-    },
+    // show: function () {
+    //   setTimeout(() => {
+    //     this.updateData();
+    //   }, 200)
+    // },
     hide: function () {},
     resize: function () {},
   },
@@ -173,7 +174,7 @@ Component({
         API.GetShopMenuList({}).then((res) => {
           if (res.data.length > 0) {
             resolve(res.data);
-          }else {
+          } else {
             icom.loadingHide();
             this.setData({
               dishMenuList: [],
@@ -225,8 +226,9 @@ Component({
         // });
         this.setData({
           dishMenuList: res[0],
-          activeId: res[0][0].id,
+          activeId: this.data.activeId || res[0][0].id,
         });
+
 
         setTimeout(() => {
           this.getScrollTop();
@@ -249,9 +251,18 @@ Component({
       this.setData({
         scrollId: "dish" + e.currentTarget.dataset.id,
         activeId: e.currentTarget.dataset.id,
+        disabled: true,
       });
+
+      setTimeout(() => {
+        this.setData({
+          disabled: false
+        })
+      }, 400)
     },
     bindscroll(e) {
+      if (this.data.disabled) return;
+
       let activeId = this.data.dishMenuList[0].id;
       for (let i = 0; i < this.data.scrollTopList.length; i++) {
         const scrollTop = this.data.scrollTopList[i];
@@ -259,11 +270,11 @@ Component({
           activeId = scrollTop.id * 1;
         }
       }
+
       this.setData({
         activeId,
       });
     },
-
     // 添加到购物车
     addToCart(id, name, price, num, packagePrice) {
       var _cartList = this.data.cartList;
@@ -289,26 +300,28 @@ Component({
 
       const _this = this;
       let query = wx.createSelectorQuery().in(_this);
-      query
-        .select("#dishList")
-        .boundingClientRect(function (response) {
-          const parentTop = response.top;
-          _this.data.dishMenuList.forEach((dish) => {
-            query = wx.createSelectorQuery().in(_this);
-            query.select(`#dish${dish.id}`).boundingClientRect(function (res) {
-              _this.setData({
-                scrollTopList: [
-                  ..._this.data.scrollTopList,
-                  {
-                    top: res.top - parentTop,
-                    id: res.id.replace("dish", ""),
-                  },
-                ],
-              });
+
+      let parentTop = 0;
+
+      _this.data.dishMenuList.forEach((dish, dishIndex) => {
+        query = wx.createSelectorQuery().in(_this);
+        query.select(`#dish${dish.id}`).boundingClientRect(function (res) {
+            if (dishIndex === 0) {
+              parentTop = res.top;
+            }
+
+            _this.setData({
+              scrollTopList: [
+                ..._this.data.scrollTopList,
+                {
+                  top: res.top - parentTop,
+                  id: res.id.replace("dish", ""),
+                },
+              ],
             });
-          });
-        })
-        .exec();
+          })
+          .exec();
+      });
     },
     changeChecked(e) {
       app.data.checked = e.detail,
@@ -354,7 +367,7 @@ Component({
       this.setData({
         cardList,
       });
-      icom.storage(`cardList${icom.storage('ssoShopId')}`,cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`, cardList);
       this.initCar();
     },
     /**选规格(多个) */
@@ -468,8 +481,8 @@ Component({
     getTextFromCarSelectConfig() {
       const carSelectConfig = this.data.carSelectConfig;
       const text =
-        carSelectConfig.specs.foodSpecsName +
-        "," +
+        (carSelectConfig.specs.foodSpecsName ? (carSelectConfig.specs.foodSpecsName +
+          ",") : '') +
         Object.values(carSelectConfig.propertiesDto).join(",");
 
       this.setData({
@@ -501,7 +514,7 @@ Component({
       this.setData({
         cardList,
       });
-      icom.storage(`cardList${icom.storage('ssoShopId')}`,cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`, cardList);
       this.initCar();
       this.closeModal();
     },
@@ -562,7 +575,7 @@ Component({
         cardList: this.data.cardList
       });
       this.initCar();
-      icom.storage(`cardList${icom.storage('ssoShopId')}`,this.data.cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`, this.data.cardList);
     },
     addConfigNum2(e) {
       let {
@@ -574,7 +587,7 @@ Component({
         cardList: this.data.cardList
       });
       this.initCar();
-      icom.storage(`cardList${icom.storage('ssoShopId')}`,this.data.cardList);
+      icom.storage(`cardList${icom.storage('ssoShopId')}`, this.data.cardList);
     },
 
 
@@ -586,5 +599,10 @@ Component({
         url: "/pages/orderSettle/orderSettle",
       });
     },
+
+    //切换门店
+    toggleStoreClick(){
+      this.goStoreList();
+    }
   },
 });

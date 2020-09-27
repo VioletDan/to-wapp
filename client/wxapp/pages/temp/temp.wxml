@@ -8,6 +8,7 @@
 			<view class="txt txt2 fadeIn2" wx:if="{{shopInfo.busState == 1}}">
 				本店营业时间：每日{{shopInfo.beginTime}}——{{shopInfo.endTime}}
 			</view>
+			<view class="toggleStore" bindtap="toggleStoreClick">切换门店</view>
 		</view>
 	</view>
 </template>

@@ -143,7 +143,7 @@
 								</view>
 								<view class="modalDescribTitle">产品描述</view>
 								<view class="modalDescribText">{{modalData.foodDesc}}</view>
-								<view class="configMenu" wx:if="{{modalData.specs}}">
+								<view class="configMenu" wx:if="{{modalData.specs && !((modalData.specs.length === 1) && !modalData.specs[0].foodSpecsName)}}">
 									<view class="configTitle">规格</view>
 									<view wx:for="{{modalData.specs}}" wx:for-index="idx" wx:key="idx" wx:for-item="specsItem" data-item="{{specsItem}}" data-id="{{specsItem.foodSpecsId}}" data-index="{{index}}" class="selectConfigCard {{carSelectConfig.specs.foodSpecsId === specsItem.foodSpecsId ? 'select' : ''}}" bindtap="selectSpecs">
 										<text>{{specsItem.foodSpecsName}}</text>
@@ -161,7 +161,6 @@
 										</text>
 									</view>
 								</view>
-								<view class="seatBox"></view>
 							</view>
 						</scroll-view>
 					</view>
