@@ -1,4 +1,5 @@
 /* pages/userCoupon/userCoupon.wxss */
+view { position: relative; }
 .article{ background-color: var(--color23);}
 .article .orderInfoScroll{height: calc(100% - 98rpx);}
 .orderInfoScroll .box .flexBox{display: flex;justify-content: space-between;align-items: center;}

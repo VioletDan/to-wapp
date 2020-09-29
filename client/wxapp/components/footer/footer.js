@@ -93,6 +93,25 @@ Component({
           Router.toOrder();
           break;
       }
+    },
+    toUrl2(index) {
+      switch (index) {
+        case 0:
+          wx.redirectTo({
+            url: '/pages/index/index?currentPageIndex=1',
+          });
+          break;
+        case 1:
+          wx.redirectTo({
+            url: '/pages/index/index?currentPageIndex=2',
+          });
+          break;
+        case 2:
+          wx.redirectTo({
+            url: '/pages/index/index?currentPageIndex=3',
+          });
+          break;
+      }
     }
   }
 })

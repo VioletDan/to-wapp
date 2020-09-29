@@ -1,4 +1,6 @@
 .van-toast__container{top: 45%;}
+view { position: relative; }
+
 page {
   background-color: #f7f7f7;
   width: 100%;

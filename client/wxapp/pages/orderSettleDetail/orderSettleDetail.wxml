@@ -17,8 +17,7 @@
 					<canvas class="canvas-code" canvas-id="myQrcode" style="background:#fff;width:{{qrcodeWidth}}px; height:{{qrcodeWidth}}px;" />
 					<!-- <image class="img" src="{{imgsrc}}"></image> -->
 				</view>
-				<view class="countDownBox" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
-					<van-count-down time="{{ time }}" bind:finish="finished" />后订单将自动取消</view>
+				<view class="countDownBox" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">{{countdown}}后订单将自动取消</view>
 				<view class="guideTopRight" wx:if="{{userOrderinfo.state == 0 && userOrderinfo.payState == 0}}">
 					<view class="type type1 {{tactive ? 'active' : ''}}" catchtap="finished">
 						取消订单
@@ -37,7 +36,7 @@
 					<view class="typeSelect">
 						<view class="left title">订单信息</view>
 					</view>
-					<van-steps steps="{{ userOrderinfo.orderProcessList }}" active="{{ active }}" direction="vertical" active-color="#707070" desc-class="desTxt" />
+					<van-steps steps="{{ userOrderinfo.orderProcessList }}" active="{{ active }}" direction="vertical"  active-color="#e7645c" custom-class="stepsCon" desc-class="desTxt" />
 				</view>
 				<!-- 配送地址 -->
 				<view class="peisongAdress" wx:if="{{userOrderinfo.state == 2 && userOrderinfo.sendType == 2}}">

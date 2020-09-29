@@ -1,4 +1,5 @@
 /* pages/remark/remark.wxss */
+view { position: relative; }
 .article{
   background-color: var(--color44);
   padding-top: 16rpx;

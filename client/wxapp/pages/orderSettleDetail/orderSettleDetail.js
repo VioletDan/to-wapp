@@ -13,6 +13,8 @@ const {
   rpx2px
 } = app;
 var $page = null;
+var demandTime = null; //推单时间
+var timer = null;//清除定时器
 // 300rpx 在6s上为 150px
 const qrcodeWidth = rpx2px(250);
 let qrcode;
@@ -23,12 +25,11 @@ Page({
    */
   data: {
     show: false,
-    time: 5 * 60 * 1000, //倒计时
     userOrderinfo: {
       // 门店名称
       shopname: '定位中...',
       //备注
-      remark: '无'
+      remark: '无',
     },
     cardList: [],
     active: 0,
@@ -39,7 +40,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     console.log(options);
     $page = this;
     if (options.orderId) {
@@ -129,7 +130,9 @@ Page({
     if (res.code == 200) {
       var _cardList = res.data.orderFoodList;
       //===========生成二维码
-      this.addQCode(res.data.orderNo);
+      if (res.data.state == 2 && res.data.sendType == 1) {
+        this.addQCode(res.data.orderNo);
+      }
       //===========生成二维码
       if (res.data.orderProcessList.length == 0) {
         res.data.orderProcessList = [{
@@ -152,6 +155,17 @@ Page({
         active: res.data.orderProcessList.length - 1
       });
       this.initCar();
+
+      demandTime = res.data.createTime;
+
+      if (res.data.state == 0 && res.data.payState == 0) {
+        this.countDown();
+      }else {
+        if(timer) clearTimeout(timer);
+        this.setData({
+          countdown: '00:00'
+        });
+      }
     }
   },
   //生成二维码
@@ -245,4 +259,43 @@ Page({
       }
     })
   },
+
+  //再来一单
+  btnPayAgainClick() {
+    wx.reLaunch({
+      url: '/pages/index/index?currentPageIndex=2',
+    });
+  },
+
+  /**处理倒计时 */
+  countDown() {
+    var that = this;
+
+    var start = new Date(demandTime.replace(/-/g, "/")).getTime();
+    var endTime = start + 5 * 60000;
+
+    var date = new Date(); //现在时间
+    var now = date.getTime(); //现在时间戳
+
+    var allTime = endTime - now;
+
+    var m, s;
+    if (allTime > 0) {
+      m = Math.floor(allTime / 1000 / 60 % 60);
+      s = Math.floor(allTime / 1000 % 60);
+      that.setData({
+        countdown: (m < 10 ? ('0' + m) : m) + ":" + (s < 10 ? ('0' + s) : s),
+      })
+      timer = setTimeout(that.countDown, 1000);
+    } else {
+      console.log('已截止')
+      that.setData({
+        countdown: '00:00'
+      });
+      that.finished();
+    }
+  },
+
+
+
 })

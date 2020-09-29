@@ -174,10 +174,13 @@
 								<text class="iconfont icon_reduce2" bindtap="reduceConfigNum"></text>
 								<text class="addNumText">{{carSelectConfig.buyNum}}</text>
 								<text class="iconfont icon_add2" bindtap="addConfigNum"></text>
+								<text class="RemainingTxt" wx:if="{{carSelectConfig.isShowstockCtNum && carSelectConfig.stockCtNum >0}}">仅剩{{carSelectConfig.stockCtNum}}份</text>
+								<text class="RemainingTxt" wx:if="{{carSelectConfig.isShowstockCtNum && carSelectConfig.stockCtNum === 0}}">已售罄</text>
+								<text class="RemainingTxt" wx:if="{{!carSelectConfig.isShowstockCtNum}}" style="opacity:0;">库存充足</text>
 							</view>
 						</view>
 						<view class="btnBox">
-							<view class="addCar" bindtap="addCard">加入购物车</view>
+							<view class="addCar {{carSelectConfig.stockCtNum === 0 ? 'active' : ''}}" bindtap="addCard">加入购物车</view>
 							<view class="cancelCar" bindtap="closeModal">取消</view>
 						</view>
 					</view>

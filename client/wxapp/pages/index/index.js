@@ -20,13 +20,21 @@ Page({
     $page = this;
     $query = option;
     console.log('getQueryString', option);
+    // 跳转过来显示对应的tab
+    if (option.currentPageIndex) {
+      this.setData({
+        currentPageIndex: (Number(option.currentPageIndex - 1)),
+      })
+      this.selectComponent('#footer').updateActive(this.data.currentPageIndex);
+      option.currentPageIndex = null;
+    }
     app.initApp(()=>{
       if(app.data.actionCode) {
         this.setData({
           showLogin:true
         })
       }
-    })
+    });
   },
   onReady: function () {
   }, //监听页面初次渲染完成

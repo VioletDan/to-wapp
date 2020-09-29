@@ -16,6 +16,7 @@ const {
 var $page = null;
 var _currentId = null,
   _currentItem = null; //当前选中产品的id
+let maxStockCt = 8;
 Component({
   /**
    * 组件的属性列表
@@ -401,14 +402,16 @@ Component({
         buyNum: 1,
         foodId: obj.specs[0].foodId,
         foodSpecsId: obj.specs[0].foodSpecsId,
-        packageFee: obj.specs[0].packageFee
+        packageFee: obj.specs[0].packageFee,
+        isShowstockCtNum: obj.specs[0].stockCt <= maxStockCt ? true : false, //是否显示仅剩数量
+        stockCtNum: obj.specs[0].stockCt, //仅剩数量
       };
 
       obj.propertiesDto.forEach((properties) => {
         carSelectConfig.propertiesDto[properties.name] =
           properties.details[0].name;
       });
-
+      //每份库存 先默认是第一个规格的份数
       console.log(carSelectConfig);
 
       this.setData({
@@ -457,6 +460,10 @@ Component({
       carSelectConfig.price = item.originPrice;
       carSelectConfig.footId = item.footId;
       carSelectConfig.foodSpecsId = item.foodSpecsId;
+
+      //每个规格的份数
+      carSelectConfig.isShowstockCtNum = item.stockCt <= maxStockCt ? true : false;
+      carSelectConfig.stockCtNum = item.stockCt;
 
       this.setData({
         carSelectConfig,
@@ -601,7 +608,7 @@ Component({
     },
 
     //切换门店
-    toggleStoreClick(){
+    toggleStoreClick() {
       this.goStoreList();
     }
   },
