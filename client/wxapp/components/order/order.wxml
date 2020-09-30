@@ -28,7 +28,7 @@
 							<image class="img" src="{{item.foodCover}}" mode="widthFix" lazy-load="{{true}}"></image>
 							<view class="info">
 								<text class="txt1">{{item.foodTitle}}</text>
-								<text class="txt2">{{item.foodSpecsName}}</text>
+								<text class="txt2">{{item.foodProperties}}</text>
 							</view>
 						</view>
 					</view>

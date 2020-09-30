@@ -52,7 +52,7 @@
 						</view>
 						<view class="dishDetails">
 							<view class="dishDetailsTitle">{{childItem.foodTitle}}</view>
-							<view class="dishDetailsSubTitle">{{childItem.foodDesc}}</view>
+							<view class="dishDetailsSubTitle overtext2">{{childItem.foodDesc}}</view>
 							<view class="operate">
 								<text class="price">￥{{childItem.specs[0].originPrice}}</text>
 								<text class="selectCateInfo" wx:if="{{childItem.specs.length >= 1 && childItem.propertiesDto.length>=1}}" catchtap="onSelectConfigMore" data-item="{{childItem}}" data-parentIndex="{{pIndex}}">选规格</text>

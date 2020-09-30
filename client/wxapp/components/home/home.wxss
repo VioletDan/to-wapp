@@ -260,14 +260,14 @@ view { position: relative; }
 .dishList .detailsList .dishMenuItem .dishDetails .dishDetailsSubTitle {
   font-size: 20.89rpx;
   color: var(--color4);
-  display: -webkit-box;
+  /* display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  /* -webkit-line-clamp: 2; */
+  -webkit-line-clamp: 2; */
   margin-bottom: 25rpx;
-  line-height: 1.2;
+  /* line-height: 1.2; */
 }
 
 .dishList .detailsList .dishMenuItem .dishDetails .operate .price {
