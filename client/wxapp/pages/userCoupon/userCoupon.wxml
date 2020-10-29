@@ -2,18 +2,27 @@
 	<scroll-view scroll-y class="orderInfoScroll">
 		<view class="box couponList">
 			<view class="con">
-				<view class="couponListItem flexBox {{item.isAct ? 'active': ''}} {{item.isUse ? '' : 'type2'}}" catchtap="{{boxType == 1 ? 'btnShowClick' : 'btnSelectClick'}}" wx:for="{{couponList}}" wx:key="index" data-index="{{index}}">
+				<view class="couponListItem flexBox {{item.isAct ? 'active': ''}} {{item.isCanUse? '' : 'type2'}}"
+					catchtap="{{boxType == 1 ? 'btnShowClick' : 'btnSelectClick'}}" wx:for="{{couponList}}" wx:key="index"
+					data-index="{{index}}" data-couponId="{{item.couponId}}">
 					<view class="left">
 						<view class="txt1">{{item.title}}</view>
-						<view class="date">{{item.startDate}}至{{item.endDate}}</view>
+						<view class="date">有效期至{{item.useEndTime}}</view>
 						<view class="btnCheck btnCheck1">查看详情</view>
-						<view class="btnCheck btnCheck2">{{item.typeTxt}}</view>
-						<view class="btnTips">{{item.btnType}}</view>
+						<view class="btnCheck btnCheck2">{{item.msg}}</view>
+						<view class="btnTips" wx:if="{{item.type === 'MJC'}}">满减券</view>
+						<view class="btnTips" wx:if="{{item.type === 'SPZKC'}}">商品折扣券</view>
 					</view>
 					<view class="right">
 						<view class="border">
-							<text class="txt">{{item.money}}</text>
-							<text class="txt2">元</text>
+							<block wx:if="{{item.type === 'MJC'}}">
+								<text class="txt">{{item.discountMoney}}</text>
+								<text class="txt2">元</text>
+							</block>
+							<block wx:if="{{item.type === 'SPZKC'}}">
+								<text class="txt">{{item.discount}}</text>
+								<text class="txt2">折</text>
+							</block>
 							<text class="btnTxt3">立即使用</text>
 						</view>
 						<text class="btnTxt4" wx:if="{{item.isEnd}}">即将过期</text>

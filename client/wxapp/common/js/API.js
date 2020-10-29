@@ -125,6 +125,15 @@ class API {
     return this._send('/api/v1/checkdistance', data, 'GET');
   }
 
+  // 优惠券列表-订单选择优惠券页面
+  async getOrdercoupon(data) {
+    return this._send('/api/v1/ordercoupon/list', data, 'POST');
+  }
+
+  // 验证优惠券是否可用-订单选择优惠券页面
+  async isOrdercoupon(data) {
+    return this._send('/api/v1/coupon/vaild', data, 'POST');
+  }
 }
 
 

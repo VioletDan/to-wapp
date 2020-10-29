@@ -9,7 +9,7 @@ view { position: relative; }
 .orderInfoScroll .couponList .couponListItem .left{width: calc(100% - 200rpx);background-color: var(--white);height: 100%;border-top-left-radius:12rpx;border-bottom-left-radius:12rpx;box-shadow:1rpx 0px 15rpx var(--color32);padding: 30rpx 0 20rpx 30rpx;}
 .orderInfoScroll .couponList .couponListItem .left .txt1{font-size: 34rpx;color: var(--color47);}
 .orderInfoScroll .couponList .couponListItem .left .date{width: 376rpx; font-size: 26rpx;color: var(--color48);padding: 25rpx 0;border-bottom: 1px solid var(--color49);}
-.orderInfoScroll .couponList .couponListItem .left .btnCheck{font-size: 26rpx;color: var(--color50);margin-top: 20rpx;}
+.orderInfoScroll .couponList .couponListItem .left .btnCheck{font-size: 26rpx;color: var(--color50);margin-top: 5rpx;}
 .orderInfoScroll .couponList .couponListItem .left .btnTips{width: 88rpx;height: 29rpx;line-height: 29rpx;text-align: center; font-size: 18rpx;color: var(--white);background-color: var(--color3);position: absolute;top: 32rpx;right: 80rpx;}
 
 /* right */
@@ -26,7 +26,7 @@ view { position: relative; }
 .orderInfoScroll .couponList .noList{font-size: 26rpx;text-align: center;color: var(--color51);margin-top: 90rpx;}
 
 
-.orderInfoScroll .couponList .couponListItem.type2{filter: grayscale(100%);}
+.orderInfoScroll .couponList .couponListItem.type2{filter: grayscale(100%);pointer-events: none;}
 
 
 /* btn */

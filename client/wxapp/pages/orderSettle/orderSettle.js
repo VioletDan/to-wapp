@@ -27,7 +27,7 @@ Page({
       // 当前距离
       distance: 0.0,
       //手机号
-      userTel:  '',
+      userTel: '',
       //前面还有多少单
       userBeforeNum: 1,
       //总共多少单
@@ -44,6 +44,7 @@ Page({
       userRunMoney: 6,
       //备注
       remarksTxt: "无",
+      userCoupon: '暂无可用'
     },
     cardList: [],
     //购物车商品详情
@@ -71,12 +72,14 @@ Page({
       appData: app.data,
       checked: app.data.checked,
       appData: app.data,
-      'userOrderinfo.userTel':app.data.userInfoObj.phone
+      'userOrderinfo.userTel': app.data.userInfoObj.phone
     });
     this.initCar();
     if (app.data.userAdressInfo && this.data.checked) this.checkdistance();
     //轻提示
     icom.sign(`请确认下单,门店是否为「${app.data.shopInfo.commercialName}店」`);
+
+    this.getOrdercoupon();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -97,7 +100,12 @@ Page({
     }
     this.setData({
       "userOrderinfo.remarksTxt": app.data.remarksTxt || '无',
+      appData: app.data
     });
+
+    if (app.data.userCouponItem) {
+      this.initCar();
+    }
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -141,6 +149,13 @@ Page({
     let sendCost = this.data.checked ? app.data.ShopInfo.sendCost : 0;
 
     let allPrice = imath.accAdd(imath.accAdd(totalPrice, boxCost), sendCost);
+
+    if (app.data.userCouponItem && app.data.userCouponItem.type === 'MJC') {
+      allPrice = imath.accSub(allPrice, app.data.userCouponItem.discountMoney);
+    }
+    if (app.data.userCouponItem && app.data.userCouponItem.type === 'SPZKC') {
+      allPrice = imath.accMul(allPrice, app.data.userCouponItem.discount / 10);
+    }
 
     this.setData({
       selectInfo: {
@@ -247,11 +262,30 @@ Page({
         payWay: 1, // 支付方式，目前为1是微信支付
         remark: this.data.userOrderinfo.remarksTxt, // 备注
         tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
+        couponAcceptId: app.data.userCouponItem ? app.data.userCouponItem.couponId : ''
       },
       orderFoodDtoList: this.data.cardList,
       userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填
     };
-    console.log('预下单=======', obj)
+    console.log('预下单=======', obj);
+    //优惠券验证
+    console.log(app.data.userCouponItem)
+    if (app.data.userCouponItem) {
+      API.isOrdercoupon(obj).then((res) => {
+        // icom.loadingHide();
+        if (res) {
+          console.log("res", res);
+
+
+        }
+      });
+    } else {
+      this.preOrderHandleDetail(obj);
+    }
+  },
+
+  //预下单
+  preOrderHandleDetail(obj) {
     API.preOrder(obj).then((res) => {
       icom.loadingHide();
       if (res) {
@@ -342,6 +376,52 @@ Page({
       }
     });
   },
+  /**优惠券 */
+  getOrdercoupon() {
+    const {
+      totalPrice,
+      boxCost,
+      sendCost,
+      allPrice
+    } = this.data.selectInfo;
+    var orderDtoObj = {
+      orderDto: {
+        sendType: this.data.checked ? 2 : 1, // 配送类型，1自提，2配送
+        boxCost: boxCost, // 餐盒费，（如果按订单收费就是店铺信息里固定的费餐盒费，如果按商品收费就要取每个商品属性里的餐盒费相加）
+        sendCost: sendCost, // 配送费，自提没有，配送有，
+        totalMoney: allPrice, // 总费用，最下面有介绍，看下面
+        discountMoney: 0, // 折扣费用，暂无
+        payMoney: allPrice, // 支付的费用
+        payWay: 1, // 支付方式，目前为1是微信支付
+        remark: this.data.userOrderinfo.remarksTxt, // 备注
+        tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
+      },
+      orderFoodDtoList: this.data.cardList,
+      userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填
+    };
+    //预下单信息
+    this.setData({
+      orderDtoObj: orderDtoObj
+    });
+    API.getOrdercoupon(orderDtoObj).then(res => {
+      // console.log(res)
+      if (res.code === 200) {
+        this.setData({
+          userCouponList: res.data
+        });
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  },
+
+  btnUserCouponClick() {
+    wx.navigateTo({
+      url: '/pages/userCoupon/userCoupon?boxType=2',
+    });
+  },
+
+
   /**备注 */
   btnRemarksBoxClick() {
     wx.navigateTo({

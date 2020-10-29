@@ -602,6 +602,8 @@ Component({
 
     // 订单结算
     orderSettle(e) {
+      //重置优惠券数据
+      app.data.userCouponItem = null;
       wx.navigateTo({
         url: "/pages/orderSettle/orderSettle",
       });

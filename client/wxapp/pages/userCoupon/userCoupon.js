@@ -9,7 +9,7 @@ const {
   API,
   imath
 } = app;
-var _index = 0;
+var _index = -1;
 Page({
 
   /**
@@ -18,37 +18,38 @@ Page({
   data: {
     isPopup: false,
     boxType: 1, // 1代表我的优惠券 2 代表 选择使用优惠券
-    couponList: [{
-      title: '饮品免单券1',
-      btnType: '免单券',
-      startDate: '2020-09-01',
-      endDate: '2020-09-28',
-      typeTxt: '全场通用免单券',
-      isEnd: true, //是否即将过期
-      isUse: true, //能否使用 true 能 false 不能
-      isAct: true, //是否被选择,
-      money: 20
-    }, {
-      title: '饮品免单券2',
-      btnType: '免单券',
-      startDate: '2020-09-01',
-      endDate: '2020-09-28',
-      typeTxt: '全场通用免单券',
-      isEnd: false, //是否即将过期
-      isUse: true, //能否使用 true 能 false 不能
-      isAct: false, //是否被选择
-      money: 50
-    }, {
-      title: '订单满100-10元',
-      btnType: '满减券',
-      startDate: '2020-09-01',
-      endDate: '2020-09-28',
-      typeTxt: '满足一定金额可使用',
-      isEnd: false, //是否即将过期
-      isUse: false, //能否使用 true 能 false 不能
-      isAct: false, //是否被选择
-      money: 10
-    }, ]
+    couponList:[],
+    // couponList: [{
+    //   title: '饮品免单券1',
+    //   btnType: '免单券',
+    //   startDate: '2020-09-01',
+    //   endDate: '2020-09-28',
+    //   typeTxt: '全场通用免单券',
+    //   isEnd: true, //是否即将过期
+    //   isUse: true, //能否使用 true 能 false 不能
+    //   isAct: true, //是否被选择,
+    //   money: 20
+    // }, {
+    //   title: '饮品免单券2',
+    //   btnType: '免单券',
+    //   startDate: '2020-09-01',
+    //   endDate: '2020-09-28',
+    //   typeTxt: '全场通用免单券',
+    //   isEnd: false, //是否即将过期
+    //   isUse: true, //能否使用 true 能 false 不能
+    //   isAct: false, //是否被选择
+    //   money: 50
+    // }, {
+    //   title: '订单满100-10元',
+    //   btnType: '满减券',
+    //   startDate: '2020-09-01',
+    //   endDate: '2020-09-28',
+    //   typeTxt: '满足一定金额可使用',
+    //   isEnd: false, //是否即将过期
+    //   isUse: false, //能否使用 true 能 false 不能
+    //   isAct: false, //是否被选择
+    //   money: 10
+    // }]
   },
 
   /**
@@ -59,6 +60,13 @@ Page({
     if(options.boxType) {
       this.setData({
         boxType:options.boxType
+      });
+    }
+    let pages = getCurrentPages();
+    let page = pages[pages.length - 2];
+    if(page.data.userCouponList) {
+      this.setData({
+        couponList:[].concat(page.data.userCouponList.can,page.data.userCouponList.cannot)
       });
     }
   },
@@ -135,8 +143,18 @@ Page({
   },
   //确定
   btnSure(){
-    this.setData({
-      currentItem:this.data.couponList[_index]
+    if(_index >= 0){
+      this.setData({
+        currentItem:this.data.couponList[_index],
+      });
+      //优惠券id
+      app.data.userCouponItem = this.data.couponList[_index];
+      console.log(app.data.userCouponItem)
+    }
+   
+    wx.navigateBack({
+      delta: 0,
     });
+
   }
 })

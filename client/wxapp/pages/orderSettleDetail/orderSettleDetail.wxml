@@ -97,6 +97,13 @@
 				<view class="totalBox">
 					<text class="icon_money">总计￥{{selectInfo.allPrice}}</text>
 				</view>
+				<view class="remarksBox flexBox UserCouponBox" wx:if="{{userOrderinfo.couponMoney>0}}">
+					<view class="left">优惠券</view>
+					<view class="right overtext1">
+						<text class="txt overtext1 active">- ￥{{userOrderinfo.couponMoney}}</text>
+						<text class="iconCommon iconfont icon_arrow_right"></text>
+					</view>
+				</view>
 				<view class="remarksBox flexBox">
 					<view class="left">备注</view>
 					<view class="right overtext1">

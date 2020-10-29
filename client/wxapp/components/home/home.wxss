@@ -768,7 +768,7 @@ view { position: relative; }
   color: var(--white);
 }
 .home .cardMask .cardDetailContent .cardDetailList .cardDetailListCard .cardDetailListCardRight  .addNum .addNumText {
-  width: 40rpx;
+  min-width: 40rpx;
   display: inline-block;
   text-align: center;
   color: var(--color4);
