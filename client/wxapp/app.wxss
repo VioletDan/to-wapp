@@ -44,7 +44,7 @@
 /* cardDetailListCard */
 .orderInfoScroll .box .cardDetailListCard{overflow: hidden;margin-left: 15rpx;}
 .orderInfoScroll .box .cardDetailListCard .img{width: 140rpx;height: 140rpx;float: left;}
-.orderInfoScroll .box .cardDetailListCard .info{float: left;margin-left: 25rpx;}
+.orderInfoScroll .box .cardDetailListCard .info{float: left;margin-left: 25rpx;max-width: 408rpx;}
 .orderInfoScroll .box .cardDetailListCard .info .txt1{font-size: 27rpx;color: var(--color1);}
 .orderInfoScroll .box .cardDetailListCard .info .txt2{font-size: 20rpx;color: var(--color4);margin-top: 22rpx;display: block;max-width: 450rpx;line-height: 1.4;}
 .orderInfoScroll .box .cardDetailListCard .info .txt3{color: var(--color7);font-weight: 700;font-size: 32rpx;margin-top: 30rpx;display: block;}
@@ -99,5 +99,5 @@
 .orderInfoScroll .box .cardListBox .RunningMoney{height: 83rpx;border-top: 1rpx solid var(--color44);padding-left: 15rpx;}
 .orderInfoScroll .box .cardListBox .RunningMoney  .right{color: var(--color45);padding-right: 25rpx;font-size: 23rpx;}
 /* totalBox */
-.orderInfoScroll .box .cardListBox .totalBox{padding-bottom: 50rpx;text-align: right; }
+.orderInfoScroll .box .cardListBox .totalBox{padding-bottom: 50rpx;text-align: right; padding-right: 35rpx;}
 .orderInfoScroll .box .cardListBox .totalBox .icon_money{font-size: 35rpx;color:var(--color20);}

@@ -65,15 +65,12 @@
 						</view>
 					</view>
 				</view>
-				<view class="totalBox">
-					<text class="icon_money">总计￥{{selectInfo.totalPrice}}</text>
-				</view>
 				<view class="remarksBox flexBox UserCouponBox" catchtap="btnUserCouponClick">
 					<view class="left">优惠券</view>
 					<view class="right overtext1">
 						<block wx:if="{{userCouponList.can.length > 0}}">
 							<text class="txt overtext1 active" wx:if="{{appData.userCouponItem && appData.userCouponItem.type === 'MJC'}}"> -￥{{appData.userCouponItem.discountMoney}}</text>
-							<text class="txt overtext1 active" wx:elif="{{appData.userCouponItem && appData.userCouponItem.type === 'SPZKC'}}"> {{appData.userCouponItem.discount}}折</text>
+							<text class="txt overtext1 active" wx:elif="{{appData.userCouponItem && appData.userCouponItem.type === 'SPZKC'}}">单件 {{appData.userCouponItem.foodItemTitle}}{{appData.userCouponItem.discount}}折</text>
 							<text class="txt overtext1 active" wx:else>{{userCouponList.can.length}}张可用</text>
 						</block>
 						<block wx:else>
@@ -81,6 +78,9 @@
 						</block>
 						<text class="iconfont iconCommon icon_arrow_right"></text>
 					</view>
+				</view>
+				<view class="totalBox">
+					<text class="icon_money">总计￥{{selectInfo.totalPrice}}</text>
 				</view>
 				<view class="remarksBox flexBox" catchtap="btnRemarksBoxClick">
 					<view class="left">备注</view>

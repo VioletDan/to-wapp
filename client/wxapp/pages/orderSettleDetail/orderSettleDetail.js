@@ -89,7 +89,7 @@ Page({
       return (num = imath.accAdd(num, item.buyNum * item.price));
     }, 0);
     totalPrice = imath.accAdd(totalPrice, this.data.userOrderinfo.boxCost);
-    let allPrice = this.data.userOrderinfo.totalMoney;
+    let allPrice = this.data.userOrderinfo.payMoney;
     //配送费
     let sendCost = this.data.userOrderinfo.sendCost;
     this.setData({

@@ -42,7 +42,7 @@ Page({
     setTimeout(() => {
       //菜单页面才更新
       if (icom.storage('token') && this.data.currentPageIndex != 2) this.selectComponent(idArr[this.data.currentPageIndex]).updateData();
-    }, 200)
+    }, 1000)
   }, //监听页面显示
   onHide: function () { }, //监听页面隐藏
   onUnload: function () { }, //监听页面卸载

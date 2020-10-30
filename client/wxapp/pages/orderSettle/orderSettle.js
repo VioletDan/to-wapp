@@ -130,6 +130,7 @@ Page({
   /**初始化结算页数据 */
   initCar() {
     const total = this.data.cardList.reduce((num, item) => {
+      item.foodCateId = item.cateId;
       return (num += item.buyNum);
     }, 0);
     const totalPrice = this.data.cardList.reduce((num, item) => {
@@ -150,11 +151,23 @@ Page({
 
     let allPrice = imath.accAdd(imath.accAdd(totalPrice, boxCost), sendCost);
 
+    let foodAllPrice = imath.accAdd(imath.accAdd(totalPrice, boxCost), sendCost); //优惠券食品的总价
+
+    let foodAlldiscountMoney = 0; //折扣费用
     if (app.data.userCouponItem && app.data.userCouponItem.type === 'MJC') {
       allPrice = imath.accSub(allPrice, app.data.userCouponItem.discountMoney);
+      foodAlldiscountMoney = app.data.userCouponItem.discountMoney;
     }
     if (app.data.userCouponItem && app.data.userCouponItem.type === 'SPZKC') {
-      allPrice = imath.accMul(allPrice, app.data.userCouponItem.discount / 10);
+      for (let index = 0; index < this.data.cardList.length; index++) {
+        const element = this.data.cardList[index];
+        if(element.foodId === app.data.userCouponItem.validFoodId) {
+          foodAlldiscountMoney = imath.accMul(element.price, app.data.userCouponItem.discount / 10);
+          app.data.userCouponItem.foodItemTitle = element.foodTitle
+        }
+      }
+
+      allPrice = imath.accSub(allPrice, foodAlldiscountMoney);
     }
 
     this.setData({
@@ -163,11 +176,14 @@ Page({
         totalPrice,
         boxCost,
         sendCost,
-        allPrice
+        allPrice,
+        foodAllPrice,
+        foodAlldiscountMoney
       },
       "userOrderinfo.commercialName": app.data.shopInfo.commercialName, // 设置门店信息
       "userOrderinfo.commercialDesc": app.data.shopInfo.commercialDesc,
       "userOrderinfo.commercialAddress": app.data.shopInfo.commercialAddress,
+      appData:app.data
     });
   },
   // switch
@@ -248,7 +264,9 @@ Page({
       totalPrice,
       boxCost,
       sendCost,
-      allPrice
+      allPrice,
+      foodAllPrice,
+      foodAlldiscountMoney,
     } = this.data.selectInfo;
     //预下单
     var obj = {
@@ -256,13 +274,14 @@ Page({
         sendType: this.data.checked ? 2 : 1, // 配送类型，1自提，2配送
         boxCost: boxCost, // 餐盒费，（如果按订单收费就是店铺信息里固定的费餐盒费，如果按商品收费就要取每个商品属性里的餐盒费相加）
         sendCost: sendCost, // 配送费，自提没有，配送有，
-        totalMoney: allPrice, // 总费用，最下面有介绍，看下面
-        discountMoney: 0, // 折扣费用，暂无
+        totalMoney: foodAllPrice, // 总费用，最下面有介绍，看下面
+        discountMoney: foodAlldiscountMoney || 0, // 折扣费用，暂无
         payMoney: allPrice, // 支付的费用
         payWay: 1, // 支付方式，目前为1是微信支付
         remark: this.data.userOrderinfo.remarksTxt, // 备注
         tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
-        couponAcceptId: app.data.userCouponItem ? app.data.userCouponItem.couponId : ''
+        couponAcceptId: app.data.userCouponItem ? app.data.userCouponItem.couponAcceptId : '',
+        foodCost: totalPrice, //食品的价格不包含包装费
       },
       orderFoodDtoList: this.data.cardList,
       userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填
@@ -271,12 +290,13 @@ Page({
     //优惠券验证
     console.log(app.data.userCouponItem)
     if (app.data.userCouponItem) {
-      API.isOrdercoupon(obj).then((res) => {
+      API.isOrdercoupon(Object.assign(obj, {
+        foodCost: this.data.selectInfo.foodAllPrice
+      })).then((res) => {
         // icom.loadingHide();
-        if (res) {
+        if (res.code === 200) {
           console.log("res", res);
-
-
+          this.preOrderHandleDetail(obj);
         }
       });
     } else {
@@ -382,19 +402,22 @@ Page({
       totalPrice,
       boxCost,
       sendCost,
-      allPrice
+      allPrice,
+      foodAllPrice,
+      foodAlldiscountMoney,
     } = this.data.selectInfo;
     var orderDtoObj = {
       orderDto: {
         sendType: this.data.checked ? 2 : 1, // 配送类型，1自提，2配送
         boxCost: boxCost, // 餐盒费，（如果按订单收费就是店铺信息里固定的费餐盒费，如果按商品收费就要取每个商品属性里的餐盒费相加）
         sendCost: sendCost, // 配送费，自提没有，配送有，
-        totalMoney: allPrice, // 总费用，最下面有介绍，看下面
-        discountMoney: 0, // 折扣费用，暂无
+        totalMoney: foodAllPrice, // 总费用，最下面有介绍，看下面
+        discountMoney: foodAlldiscountMoney || 0, // 折扣费用，暂无
         payMoney: allPrice, // 支付的费用
         payWay: 1, // 支付方式，目前为1是微信支付
         remark: this.data.userOrderinfo.remarksTxt, // 备注
-        tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1
+        tableware: -1, // 餐具，-1为按订单来，0不需要，大于0的为具体数量，默认-1,
+        foodCost: totalPrice
       },
       orderFoodDtoList: this.data.cardList,
       userAddressId: this.data.checked ? app.data.userAdressInfo.id : null, // 如果是配送的此值为用户填写的地址id，配送必填

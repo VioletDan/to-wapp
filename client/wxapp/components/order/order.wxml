@@ -39,7 +39,7 @@
 					<!-- <view class="num">订单编号:{{item.orderNo}}</view> -->
 					<view class="info flexBox">
 						<view class="time">{{item.createTime}}</view>
-						<view class="totalPrize">￥{{item.totalMoney}}</view>
+						<view class="totalPrize">￥{{item.payMoney}}</view>
 					</view>
 				</view>
 				<view class="buttonBox flexBox">
